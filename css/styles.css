@@ -522,10 +522,8 @@ p{ margin:0; }
   height:min(38vw, 420px);
   border-radius:50%;
   background:radial-gradient(circle, rgba(124,58,237,0.22), rgba(0,212,255,0.10) 45%, transparent 70%);
-  filter:blur(6px);
   pointer-events:none;
   z-index:-1;
-  animation:heroGlowPulse 5s ease-in-out infinite;
 }
 .hero__right::after{
   content:'';
@@ -536,14 +534,10 @@ p{ margin:0; }
   border:1px dashed rgba(0,212,255,0.25);
   pointer-events:none;
   z-index:-1;
-  animation:heroRingSpin 40s linear infinite;
 }
 @keyframes heroGlowPulse{
   0%,100%{ opacity:0.7; transform:scale(1); }
   50%{ opacity:1; transform:scale(1.06); }
-}
-@keyframes heroRingSpin{
-  to{ transform:rotate(360deg); }
 }
 .hero-code{
   position:absolute;
@@ -555,22 +549,17 @@ p{ margin:0; }
   border-radius:8px;
   padding:0.35rem 0.6rem;
   box-shadow:0 4px 16px rgba(0,0,0,0.35);
-  animation:heroBadgeFloat 6s ease-in-out infinite;
 }
 .hero-code--1{ top:12%; right:8%; }
-.hero-code--2{ bottom:18%; left:6%; animation-delay:-2s; }
-.hero-code--3{ bottom:8%; right:14%; animation-delay:-4s; }
-@keyframes heroBadgeFloat{
-  0%,100%{ transform:translateY(0); }
-  50%{ transform:translateY(-10px); }
-}
+.hero-code--2{ bottom:18%; left:6%; }
+.hero-code--3{ bottom:8%; right:14%; }
 .hero-terminal{
   width:min(100%, 460px);
   background:#111827;
   border-radius:14px;
   overflow:hidden;
   text-align:left;
-  box-shadow:inset 0 0 0 1px rgba(255,255,255,0.08), var(--glass-shadow), 0 0 40px rgba(0,212,255,0.12);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,0.08), var(--glass-shadow);
 }
 .hero-terminal__bar{
   display:flex;
@@ -609,12 +598,6 @@ p{ margin:0; }
   border-radius:4px;
   vertical-align:middle;
   margin-right:6px;
-}
-.t-caret{
-  animation:cursorBlink 1s step-end infinite;
-}
-@keyframes cursorBlink{
-  50%{ opacity:0; }
 }
 #scene3d{
   position:fixed; inset:0;
