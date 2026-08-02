@@ -442,7 +442,7 @@
   function initBinaryOverlay() {
     const container = document.createElement('div');
     container.id = 'binaryOverlay';
-    const density = 17;
+    const density = 30;
     const cols = Math.ceil(window.innerWidth / density) + 2;
     const rows = Math.ceil(window.innerHeight / density) + 2;
     const frag = document.createDocumentFragment();
@@ -455,9 +455,11 @@
         const top = r * density + (Math.random() - 0.5) * density * 0.5;
         span.style.left = left + 'px';
         span.style.top = top + 'px';
-        span.style.fontSize = (5 + Math.random() * 3) + 'px';
-        const hue = Math.random() * 360;
-        span.style.color = `hsla(${hue}, 100%, 70%, ${0.2 + Math.random() * 0.25})`;
+        span.style.fontSize = (8 + Math.random() * 4) + 'px';
+        const alpha = 0.2 + Math.random() * 0.25;
+        span.style.color = Math.random() < 0.5
+          ? `hsla(0, 100%, 62%, ${alpha})`
+          : `hsla(135, 100%, 62%, ${alpha})`;
         if (Math.random() < 0.06) {
           span.classList.add('is-sparkle');
           span.style.setProperty('--dur', (1.5 + Math.random() * 3) + 's');
