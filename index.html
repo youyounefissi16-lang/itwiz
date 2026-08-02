@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ITwiz — Code Magic into Reality</title>
+<meta name="description" content="ITwiz — engineering high-performance software, custom platforms, and seamless real-time architectures.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.152.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.152.0/examples/jsm/",
+    "cannon-es": "https://cdn.jsdelivr.net/npm/cannon-es@0.20.0/dist/cannon-es.js"
+  }
+}
+</script>
+</head>
+<body>
+
+<!-- ambient background threads -->
+<div class="bg-glow" aria-hidden="true"><span class="bg-glow__blob"></span></div>
+<div class="aurora-bg" aria-hidden="true"></div>
+<div class="css-particles" aria-hidden="true"></div>
+
+<!-- scroll progress -->
+<div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+<!-- sticky nav -->
+<nav class="navbar" id="navbar">
+  <div class="navbar__inner">
+    <a href="#hero" class="navbar__logo" aria-label="ITwiz home">
+      <img src="assets/logo.svg" alt="" width="90" height="24">
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="navbar__links">
+      <li><a href="#hero" class="navbar__link" data-section="hero" data-i18n="nav.home">Home</a></li>
+      <li><a href="#services" class="navbar__link" data-section="services" data-i18n="nav.services">Services</a></li>
+      <li><a href="#work" class="navbar__link" data-section="work" data-i18n="nav.work">Work</a></li>
+      <li><a href="#contact" class="navbar__link" data-section="contact" data-i18n="nav.contact">Contact</a></li>
+    </ul>
+    <div class="lang-switcher">
+      <button class="lang-btn" data-lang="en">EN</button>
+      <button class="lang-btn" data-lang="fr">FR</button>
+      <button class="lang-btn" data-lang="ar">AR</button>
+    </div>
+  </div>
+</nav>
+
+<main>
+<!-- ============ HERO ============ -->
+<section id="hero" class="page page--hero">
+  <div class="hero__inner">
+    <div class="hero__left">
+      <div class="hero__brand">
+        <img src="assets/logo.svg" class="hero__logo" alt="IT WIZ">
+        <p class="hero-tagline neon" data-i18n="hero.tagline">we code magic into reality</p>
+      </div>
+      <h1 class="hero-title" data-i18n-html="hero.title">Building Tomorrow's<br>Digital Experience</h1>
+      <p class="hero-sub" data-i18n="hero.subtitle">We are a creative IT company delivering innovative digital solutions that drive growth, efficiency, and lasting success for businesses worldwide.</p>
+    </div>
+    <div class="hero__right">
+      <div class="hero-terminal" aria-hidden="true">
+        <div class="hero-terminal__bar">
+          <span></span><span></span><span></span>
+          <p class="hero-terminal__title">itwiz — bash</p>
+        </div>
+        <div class="hero-terminal__body">
+          <p><span class="t-prompt">$</span> npm create itwiz@latest</p>
+          <p><span class="t-ok">✔</span> framework <span class="t-dim">· full-stack</span></p>
+          <p><span class="t-ok">✔</span> adding <span class="t-dim">realtime · auth · ai</span></p>
+          <p class="t-bar"><i></i> building <span class="t-accent">82%</span></p>
+          <p><span class="t-ok">✦ done</span> — your platform is live</p>
+          <p class="t-cursor"><span class="t-prompt">$</span> <span class="t-caret">▮</span></p>
+        </div>
+      </div>
+      <span class="hero-code hero-code--1" aria-hidden="true">&lt;/&gt;</span>
+      <span class="hero-code hero-code--2" aria-hidden="true">{ }</span>
+      <span class="hero-code hero-code--3" aria-hidden="true">npm i itwiz</span>
+    </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PAGE 3 — SERVICES ============ -->
+<section id="services" class="page page--services">
+  <header class="section-head">
+    <h2 data-i18n="services.heading">Core Solutions &amp; Capabilities</h2>
+  </header>
+
+  <div class="grid grid--services">
+    <article class="card" data-card="web">
+      <div class="card__head">
+        <div class="card__icon" aria-hidden="true">
+          <svg viewBox="0 0 40 40" fill="none"><rect x="4" y="6" width="32" height="21" rx="3" stroke="currentColor" stroke-width="1.6"/><path d="M14 33h12M20 27v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M11 14l-3 4 3 4M29 14l3 4-3 4M23 12l-6 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3 data-i18n="services.web.title">Web &amp; Mobile Engineering</h3>
+      </div>
+      <p data-i18n="services.web.desc">Custom full-stack web platforms, iOS/Android apps, and responsive cross-platform architectures.</p>
+      <div class="card__expand">
+        <div class="card__details">
+          <p data-i18n="services.web.extra">From React and Next.js to Flutter and Swift, we build performant, accessible interfaces that scale. Every project follows a mobile-first approach with rigorous cross-browser testing, CI/CD pipelines, and performance budgets baked in from day one.</p>
+        </div>
+      </div>
+    </article>
+
+    <article class="card" data-card="ai">
+      <div class="card__head">
+        <div class="card__icon" aria-hidden="true">
+          <svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="5" stroke="currentColor" stroke-width="1.6"/><path d="M20 4v6M20 30v6M36 20h-6M10 20H4M31 9l-4.2 4.2M13.2 26.8L9 31M31 31l-4.2-4.2M13.2 13.2L9 9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </div>
+        <h3 data-i18n="services.ai.title">AI &amp; Intelligent Automation</h3>
+      </div>
+      <p data-i18n="services.ai.desc">Custom AI pipelines, automated audio-to-text microservices, smart workflows, and intelligent data systems.</p>
+      <div class="card__expand">
+        <div class="card__details">
+          <p data-i18n="services.ai.extra">We design end-to-end AI systems — from data ingestion and model training to real-time inference at the edge. Whether it's speech recognition, NLP, or predictive analytics, our pipelines are built for reliability, low latency, and cost efficiency.</p>
+        </div>
+      </div>
+    </article>
+
+    <article class="card" data-card="security">
+      <div class="card__head">
+        <div class="card__icon" aria-hidden="true">
+          <svg viewBox="0 0 40 40" fill="none"><path d="M20 4l14 6v9c0 9-6 15.5-14 17-8-1.5-14-8-14-17v-9l14-6z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M14.5 20.5l4 4 8-9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3 data-i18n="services.security.title">Systems &amp; Security Infrastructure</h3>
+      </div>
+      <p data-i18n="services.security.desc">Content protection, custom digital watermarking, network protocols, and secure data sync.</p>
+      <div class="card__expand">
+        <div class="card__details">
+          <p data-i18n="services.security.extra">Our security-first architecture covers everything from dynamic watermarking and DRM to custom encrypted protocols and zero-trust network designs. We build systems that protect intellectual property without compromising user experience.</p>
+        </div>
+      </div>
+    </article>
+
+    <article class="card" data-card="custom">
+      <div class="card__head">
+        <div class="card__icon" aria-hidden="true">
+          <svg viewBox="0 0 40 40" fill="none"><rect x="6" y="9" width="28" height="22" rx="2.5" stroke="currentColor" stroke-width="1.6"/><path d="M6 15h28M13 9v-3M27 9v-3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M12 21h6M12 26h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </div>
+        <h3 data-i18n="services.custom.title">Custom Platforms &amp; Portals</h3>
+      </div>
+      <p data-i18n="services.custom.desc">Bespoke management software, practice portals, e-learning environments, and offline-first LAN sync engines.</p>
+      <div class="card__expand">
+        <div class="card__details">
+          <p data-i18n="services.custom.extra">Every business has unique workflows. We architect bespoke platforms — from dental clinics and driving schools to enterprise dashboards — with offline-first capabilities, local network sync, and seamless cloud backup when connectivity returns.</p>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ============ PAGE 4 — PROJECTS ============ -->
+<section id="work" class="page page--work">
+  <header class="section-head">
+    <h2 data-i18n="work.heading">Featured Projects &amp; Built Systems</h2>
+  </header>
+
+  <div class="grid grid--work">
+
+    <div class="scene">
+    <article class="project" data-card="maitrisez">
+      <div class="card__face card__face--front">
+        <div class="card__img-wrap">
+          <img class="card__img-tiny" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA0JCgsKCA0LCgsODg0PEyAVExISEyccHhcgLikxMC4pLSwzOko+MzZGNywtQFdBRkxOUlNSMj5aYVpQYEpRUk//2wBDAQ4ODhMREyYVFSZPNS01T09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0//wAARCAAJABQDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDvbdPKX5GeX2LjjirG7cCGQCsjTfuS/wDXT/GtCL/Wv9TRa2iM4vQJsbhgAcc4orPvv+PyT8P5CinYXOf/2Q==" alt="" aria-hidden="true">
+          <img class="card__img-full" src="images/Capture%20d%27%C3%A9cran%202026-07-30%20001205.png" alt="Maîtrisez platform screenshot">
+        </div>
+        <h3 data-i18n="work.maitrisez.title">Maîtrisez — Med-Ed &amp; Vocal Testing Platform</h3>
+      </div>
+      <div class="card__face card__face--back">
+        <h3 data-i18n="work.maitrisez.title">Maîtrisez — Med-Ed &amp; Vocal Testing Platform</h3>
+        <p data-i18n="work.maitrisez.back">Built a full-stack medical education platform featuring real-time vocal evaluation and dynamic video watermarking to protect intellectual property.</p>
+      </div>
+    </article>
+    </div>
+
+    <div class="scene">
+    <article class="project" data-card="driving">
+      <div class="card__face card__face--front">
+        <div class="card__img-wrap">
+          <img class="card__img-tiny" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA0JCgsKCA0LCgsODg0PEyAVExISEyccHhcgLikxMC4pLSwzOko+MzZGNywtQFdBRkxOUlNSMj5aYVpQYEpRUk//2wBDAQ4ODhMREyYVFSZPNS01T09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0//wAARCAAMABQDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDn4tEM9tG5vogGUHaT04+tEfh1XDH7bAMMR/nmrlrMRaw/InCDt7VKbgn/AJZxj6CuuVGMkuXQbw82tJ2+Rhahpv2SdY/tMcny5yvbk8UVNq0ha6U7VHyDoPc0VzunZ2uT7OUdHK/yP//Z" alt="" aria-hidden="true">
+          <img class="card__img-full" src="images/Capture%20d%27%C3%A9cran%202026-07-30%20005728.png" alt="Driving School platform screenshot">
+        </div>
+        <h3 data-i18n="work.driving.title">Driving School Platform — Instructor Edition</h3>
+      </div>
+      <div class="card__face card__face--back">
+        <h3 data-i18n="work.driving.title">Driving School Platform — Instructor Edition</h3>
+        <p data-i18n="work.driving.back">Designed an offline-first instructor dashboard with serverless local syncing and automatic cloud sync when connectivity returns.</p>
+      </div>
+    </article>
+    </div>
+
+    <div class="scene">
+    <article class="project" data-card="dental">
+      <div class="card__face card__face--front">
+        <div class="card__img-wrap">
+          <img class="card__img-tiny" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA0JCgsKCA0LCgsODg0PEyAVExISEyccHhcgLikxMC4pLSwzOko+MzZGNywtQFdBRkxOUlNSMj5aYVpQYEpRUk//2wBDAQ4ODhMREyYVFSZPNS01T09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0//wAARCAAJABQDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDb8CQ7Jb3cvUJjP411+QN3H0rmPB3+tu/on9a6U9TWlT4jDD/w0Kdvaim0VBsf/9k=" alt="" aria-hidden="true">
+          <img class="card__img-full" src="images/Capture%20d%27%C3%A9cran%202026-07-29%20232415.png" alt="Dental Cabinet platform screenshot">
+        </div>
+        <h3 data-i18n="work.dental.title">Dental Cabinet &amp; Clinic Management Portal</h3>
+      </div>
+      <div class="card__face card__face--back">
+        <h3 data-i18n="work.dental.title">Dental Cabinet &amp; Clinic Management Portal</h3>
+        <p data-i18n="work.dental.back">Engineered a secure clinic management system with patient records, appointment scheduling, and automated billing for dental practices.</p>
+      </div>
+    </article>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ PAGE 5 — CONTACT / FINALE ============ -->
+<section id="contact" class="page page--contact">
+  <div class="contact-stage">
+    <h2 class="contact-title" data-i18n-html="contact.title">Ready to Bring Your<br>Vision to Life?</h2>
+
+    <button class="btn btn--cta" id="ctaBtn">
+      <span data-i18n="contact.btn">Contact Us</span>
+    </button>
+
+    <div class="contact-divider" aria-hidden="true"></div>
+
+    <div class="reveal-panel" id="revealPanel" aria-hidden="true">
+      <p class="reveal-lead" data-i18n="contact.lead">Tell us about your project, and let's craft something extraordinary.</p>
+      <div class="reveal-links">
+        <a href="tel:+213773247989" class="reveal-link">
+          <span class="reveal-link__label" data-i18n="contact.call_label">Call us directly</span>
+          <span class="reveal-link__value">+213 773 247 989</span>
+        </a>
+        <a href="https://wa.me/213773247989" target="_blank" rel="noopener" class="reveal-link">
+          <span class="reveal-link__label" data-i18n="contact.whatsapp_label">WhatsApp</span>
+          <span class="reveal-link__value">+213 773 247 989</span>
+        </a>
+        <a href="https://t.me/YouNef16" target="_blank" rel="noopener" class="reveal-link">
+          <span class="reveal-link__label" data-i18n="contact.telegram_label">Telegram</span>
+          <span class="reveal-link__value">@YouNef16</span>
+        </a>
+        <a href="mailto:youyounfissi16@gmail.com" class="reveal-link">
+          <span class="reveal-link__label" data-i18n="contact.email_label">Email</span>
+          <span class="reveal-link__value">youyounfissi16@gmail.com</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <span data-i18n="footer">ITwiz — Code Magic into Reality</span>
+    <span>&copy; 2026</span>
+  </footer>
+</section>
+</main>
+
+<!-- back to top -->
+<button class="btt" id="bttBtn" aria-label="Back to top">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
+</button>
+
+<!-- ============ PERSISTENT MASCOT COMPANION ============ -->
+<div class="mascot" id="mascot">
+  <div class="mascot__particles" id="mascotParticles" aria-hidden="true"></div>
+  <div class="mascot__orbs" aria-hidden="true">
+    <div class="orb" style="--r:95px; --a:15deg; --dur:6s; --glow:#3776AB">
+      <svg viewBox="0 0 110 110" fill="none"><path d="M55 0c-26 0-26 10-26 12 0 3 0 13 0 13h27v4c0 0-28 0-37 0-8 0-18 5-18 26 0 20 8 27 16 27 2 0 9 0 9 0v-13c0-5 3-16 15-16 16 0 20 0 27 0 4 0 15-2 15-14 0-13 0-18 0-24C82 11 82 0 55 0z M40 8c3 0 5 2 5 5s-2 5-5 5-5-2-5-5 2-5 5-5z" fill="#3776AB"/><path d="M55 110c26 0 26-10 26-12 0-3 0-13 0-13H54v-4c0 0 28 0 37 0 8 0 18-5 18-26 0-23-11-27-16-27-2 0-9 0-9 0v13c0 5-3 16-15 16-16 0-20 0-27 0-4 0-15 2-15 14 0 14 0 18 0 24C28 100 32 110 55 110z M70 101c-3 0-5-2-5-5s2-5 5-5 5 2 5 5-2 5-5 5z" fill="#FFD43B"/></svg>
+    </div>
+    <div class="orb" style="--r:155px; --a:130deg; --dur:18s; --glow:#CC6699">
+      <svg viewBox="0 0 40 40" fill="none"><ellipse cx="20" cy="8" rx="14" ry="4.5" fill="#CC6699"/><path d="M6 8v10c0 2.5 6.3 4.5 14 4.5s14-2 14-4.5V8" fill="#CC6699" opacity="0.7"/><path d="M6 18v10c0 2.5 6.3 4.5 14 4.5s14-2 14-4.5V18" fill="#CC6699" opacity="0.5"/><ellipse cx="20" cy="18" rx="14" ry="4.5" fill="none" stroke="#fff" stroke-width="0.8" opacity="0.4"/><ellipse cx="20" cy="28" rx="14" ry="4.5" fill="none" stroke="#fff" stroke-width="0.8" opacity="0.3"/></svg>
+    </div>
+    <div class="orb" style="--r:110px; --a:250deg; --dur:8s; --glow:#4EAA25">
+      <svg viewBox="0 0 40 40" fill="none"><rect x="3" y="5" width="34" height="27" rx="3" fill="#2E3436"/><path d="M10 15l5 4-5 4" fill="none" stroke="#4EAA25" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M19 23h10" stroke="#4EAA25" stroke-width="2" stroke-linecap="round"/><rect x="3" y="33" width="34" height="3" rx="1.5" fill="#4EAA25" opacity="0.3"/></svg>
+    </div>
+    <div class="orb" style="--r:130px; --a:340deg; --dur:12s; --glow:#7C3AED">
+      <svg viewBox="0 0 40 40" fill="none"><path d="M20 4c-5 0-9 3-10 7-1 3 0 6 2 8-3 1-5 4-5 8 0 5 4 9 9 9h8c5 0 9-4 9-9 0-4-2-7-5-8 2-2 3-5 2-8-1-4-5-7-10-7z" fill="#7C3AED"/><path d="M16 14h8M16 18h8M16 22h5" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="28" r="1.5" fill="#fff" opacity="0.6"/><circle cx="20" cy="30" r="1.5" fill="#fff" opacity="0.6"/><circle cx="28" cy="28" r="1.5" fill="#fff" opacity="0.6"/></svg>
+    </div>
+    <div class="orb" style="--r:85px; --a:190deg; --dur:5s; --glow:#00599C">
+      <svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="16" fill="#00599C"/><path d="M24 10c-5-3-11-2-15 2s-5 11-1 16 12 6 17 2" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"/></svg>
+    </div>
+    <div class="orb" style="--r:145px; --a:75deg; --dur:7s; --glow:#DC2626">
+      <svg viewBox="0 0 40 40" fill="none" stroke="#DC2626" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="20" cy="22" rx="8" ry="10"/><path d="M12 22h16"/><circle cx="17" cy="19" r="1" fill="#DC2626" stroke="none"/><circle cx="23" cy="19" r="1" fill="#DC2626" stroke="none"/><path d="M15 14l-4-6M25 14l4-6"/><path d="M12 28l-3 4M28 28l3 4"/><path d="M20 12V8"/></svg>
+    </div>
+    <div class="orb orb--ring" style="--r:175px; --a:70deg; --dur:28s; --glow:#2496ED">
+      <svg viewBox="0 0 255 145" fill="none"><path d="M147 46h23v23h12c5 0 11-1 16-3 2-1 5-2 8-3-3-4-5-10-5-15-1-7 1-16 6-22l2-3 3 2c7 6 13 14 14 23 9-3 19-2 27 2l3 2-2 3C247 69 233 73 220 72c-20 49-63 73-115 73-27 0-52-10-66-34l-2-4-2-4c-5-11-6-22-5-34l0-3H51v-22h23V23h46v-23h27v46" fill="#364548"/><path d="M222 54c2-12-7-21-13-26-6 7-7 27 3 35-6 5-17 9-29 9H35c-1 13 1 24 6 34l2 3a57 57 0 0 0 3 5c6 0 12 1 17 0 10 0 18-1 24-4a2 2 0 0 1 1 3c-1 0-2 1-3 1-5 1-10 2-17 3 0 0 0 0 0 0-3 0-5 0-8 0-3 0-6 0-10 0 12 14 31 22 55 22 51 0 94-22 113-73 13 1 26-2 32-14-9-5-21-4-28 0" fill="#22a0c8"/><path d="M222 54c2-12-7-21-13-26-6 7-7 27 3 35-6 5-17 9-29 9H44c-1 19 7 34 19 43 10 0 18-1 24-4a2 2 0 0 1 1 3c-1 0-2 1-3 1-5 1-11 2-17 3 0 0 0 0 0 0 17 9 42 9 71-2 32-12 62-36 83-63 0 0-1 0-1 0" fill="#37b1d9"/><path d="M36 88c1 7 3 13 6 19l2 3a56 56 0 0 0 3 5c6 0 12 1 17 0 10 0 18-1 24-4a2 2 0 0 1 1 3c-1 0-2 1-3 1-5 1-10 2-17 3-1 0 0 0-1 0-3 0-5 0-8 0-3 0-6-1-10 0 12 14 31 22 55 22 43 0 81-16 103-53H36z" fill="#1b81a5"/><path d="M45 88c3 12 9 21 18 27 10 0 18-1 24-4a2 2 0 0 1 1 3c-1 0-2 1-3 1-5 1-11 2-17 3 17 9 42 9 71-2 17-7 34-17 49-29H45z" fill="#1d91b4"/></svg>
+    </div>
+    <div class="orb" style="--r:160px; --a:300deg; --dur:10s; --glow:#E34F26">
+      <svg viewBox="0 0 512 512" fill="none"><path d="M108 0h23v23h21V0h23v69h-23V46h-21v23h-23M206 23h-20V0h64v23h-14v46h-23M260 0h24l15 24L313 0h24v69h-23V35l-16 25-16-25v34h-23M349 0h23v46h33v23h-56" fill="#fff"/><path fill="#e44d26" d="M108 471l-33-370h363l-33 370L256 512"/><path fill="#f16529" d="M256 481V131h148L376 447"/><path fill="#ebebeb" d="M142 176h114v45h-64l4 47h60v45H154M156 336h46l3 36 51 14v47l-93-26"/><path fill="#fff" d="M370 176H256v45h110M361 268H256v45h56l-5 59-51 14v47l93-26"/></svg>
+    </div>
+  </div>
+  <div class="mascot__bubble" id="mascotBubble"><p id="mascotText"></p></div>
+  <img src="assets/mascot.svg" alt="ITwiz wizard mascot" class="mascot__img" id="mascotImg">
+  <button class="mascot__dismiss" id="mascotDismiss" aria-label="Dismiss mascot">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+  </button>
+</div>
+
+<div id="scene3d"></div>
+
+<script src="js/i18n.js"></script>
+<script src="js/main.js"></script>
+<script type="module" src="js/3d-scene.js"></script>
+</body>
+</html>

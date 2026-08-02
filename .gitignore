@@ -1,0 +1,16 @@
+# scratch / not part of the site
+hero-develop-animation/
+
+# dependencies & build (if any later)
+node_modules/
+dist/
+.netlify/
+
+# OS / editor junk
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# logs
+*.log
