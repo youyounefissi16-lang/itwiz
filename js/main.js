@@ -531,8 +531,15 @@
 
   document.querySelectorAll('.card').forEach(function(card) {
     card.addEventListener('click', function() {
-      var isOpen = card.classList.toggle('is-open');
-      card.setAttribute('aria-expanded', isOpen);
+      var wasOpen = card.classList.contains('is-open');
+      document.querySelectorAll('.card.is-open').forEach(function(other) {
+        other.classList.remove('is-open');
+        other.setAttribute('aria-expanded', 'false');
+      });
+      if (!wasOpen) {
+        card.classList.add('is-open');
+        card.setAttribute('aria-expanded', 'true');
+      }
     });
   });
 
