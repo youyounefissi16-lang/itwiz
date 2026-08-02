@@ -681,18 +681,19 @@ p{ margin:0; }
   transition:color .3s;
 }
 .card:hover h3{ color:var(--cyan); }
-.card p{
+.card__details p{
   color:var(--ink-soft);
   font-size:0.88rem;
   line-height:1.7;
-  max-height:0;
-  overflow:hidden;
+  margin:0;
   opacity:0;
-  transition:max-height .35s cubic-bezier(.4,0,.2,1), opacity .25s;
+  transform:translateY(6px);
+  transition:opacity .25s, transform .3s;
 }
-.card.is-open p{
-  max-height:200px;
+.card__details p + p{ margin-top:12px; }
+.card.is-open .card__details p{
   opacity:1;
+  transform:none;
 }
 
 .card__expand{
@@ -707,9 +708,6 @@ p{ margin:0; }
 .card__expand > *{
   overflow:hidden;
   min-height:0;
-}
-.card__details p{
-  padding-top:12px;
 }
 
 ::-webkit-scrollbar{ width:6px; }
