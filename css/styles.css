@@ -645,7 +645,7 @@ p{ margin:0; }
   transition:transform .4s cubic-bezier(.2,.8,.2,1), box-shadow .4s, border-color .4s;
   position:relative;
   isolation:isolate;
-  align-self:stretch;
+  align-self:start;
   display:flex;
   flex-direction:column;
   cursor:pointer;
