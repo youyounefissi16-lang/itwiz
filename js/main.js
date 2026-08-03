@@ -131,23 +131,15 @@
 
   function setBubble(text, visible) {
     if (!text || !bubble || !bubbleText) return;
-    if (text === (typeTimer ? setBubble._last : null) && visible === bubble.classList.contains('is-visible')) return;
+    if (text === setBubble._last && visible === bubble.classList.contains('is-visible')) return;
     clearInterval(typeTimer);
+    typeTimer = null;
     setBubble._last = text;
-    bubbleText.textContent = '';
+    bubbleText.textContent = text;
     bubble.classList.toggle('is-visible', visible);
-    if (mascotDismiss) mascotDismiss.classList.remove('is-ready');
-    let i = 0;
-    typeTimer = setInterval(() => {
-      bubbleText.textContent += text[i++];
-      if (i >= text.length) {
-        clearInterval(typeTimer);
-        typeTimer = null;
-        if (mascotDismiss && mascot.classList.contains('is-presenting')) {
-          mascotDismiss.classList.add('is-ready');
-        }
-      }
-    }, 28);
+    if (mascotDismiss && mascot.classList.contains('is-presenting')) {
+      mascotDismiss.classList.add('is-ready');
+    }
   }
 
   function refreshBubble() {
