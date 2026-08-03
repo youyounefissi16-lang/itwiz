@@ -23,12 +23,6 @@
   --section-pad: clamp(2.5rem, 5.5vw, 5rem);
 }
 
-@property --hue {
-  syntax: '<angle>';
-  inherits: false;
-  initial-value: 0deg;
-}
-
 @property --a {
   syntax: '<angle>';
   inherits: false;
@@ -1061,6 +1055,7 @@ p{ margin:0; }
   transform:translate3d(0,0,0) scale(1);
   border-radius:50%;
   opacity:0;
+  transition:opacity .3s ease;
 }
 .mascot::before{
   content:'';
@@ -1068,10 +1063,9 @@ p{ margin:0; }
   inset:-8px;
   border-radius:50%;
   z-index:0;
-  background:conic-gradient(from var(--hue), var(--blue), var(--cyan), var(--blue-deep), #7C3AED, var(--blue));
-  animation:spinHue 6s linear infinite;
+  background:radial-gradient(circle, rgba(0,212,255,0.35), rgba(124,58,237,0.25) 45%, transparent 70%);
   opacity:0.55;
-  filter:blur(14px);
+  pointer-events:none;
 }
 .mascot__img{
   width:100%;
@@ -1080,10 +1074,6 @@ p{ margin:0; }
   z-index:1;
 }
 .mascot.is-docked .mascot__img{ animation-duration:5.5s; }
-
-@keyframes spinHue {
-  to { --hue: 360deg; }
-}
 
 @keyframes mascotBob{
   0%,100%{ transform:translateY(0) rotate(0deg); }
