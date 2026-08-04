@@ -101,7 +101,7 @@ p{ margin:0; }
 .navbar__logo{
   display:flex; align-items:center;
 }
-.navbar__logo img{ height:50px; width:auto; }
+.navbar__logo img{ height:clamp(28px, 7vw, 50px); width:auto; }
 .navbar__logo img,
 .hero__logo {
   filter: drop-shadow(0 0 6px rgba(124,58,237,0.7)) drop-shadow(0 0 18px rgba(124,58,237,0.35));
@@ -453,7 +453,7 @@ p{ margin:0; }
   gap:0;
   margin-bottom:clamp(0.8rem, 4vh, 2rem);
 }
-.hero__logo{ height:clamp(60px, 14vw, 280px); width:auto; }
+.hero__logo{ height:clamp(80px, 21vw, 340px); width:auto; }
 .hero-tagline{
   font-family:var(--font-display);
   font-size:clamp(1.1rem, 1.8vw, 1.5rem);
@@ -1342,7 +1342,6 @@ p{ margin:0; }
   .mascot.is-docked{ transform:translate3d(calc(100vw - clamp(130px, 28vw, 170px)), calc(100vh - max(120px, 20vh)), 0) scale(0.58); }
   .mascot.is-presenting{ transform:translate3d(calc(50vw - min(75px, 20vw)), calc(50vh - min(170px, 25vh)), 0) scale(0.85); }
   .navbar__link{ font-size:clamp(0.7rem, 2.2vw, 0.8rem); padding:0.4rem 0.75rem; }
-  .navbar__logo img{ height:clamp(14px, 4vw, 18px); }
 }
 
 @media (max-width: 700px){
@@ -1351,7 +1350,6 @@ p{ margin:0; }
   .chip{ font-size:0.56rem; padding:0.25rem 0.5rem; }
   .chip::before{ width:5px; height:5px; margin-right:4px; }
   .chip--lg{ font-size:0.6rem; padding:0.28rem 0.6rem; }
-  .hero__logo{ height:clamp(44px, 16vw, 90px); }
   .navbar__links{ gap:0; }
   .navbar__link{ font-size:clamp(0.65rem, 2.2vw, 0.75rem); padding:0.35rem 0.5rem; }
   .mascot__orbs{ --orb-scale:0.55; }
@@ -1412,7 +1410,6 @@ p{ margin:0; }
 @media (max-width: 560px){
   .page{ padding-left:clamp(8px, 4vw, 24px); padding-right:clamp(8px, 4vw, 24px); }
   .hero__right{ min-height:clamp(150px, 50vw, 220px); }
-  .hero__logo{ height:clamp(30px, 14vw, 60px); }
   .hero-title{ font-size:clamp(1.2rem, 6vw, 1.8rem); }
   .hero-sub{ font-size:clamp(0.7rem, 3.2vw, 0.85rem); margin-bottom:clamp(0.6rem, 2vh, 1.5rem); }
   .hero-tagline{ font-size:clamp(0.55rem, 2.8vw, 0.8rem); margin:0.5rem 0 0; letter-spacing:0.08em; }
@@ -1444,12 +1441,9 @@ p{ margin:0; }
   .navbar__link{ font-size:clamp(0.85rem, 4.5vw, 1rem); padding:0.6rem 1rem; width:100%; text-align:center; }
   .lang-switcher{ margin-left:auto; margin-right:0.5rem; }
   .lang-btn{ font-size:clamp(0.5rem, 2.5vw, 0.6rem); padding:0.15rem 0.35rem; }
-  .navbar__logo img{ height:clamp(12px, 4vw, 16px); }
 }
 @media (max-width: 400px){
   .hero__right{ min-height:clamp(120px, 48vw, 170px); }
-  .hero__logo{ height:clamp(26px, 12vw, 44px); }
-  .hero__logo{ height:clamp(26px, 12vw, 44px); }
   .hero-title{ font-size:clamp(1.1rem, 5.5vw, 1.5rem); }
   .hero-sub{ font-size:clamp(0.65rem, 3vw, 0.78rem); }
   .mascot{ width:clamp(80px, 22vw, 120px); }
