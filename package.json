@@ -1,0 +1,17 @@
+{
+  "name": "itwiz-agency",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "ITwiz agency site — static build with esbuild",
+  "scripts": {
+    "build": "node build.mjs"
+  },
+  "dependencies": {
+    "cannon-es": "0.20.0",
+    "three": "0.152.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.24.0"
+  }
+}

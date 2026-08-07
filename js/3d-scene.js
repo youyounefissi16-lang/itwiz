@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js';
 import * as CANNON from 'cannon-es';
 
 const container = document.getElementById('scene3d');
@@ -61,6 +62,7 @@ function init() {
   }
 
   const loader = new GLTFLoader();
+  loader.setMeshoptDecoder(MeshoptDecoder);
   const files = [
     '3D/cyberpunk_laptop.glb',
     '3D/laptop_holoscreen.glb',
