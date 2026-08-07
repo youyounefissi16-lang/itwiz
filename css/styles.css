@@ -1035,6 +1035,7 @@ p{ margin:0; }
 }
 .mascot__img{
   width:100%;
+  height:auto;
   animation:mascotBob 4.5s ease-in-out infinite;
   position:relative;
   z-index:1;
