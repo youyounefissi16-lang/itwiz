@@ -1382,7 +1382,7 @@ p{ margin:0; }
   .hero__right{ min-height:clamp(150px, 50vw, 220px); }
   .hero-title{ font-size:clamp(1.2rem, 6vw, 1.8rem); }
   .hero-sub{ font-size:clamp(0.7rem, 3.2vw, 0.85rem); margin-bottom:clamp(0.6rem, 2vh, 1.5rem); }
-  .hero-tagline{ font-size:clamp(0.55rem, 2.8vw, 0.8rem); margin:0.5rem 0 0; letter-spacing:0.08em; }
+  .hero-tagline{ font-size:clamp(1.7rem, 10vw, 2.6rem); margin:0 0 clamp(0.6rem, 2.5vh, 1.2rem); letter-spacing:0.03em; }
   .site-footer{ flex-direction:column; gap:.4rem; text-align:center; }
   .mascot__bubble{ max-width:clamp(110px, 40vw, 170px); }
   .mascot__orbs{ --orb-scale:0.48; }
