@@ -434,7 +434,7 @@
   function initBinaryOverlay() {
     const container = document.createElement('div');
     container.id = 'binaryOverlay';
-    const density = 30;
+    const density = 48;
     const cols = Math.ceil(window.innerWidth / density) + 2;
     const rows = Math.ceil(window.innerHeight / density) + 2;
     const frag = document.createDocumentFragment();
@@ -449,9 +449,12 @@
         span.style.top = top + 'px';
         span.style.fontSize = (8 + Math.random() * 4) + 'px';
         const alpha = 0.2 + Math.random() * 0.25;
-        span.style.color = Math.random() < 0.5
+        const roll = Math.random();
+        span.style.color = roll < 0.34
           ? `hsla(0, 100%, 62%, ${alpha})`
-          : `hsla(135, 100%, 62%, ${alpha})`;
+          : roll < 0.67
+            ? `hsla(135, 100%, 62%, ${alpha})`
+            : `hsla(187, 100%, 55%, ${alpha})`;
         if (Math.random() < 0.06) {
           span.classList.add('is-sparkle');
           span.style.setProperty('--dur', (1.5 + Math.random() * 3) + 's');
@@ -524,7 +527,7 @@
   });
 
   document.querySelectorAll('.card').forEach(function(card) {
-    card.addEventListener('click', function() {
+    function toggleCard() {
       var wasOpen = card.classList.contains('is-open');
       document.querySelectorAll('.card.is-open').forEach(function(other) {
         other.classList.remove('is-open');
@@ -533,6 +536,13 @@
       if (!wasOpen) {
         card.classList.add('is-open');
         card.setAttribute('aria-expanded', 'true');
+      }
+    }
+    card.addEventListener('click', toggleCard);
+    card.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggleCard();
       }
     });
   });

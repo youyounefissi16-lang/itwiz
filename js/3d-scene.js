@@ -10,14 +10,16 @@ function init() {
   const H = window.innerHeight;
   if (W < 1 || H < 1) { requestAnimationFrame(init); return; }
 
+  const isCoarse = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
+
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(40, W / H, 0.1, 30);
   camera.position.set(0, 0.3, 5.5);
   camera.lookAt(0, 0, 0);
 
-  const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: W >= 900 });
+  const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: W >= 900 && !isCoarse });
   renderer.setSize(W, H);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, isCoarse ? 1 : 1.5));
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   container.appendChild(renderer.domElement);
 
@@ -54,7 +56,6 @@ function init() {
     '3D/lowpoly_laptop_closed.glb',
   ];
 
-  let loaded = 0;
   files.forEach((path, idx) => {
     loader.load(
       path,
@@ -92,12 +93,9 @@ function init() {
           ];
           const d = dirs[idx % dirs.length];
           body.velocity.set(d[0], d[1], d[2]);
-          body.dirIndex = idx;
         }
         world.addBody(body);
         items.push({ mesh, body, size });
-
-        loaded++;
       },
       undefined,
       () => {},
@@ -159,8 +157,6 @@ function init() {
     dragBody = null;
   });
 
-  let time = 0;
-
   let frameId;
   let paused = false;
 
@@ -171,26 +167,15 @@ function init() {
 
   function startLoop() {
     if (frameId || paused) return;
-loop();
+    loop();
+  }
 
-  const heroEl = document.getElementById('hero');
-  if (heroEl && 'IntersectionObserver' in window) {
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) startLoop();
-          else stopLoop();
-        });
-      },
-      { threshold: 0 }
-    );
-    io.observe(heroEl);
-  }
-  }
+  let lastTime = performance.now();
+  let acc = 0;
+  const STEP = 1 / 60;
 
   function loop() {
     if (paused) return;
-    time++;
     const s = window.__mascotScale !== undefined ? window.__mascotScale : 1;
     modelGroup.scale.set(s, s, s);
 
@@ -211,7 +196,16 @@ loop();
       body.angularVelocity.set(0, 0, 0);
     });
 
-    world.step(1 / 60);
+    const now = performance.now();
+    let dt = (now - lastTime) / 1000;
+    lastTime = now;
+    if (dt > 0.1) dt = 0.1;
+    acc += dt;
+    while (acc >= STEP) {
+      world.step(STEP);
+      acc -= STEP;
+    }
+
     items.forEach(({ mesh, body }) => {
       if (mesh && body) {
         mesh.position.copy(body.position);
@@ -222,9 +216,24 @@ loop();
     frameId = requestAnimationFrame(loop);
   }
 
-  loop();
+  const heroEl = document.getElementById('hero');
+  let io = null;
+  if (heroEl && 'IntersectionObserver' in window) {
+    io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) startLoop();
+          else stopLoop();
+        });
+      },
+      { threshold: 0 }
+    );
+    io.observe(heroEl);
+  }
+  startLoop();
 
   function cleanup() {
+    if (io) io.disconnect();
     cancelAnimationFrame(frameId);
     items.forEach(({ mesh }) => {
       mesh.traverse((c) => {

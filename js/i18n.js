@@ -379,6 +379,7 @@ function applyLanguage(lang) {
 
   document.querySelectorAll('.lang-btn').forEach(function (btn) {
     btn.classList.toggle('is-active', btn.getAttribute('data-lang') === lang);
+    btn.setAttribute('aria-pressed', btn.getAttribute('data-lang') === lang ? 'true' : 'false');
   });
 
   window.dispatchEvent(new CustomEvent('languagechange', { detail: { lang: lang } }));
