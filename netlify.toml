@@ -12,7 +12,7 @@
 [[headers]]
   for = "/assets/*"
   [headers.values]
-    Cache-Control = "public, max-age=86400"
+    Cache-Control = "public, max-age=2592000"
 
 [[headers]]
   for = "/3D/*.glb"

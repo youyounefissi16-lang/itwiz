@@ -118,7 +118,6 @@ p{ margin:0; }
   font-weight:600;
   padding:0.2rem 0.5rem;
   cursor:pointer;
-  transition:color .25s, border-color .25s, background .25s;
   letter-spacing:0.04em;
 }
 .lang-btn:hover{ color:#fff; border-color:rgba(255,255,255,0.3); }
@@ -159,7 +158,6 @@ p{ margin:0; }
   padding:0.45rem 1rem;
   border-radius:8px;
   color:rgba(255,255,255,0.7);
-  transition:color .25s, background .25s;
 }
 .navbar__link:hover{ color:#fff; background:rgba(255,255,255,0.08); }
 .navbar__link.is-active{

@@ -389,6 +389,7 @@
         setTimeout(() => {
           revealPanel.classList.add('is-visible');
           revealPanel.setAttribute('aria-hidden', 'false');
+          revealPanel.removeAttribute('inert');
           docH = document.documentElement.scrollHeight - window.innerHeight;
           setBubble(pickMessage('contact'), true);
           burstParticles();
@@ -434,7 +435,7 @@
   function initBinaryOverlay() {
     const container = document.createElement('div');
     container.id = 'binaryOverlay';
-    const density = 48;
+    const density = 60;
     const cols = Math.ceil(window.innerWidth / density) + 2;
     const rows = Math.ceil(window.innerHeight / density) + 2;
     const frag = document.createDocumentFragment();

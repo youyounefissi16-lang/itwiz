@@ -5,6 +5,18 @@ import * as CANNON from 'cannon-es';
 const container = document.getElementById('scene3d');
 if (!container) { console.error('#scene3d not found'); }
 
+function scheduleInit() {
+  const run = () => {
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(init, { timeout: 2000 });
+    } else {
+      setTimeout(init, 1000);
+    }
+  };
+  if (document.readyState === 'complete') run();
+  else window.addEventListener('load', run, { once: true });
+}
+
 function init() {
   const W = window.innerWidth;
   const H = window.innerHeight;
@@ -19,7 +31,7 @@ function init() {
 
   const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: W >= 900 && !isCoarse });
   renderer.setSize(W, H);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, isCoarse ? 1 : 1.5));
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, isCoarse ? 1 : 1.25));
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   container.appendChild(renderer.domElement);
 
@@ -56,7 +68,7 @@ function init() {
     '3D/lowpoly_laptop_closed.glb',
   ];
 
-  files.forEach((path, idx) => {
+  function loadFile(path, idx) {
     loader.load(
       path,
       (gltf) => {
@@ -100,6 +112,22 @@ function init() {
       undefined,
       () => {},
     );
+  }
+
+  files.forEach((path, idx) => {
+    if (idx === 0) {
+      const queueDeferred = () => {
+        if ('requestIdleCallback' in window) {
+          requestIdleCallback(() => loadFile(path, idx), { timeout: 4000 });
+        } else {
+          setTimeout(() => loadFile(path, idx), 4000);
+        }
+      };
+      if (document.readyState === 'complete') queueDeferred();
+      else window.addEventListener('load', queueDeferred, { once: true });
+    } else {
+      loadFile(path, idx);
+    }
   });
 
   const raycaster = new THREE.Raycaster();
@@ -216,24 +244,9 @@ function init() {
     frameId = requestAnimationFrame(loop);
   }
 
-  const heroEl = document.getElementById('hero');
-  let io = null;
-  if (heroEl && 'IntersectionObserver' in window) {
-    io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) startLoop();
-          else stopLoop();
-        });
-      },
-      { threshold: 0 }
-    );
-    io.observe(heroEl);
-  }
   startLoop();
 
   function cleanup() {
-    if (io) io.disconnect();
     cancelAnimationFrame(frameId);
     items.forEach(({ mesh }) => {
       mesh.traverse((c) => {
@@ -262,4 +275,4 @@ function init() {
   });
 }
 
-requestAnimationFrame(init);
+scheduleInit();

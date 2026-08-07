@@ -7,6 +7,7 @@
 <meta name="description" content="ITwiz — engineering high-performance software, custom platforms, and seamless real-time architectures.">
 <meta name="theme-color" content="#06080f">
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="preload" as="image" href="assets/logo.svg" fetchpriority="high">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://itwiz-agency.netlify.app">
 <meta property="og:title" content="ITwiz — Code Magic into Reality">
@@ -18,14 +19,15 @@
 <meta name="twitter:image" content="https://itwiz-agency.netlify.app/assets/logo.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet"></noscript>
 <link rel="stylesheet" href="css/styles.css">
 <script type="importmap">
 {
   "imports": {
-    "three": "https://cdn.jsdelivr.net/npm/three@0.152.0/build/three.module.js",
+    "three": "https://cdn.jsdelivr.net/npm/three@0.152.0/build/three.module.min.js",
     "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.152.0/examples/jsm/",
-    "cannon-es": "https://cdn.jsdelivr.net/npm/cannon-es@0.20.0/dist/cannon-es.js"
+    "cannon-es": "https://cdn.jsdelivr.net/npm/cannon-es@0.20.0/dist/cannon-es.min.js"
   }
 }
 </script>
@@ -69,7 +71,7 @@
   <div class="hero__inner">
     <div class="hero__left">
       <div class="hero__brand">
-        <img src="assets/logo.svg" class="hero__logo" alt="IT WIZ">
+        <img src="assets/logo.svg" class="hero__logo" alt="IT WIZ" width="1536" height="1024" fetchpriority="high" decoding="async">
         <p class="hero-tagline neon" data-i18n="hero.tagline">we code magic into reality</p>
       </div>
       <h1 class="hero-title" data-i18n-html="hero.title">Building Tomorrow's<br>Digital Experience</h1>
@@ -98,7 +100,7 @@
   </header>
 
   <div class="grid grid--services">
-    <article class="card" data-card="web" role="button" tabindex="0" aria-expanded="false">
+    <div class="card" data-card="web" role="button" tabindex="0" aria-expanded="false">
       <div class="card__head">
         <div class="card__icon" aria-hidden="true">
           <svg viewBox="0 0 40 40" fill="none"><rect x="4" y="6" width="32" height="21" rx="3" stroke="currentColor" stroke-width="1.6"/><path d="M14 33h12M20 27v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M11 14l-3 4 3 4M29 14l3 4-3 4M23 12l-6 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -111,9 +113,9 @@
           <p class="card__extra" data-i18n="services.web.extra">From React and Next.js to Flutter and Swift, we build performant, accessible interfaces that scale. Every project follows a mobile-first approach with rigorous cross-browser testing, CI/CD pipelines, and performance budgets baked in from day one.</p>
         </div>
       </div>
-    </article>
+    </div>
 
-    <article class="card" data-card="ai" role="button" tabindex="0" aria-expanded="false">
+    <div class="card" data-card="ai" role="button" tabindex="0" aria-expanded="false">
       <div class="card__head">
         <div class="card__icon" aria-hidden="true">
           <svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="5" stroke="currentColor" stroke-width="1.6"/><path d="M20 4v6M20 30v6M36 20h-6M10 20H4M31 9l-4.2 4.2M13.2 26.8L9 31M31 31l-4.2-4.2M13.2 13.2L9 9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
@@ -126,9 +128,9 @@
           <p class="card__extra" data-i18n="services.ai.extra">We design end-to-end AI systems — from data ingestion and model training to real-time inference at the edge. Whether it's speech recognition, NLP, or predictive analytics, our pipelines are built for reliability, low latency, and cost efficiency.</p>
         </div>
       </div>
-    </article>
+    </div>
 
-    <article class="card" data-card="security" role="button" tabindex="0" aria-expanded="false">
+    <div class="card" data-card="security" role="button" tabindex="0" aria-expanded="false">
       <div class="card__head">
         <div class="card__icon" aria-hidden="true">
           <svg viewBox="0 0 40 40" fill="none"><path d="M20 4l14 6v9c0 9-6 15.5-14 17-8-1.5-14-8-14-17v-9l14-6z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M14.5 20.5l4 4 8-9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -141,9 +143,9 @@
           <p class="card__extra" data-i18n="services.security.extra">Our security-first architecture covers everything from dynamic watermarking and DRM to custom encrypted protocols and zero-trust network designs. We build systems that protect intellectual property without compromising user experience.</p>
         </div>
       </div>
-    </article>
+    </div>
 
-    <article class="card" data-card="custom" role="button" tabindex="0" aria-expanded="false">
+    <div class="card" data-card="custom" role="button" tabindex="0" aria-expanded="false">
       <div class="card__head">
         <div class="card__icon" aria-hidden="true">
           <svg viewBox="0 0 40 40" fill="none"><rect x="6" y="9" width="28" height="22" rx="2.5" stroke="currentColor" stroke-width="1.6"/><path d="M6 15h28M13 9v-3M27 9v-3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M12 21h6M12 26h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
@@ -156,7 +158,7 @@
           <p class="card__extra" data-i18n="services.custom.extra">Every business has unique workflows. We architect bespoke platforms — from dental clinics and driving schools to enterprise dashboards — with offline-first capabilities, local network sync, and seamless cloud backup when connectivity returns.</p>
         </div>
       </div>
-    </article>
+    </div>
   </div>
 </section>
 
@@ -173,7 +175,7 @@
       <div class="card__face card__face--front">
         <div class="card__img-wrap">
           <img class="card__img-tiny" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA0JCgsKCA0LCgsODg0PEyAVExISEyccHhcgLikxMC4pLSwzOko+MzZGNywtQFdBRkxOUlNSMj5aYVpQYEpRUk//2wBDAQ4ODhMREyYVFSZPNS01T09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0//wAARCAAJABQDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDvbdPKX5GeX2LjjirG7cCGQCsjTfuS/wDXT/GtCL/Wv9TRa2iM4vQJsbhgAcc4orPvv+PyT8P5CinYXOf/2Q==" alt="" aria-hidden="true">
-          <img class="card__img-full" src="images/Capture%20d%27%C3%A9cran%202026-07-30%20001205.png" alt="Maîtrisez platform screenshot">
+          <picture><source srcset="images/maitrisez-screenshot.webp" type="image/webp"><img class="card__img-full" src="images/Capture%20d%27%C3%A9cran%202026-07-30%20001205.png" alt="Maîtrisez platform screenshot" width="800" height="371"></picture>
         </div>
         <h3 data-i18n="work.maitrisez.title">Maîtrisez — Med-Ed &amp; Vocal Testing Platform</h3>
       </div>
@@ -189,7 +191,7 @@
       <div class="card__face card__face--front">
         <div class="card__img-wrap">
           <img class="card__img-tiny" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA0JCgsKCA0LCgsODg0PEyAVExISEyccHhcgLikxMC4pLSwzOko+MzZGNywtQFdBRkxOUlNSMj5aYVpQYEpRUk//2wBDAQ4ODhMREyYVFSZPNS01T09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0//wAARCAAMABQDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDn4tEM9tG5vogGUHaT04+tEfh1XDH7bAMMR/nmrlrMRaw/InCDt7VKbgn/AJZxj6CuuVGMkuXQbw82tJ2+Rhahpv2SdY/tMcny5yvbk8UVNq0ha6U7VHyDoPc0VzunZ2uT7OUdHK/yP//Z" alt="" aria-hidden="true">
-          <img class="card__img-full" src="images/Capture%20d%27%C3%A9cran%202026-07-30%20005728.png" alt="Driving School platform screenshot">
+          <picture><source srcset="images/driving-screenshot.webp" type="image/webp"><img class="card__img-full" src="images/Capture%20d%27%C3%A9cran%202026-07-30%20005728.png" alt="Driving School platform screenshot" width="800" height="498"></picture>
         </div>
         <h3 data-i18n="work.driving.title">Driving School Platform — Instructor Edition</h3>
       </div>
@@ -205,7 +207,7 @@
       <div class="card__face card__face--front">
         <div class="card__img-wrap">
           <img class="card__img-tiny" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA0JCgsKCA0LCgsODg0PEyAVExISEyccHhcgLikxMC4pLSwzOko+MzZGNywtQFdBRkxOUlNSMj5aYVpQYEpRUk//2wBDAQ4ODhMREyYVFSZPNS01T09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0//wAARCAAJABQDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDb8CQ7Jb3cvUJjP411+QN3H0rmPB3+tu/on9a6U9TWlT4jDD/w0Kdvaim0VBsf/9k=" alt="" aria-hidden="true">
-          <img class="card__img-full" src="images/Capture%20d%27%C3%A9cran%202026-07-29%20232415.png" alt="Dental Cabinet platform screenshot">
+          <picture><source srcset="images/dental-screenshot.webp" type="image/webp"><img class="card__img-full" src="images/Capture%20d%27%C3%A9cran%202026-07-29%20232415.png" alt="Dental Cabinet platform screenshot" width="800" height="395"></picture>
         </div>
         <h3 data-i18n="work.dental.title">Dental Cabinet &amp; Clinic Management Portal</h3>
       </div>
@@ -230,7 +232,7 @@
 
     <div class="contact-divider" aria-hidden="true"></div>
 
-    <div class="reveal-panel" id="revealPanel" aria-hidden="true">
+    <div class="reveal-panel" id="revealPanel" aria-hidden="true" inert>
       <p class="reveal-lead" data-i18n="contact.lead">Tell us about your project, and let's craft something extraordinary.</p>
       <div class="reveal-links">
         <a href="tel:+213773247989" class="reveal-link">
@@ -295,7 +297,7 @@
     </div>
   </div>
   <div class="mascot__bubble" id="mascotBubble"><p id="mascotText"></p></div>
-  <img src="assets/mascot.svg" alt="ITwiz wizard mascot" class="mascot__img" id="mascotImg">
+  <img src="assets/mascot.svg" alt="ITwiz wizard mascot" class="mascot__img" id="mascotImg" width="1254" height="1254">
   <button class="mascot__dismiss" id="mascotDismiss" aria-label="Dismiss mascot">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
   </button>
@@ -303,8 +305,8 @@
 
 <div id="scene3d"></div>
 
-<script src="js/i18n.js"></script>
-<script src="js/main.js"></script>
+<script src="js/i18n.js" defer></script>
+<script src="js/main.js" defer></script>
 <script type="module" src="js/3d-scene.js"></script>
 </body>
 </html>
