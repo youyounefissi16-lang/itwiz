@@ -23,12 +23,6 @@
   --section-pad: clamp(2.5rem, 5.5vw, 5rem);
 }
 
-@property --a {
-  syntax: '<angle>';
-  inherits: false;
-  initial-value: 0deg;
-}
-
 html{ overflow-x:hidden; }
 
 *,*::before,*::after{ box-sizing:border-box; }
@@ -184,10 +178,6 @@ p{ margin:0; }
   pointer-events:none;
   overflow:hidden;
 }
-.bg-glow::before,
-.bg-glow::after{
-  filter:blur(120px);
-}
 .bg-glow::before{
   content:'';
   position:absolute;
@@ -233,6 +223,12 @@ p{ margin:0; }
 .aurora-bg{
   position:fixed; inset:0; z-index:2;
   pointer-events:none;
+  overflow:hidden;
+}
+.aurora-bg::before{
+  content:'';
+  position:absolute;
+  inset:-25%;
   background:linear-gradient(135deg,
     rgba(124,58,237,0.0) 0%,
     rgba(124,58,237,0.10) 20%,
@@ -241,13 +237,13 @@ p{ margin:0; }
     rgba(0,212,255,0.10) 80%,
     rgba(124,58,237,0.0) 100%
   );
-  background-size:300% 300%;
+  will-change:transform;
   animation:auroraShift 15s ease-in-out infinite alternate;
 }
 @keyframes auroraShift{
-  0%{ background-position:0% 0%; }
-  50%{ background-position:100% 50%; }
-  100%{ background-position:0% 100%; }
+  0%{ transform:translate(0,0) scale(1); }
+  50%{ transform:translate(-3%, -4%) scale(1.08); }
+  100%{ transform:translate(3%, 5%) scale(1.04); }
 }
 
 /* =========================================================
@@ -637,11 +633,15 @@ p{ margin:0; }
 }
 .card::before{
   content:''; position:absolute; inset:-2px; border-radius:inherit;
-  background:conic-gradient(from var(--a), #00d4ff, #7c3aed, #06d6a0, #00d4ff);
+  background:conic-gradient(from 0deg, #00d4ff, #7c3aed, #06d6a0, #00d4ff);
   padding:2px;
   -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite:xor; mask-composite:exclude;
   z-index:-1;
+}
+@supports not (mask-composite: exclude){
+  .card{ border-color:rgba(124,58,237,0.35); }
+  .card::before{ background:none; }
 }
 .card::after{
   content:''; position:absolute; inset:0; border-radius:inherit;
@@ -1164,6 +1164,7 @@ p{ margin:0; }
   box-shadow:0 0 10px var(--glow, rgba(34,211,238,0.3));
   display:flex; align-items:center; justify-content:center;
   transform:rotate(var(--a)) translate(calc(var(--r) * var(--orb-scale, 1)));
+  translate:0 0;
   animation:orbSpin var(--dur) linear infinite,
              orbBob var(--bob, 3s) ease-in-out infinite alternate;
 }
@@ -1196,8 +1197,8 @@ p{ margin:0; }
   100%{ transform:rotate(calc(var(--a) + 360deg)) translate(calc(var(--r) * var(--orb-scale, 1))) rotate(calc(-1 * var(--a) - 360deg)); }
 }
 @keyframes orbBob{
-  0%{ margin-top:calc(-17px * var(--orb-scale, 1)); }
-  100%{ margin-top:calc(-17px * var(--orb-scale, 1) + var(--bobY, -6px)); }
+  0%{ translate:0 0; }
+  100%{ translate:0 var(--bobY, -6px); }
 }
 
 /* docked state: handled via inline transform during scroll phase */

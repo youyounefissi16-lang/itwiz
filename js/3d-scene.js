@@ -15,9 +15,9 @@ function init() {
   camera.position.set(0, 0.3, 5.5);
   camera.lookAt(0, 0, 0);
 
-  const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+  const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: W >= 900 });
   renderer.setSize(W, H);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   container.appendChild(renderer.domElement);
 
@@ -164,6 +164,30 @@ function init() {
   let frameId;
   let paused = false;
 
+  function stopLoop() {
+    if (frameId) cancelAnimationFrame(frameId);
+    frameId = undefined;
+  }
+
+  function startLoop() {
+    if (frameId || paused) return;
+loop();
+
+  const heroEl = document.getElementById('hero');
+  if (heroEl && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) startLoop();
+          else stopLoop();
+        });
+      },
+      { threshold: 0 }
+    );
+    io.observe(heroEl);
+  }
+  }
+
   function loop() {
     if (paused) return;
     time++;
@@ -217,8 +241,8 @@ function init() {
 
   window.addEventListener('beforeunload', cleanup);
   document.addEventListener('visibilitychange', () => {
-    if (document.hidden) { paused = true; cancelAnimationFrame(frameId); }
-    else { paused = false; loop(); }
+    if (document.hidden) { paused = true; stopLoop(); }
+    else { paused = false; startLoop(); }
   });
 
   window.addEventListener('resize', () => {
