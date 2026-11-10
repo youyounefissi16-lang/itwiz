@@ -1,0 +1,296 @@
+/* =========================================================
+   ITwiz — Method section
+   Scroll-controlled timeline powered by StringTune:
+   css/method.css consumes the --progress variable that
+   StringProgress publishes on .method__track.
+   --progress: 0 = the pinned section reaches the top of
+   the viewport, 1 = the pin is about to release.
+======================================================== */
+
+.page--method{
+  padding-inline:clamp(1rem, 6vw, 4rem);
+}
+
+.method__track{
+  position:relative;
+  height:340vh;
+  /* sensible default before StringTune's first frame */
+  --progress:0;
+}
+
+.method__sticky{
+  position:sticky;
+  top:0;
+  height:100vh;
+  height:100svh;
+  z-index:1;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  gap:clamp(1.4rem, 4vh, 3rem);
+  overflow:hidden;
+}
+
+/* ---------- ambient runes (ambient glow; parallax only — they must NOT
+   follow the pointer, or they drift over the stages and read as misplaced
+   UI.Kept faint on the pitch-black backdrop.) ---------- */
+.method__rune{
+  position:absolute;
+  z-index:0;
+  border-radius:50%;
+  pointer-events:none;
+}
+.method__rune--a{
+  width:44vmin; height:44vmin;
+  top:4%; inset-inline-start:-10%;
+  background:radial-gradient(circle, rgba(0,212,255,0.14), rgba(0,212,255,0.04) 45%, transparent 70%);
+}
+.method__rune--b{
+  width:52vmin; height:52vmin;
+  top:34%; inset-inline-end:-14%;
+  background:radial-gradient(circle, rgba(124,58,237,0.16), rgba(124,58,237,0.04) 45%, transparent 70%);
+}
+.method__rune--c{
+  width:30vmin; height:30vmin;
+  bottom:6%; inset-inline-start:26%;
+  background:radial-gradient(circle, rgba(109,40,217,0.18), transparent 65%);
+}
+
+/* ---------- header ---------- */
+.method__head{
+  max-width:min(880px, 94vw);
+  margin:0 auto clamp(1.2rem, 3.5vh, 2.6rem);
+  text-align:center;
+}
+.method__eyebrow{
+  font-family:var(--font-mono);
+  font-size:0.72rem;
+  letter-spacing:0.24em;
+  text-transform:uppercase;
+  color:var(--cyan);
+  opacity:0.85;
+  margin:0 0 0.9rem;
+}
+.method__head h2{
+  font-size:clamp(1.9rem, 4.2vw, 3.1rem);
+  font-weight:600;
+  letter-spacing:-0.015em;
+  overflow-wrap:break-word;
+}
+.method__sub{
+  margin-top:0.9rem;
+  color:var(--ink-soft);
+  font-size:clamp(0.9rem, 1.3vw, 1.02rem);
+}
+
+/* word cascade once the header reveals (.is-in from the shared reveal observer) */
+.method__head h2 .-s-word{
+  display:inline-block;
+  opacity:0;
+  transform:translateY(0.7em);
+  transition:opacity .55s ease, transform .65s cubic-bezier(.22,1,.36,1);
+  transition-delay:calc(var(--word-index, 0) * 0.06s);
+}
+.method__head.is-in h2 .-s-word{
+  opacity:1;
+  transform:none;
+}
+
+/* ---------- timeline ---------- */
+.method__timeline{
+  position:relative;
+}
+
+.method__rail{
+  position:absolute;
+  border-radius:99px;
+  background:rgba(136,146,176,0.16);
+}
+.method__rail--h{
+  top:0;
+  inset-inline:0;
+  height:2px;
+}
+.method__rail--v{
+  display:none;
+}
+.method__rail-fill{
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  background:linear-gradient(90deg, var(--purple), var(--cyan));
+  box-shadow:0 0 14px rgba(0,212,255,0.35);
+  transform-origin:left center;
+  transform:scaleX(clamp(0, calc(var(--progress) * 1.35), 1));
+}
+[dir="rtl"] .method__rail--h .method__rail-fill{
+  transform-origin:right center;
+  background:linear-gradient(270deg, var(--purple), var(--cyan));
+}
+
+.method__stages{
+  list-style:none;
+  margin:0;
+  padding:0;
+  display:grid;
+  grid-template-columns:repeat(4, minmax(0, 1fr));
+  gap:clamp(0.9rem, 2vw, 2rem);
+}
+
+.method-stage{
+  --t:clamp(0, calc((var(--progress) - 0.1 - var(--stage, 0) * 0.2) * 5), 1);
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:0.55rem;
+  text-align:center;
+  padding-top:clamp(1.5rem, 3vh, 2.4rem);
+  opacity:var(--t);
+  transform:translateY(calc((1 - var(--t)) * 26px));
+}
+
+/* node sits on the rail and lights up as the line draws past it */
+.method-stage__node{
+  position:absolute;
+  top:0;
+  left:50%;
+  width:13px;
+  height:13px;
+  border-radius:50%;
+  background:var(--bg);
+  border:2.5px solid var(--cyan);
+  transform:translate(-50%, -50%) scale(calc(0.45 + 0.55 * var(--t)));
+  box-shadow:0 0 calc(18px * var(--t)) rgba(0,212,255,0.9),
+             0 0 calc(4px * var(--t)) rgba(0,212,255,0.9);
+}
+
+.method-stage__art{
+  display:grid;
+  place-items:center;
+  width:clamp(50px, 5.5vw, 66px);
+  aspect-ratio:1;
+  border-radius:50%;
+  border:1px solid rgba(0,212,255,0.3);
+  background:radial-gradient(circle at 32% 28%, rgba(0,212,255,0.16), rgba(15,20,36,0.7) 70%);
+  color:var(--cyan);
+  box-shadow:0 8px 26px -14px rgba(0,212,255,0.4), inset 0 0 18px rgba(0,212,255,0.07);
+  /* no depth drift: the old scroll-coupled translateY/rotate displaced the
+     icons up to ±48px off their own row (visible at progress 0 and in the
+     vertical layout they floated between the titles). Icons must stay
+     locked to their stage. */
+}
+.method-stage__art svg{
+  width:52%;
+  height:52%;
+}
+.method-stage__art--violet{
+  color:#a78bfa;
+  border-color:rgba(124,58,237,0.4);
+  background:radial-gradient(circle at 32% 28%, rgba(124,58,237,0.2), rgba(15,20,36,0.7) 70%);
+  box-shadow:0 8px 26px -14px rgba(124,58,237,0.5), inset 0 0 18px rgba(124,58,237,0.08);
+}
+
+.method-stage__body{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:0.3rem;
+}
+.method-stage__num{
+  font-family:var(--font-mono);
+  font-size:0.68rem;
+  letter-spacing:0.22em;
+  color:var(--cyan);
+  opacity:0.7;
+}
+.method-stage h3{
+  font-size:clamp(0.98rem, 1.4vw, 1.2rem);
+  font-weight:600;
+}
+.method-stage p{
+  font-size:clamp(0.8rem, 1.05vw, 0.9rem);
+  line-height:1.55;
+  color:var(--ink-soft);
+  max-width:30ch;
+}
+
+/* ---------- mobile: vertical timeline ---------- */
+@media (max-width:900px){
+  .method__track{ height:300vh; }
+  .method__rune{ display:none; }
+
+  /* clear the fixed navbar and stack from the top so every stage
+     stays inside the pinned viewport */
+  .method__sticky{
+    justify-content:flex-start;
+    padding-top:84px;
+    padding-bottom:14px;
+    gap:clamp(0.7rem, 2.4vh, 1.6rem);
+  }
+  .method__head{ margin-bottom:0; }
+  .method__head h2{ font-size:clamp(1.6rem, 6vw, 2.3rem); }
+  .method__sub{ margin-top:0.55rem; }
+
+  .method__rail--h{ display:none; }
+  .method__rail--v{
+    display:block;
+    top:0;
+    bottom:0;
+    inset-inline-start:14px;
+    width:2px;
+    height:auto;
+  }
+  .method__rail--v .method__rail-fill{
+    background:linear-gradient(180deg, var(--purple), var(--cyan));
+    transform-origin:center top;
+    transform:scaleY(clamp(0, calc(var(--progress) * 1.35), 1));
+  }
+
+  .method__stages{
+    grid-template-columns:1fr;
+    gap:clamp(0.7rem, 2.2vh, 1.3rem);
+    padding-inline-start:40px;
+  }
+  .method-stage{
+    flex-direction:row;
+    align-items:center;
+    text-align:start;
+    gap:0.85rem;
+    padding-top:0;
+  }
+  .method-stage__node{
+    top:50%;
+    left:auto;
+    inset-inline-start:-31px;
+    transform:translateY(-50%) scale(calc(0.45 + 0.55 * var(--t)));
+  }
+  .method-stage__body{
+    align-items:flex-start;
+    gap:0.2rem;
+  }
+  .method-stage p{ max-width:48ch; }
+}
+
+/* very short viewports (small windows / landscape phones): compact so the
+   whole timeline still fits inside the pinned frame */
+@media (max-width:900px) and (max-height:680px){
+  .method__eyebrow{ font-size:0.62rem; margin-bottom:0.45rem; }
+  .method__sub{ display:none; }
+  .method-stage__art{ width:42px; }
+  .method-stage p{ font-size:0.74rem; line-height:1.42; }
+  .method__stages{ gap:0.5rem; }
+}
+
+/* ---------- reduced motion: settle everything at its end state ---------- */
+@media (prefers-reduced-motion:reduce){
+  .method-stage{ --t:1; }
+  .method-stage,
+  .method-stage__art{ transform:none !important; }
+  .method__rail-fill{ transform:none !important; }
+  .method__head h2 .-s-word{
+    opacity:1 !important;
+    transform:none !important;
+    transition:none;
+  }
+}

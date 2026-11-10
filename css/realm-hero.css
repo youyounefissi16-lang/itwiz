@@ -1,0 +1,139 @@
+
+/* ==========================================================
+   ITWIZ REALM — cinematic magical-tech opening experience
+   ========================================================== */
+.realm-hero{
+  isolation:isolate;
+  overflow:hidden;
+  min-height:100svh;
+  padding:clamp(100px,13vh,150px) clamp(22px,6vw,100px) 90px;
+}
+.realm-hero__mist{
+  position:absolute;inset:-15%;z-index:-1;pointer-events:none;
+  background:
+    radial-gradient(55% 45% at 65% 48%,rgba(105,52,202,.10),transparent 70%),
+    radial-gradient(50% 40% at 30% 60%,rgba(0,204,255,.07),transparent 70%),
+    conic-gradient(from 190deg at 65% 48%,transparent 0deg,rgba(105,52,202,.06) 35deg,transparent 100deg,rgba(0,204,255,.05) 190deg,transparent 270deg);
+}
+.realm-hero__stars{
+  position:absolute;inset:-290px 0 0 0;pointer-events:none;z-index:-1;opacity:.5;
+  background-image:radial-gradient(1px 1px at 14% 23%,#a9eaff 99%,transparent),
+    radial-gradient(1px 1px at 42% 71%,#fff 99%,transparent),
+    radial-gradient(2px 2px at 79% 16%,#9b7cff 99%,transparent),
+    radial-gradient(1px 1px at 89% 66%,#a9eaff 99%,transparent),
+    radial-gradient(1px 1px at 63% 87%,#fff 99%,transparent);
+  background-size:380px 290px;animation:realmStars 36s linear infinite;
+}
+.realm-hero__inner{
+  width:min(1320px,100%);margin:0 auto;display:grid;
+  grid-template-columns:minmax(0,.92fr) minmax(400px,1.08fr);
+  align-items:center;gap:clamp(24px,5vw,90px);position:relative;z-index:2;
+}
+.realm-hero__copy{position:relative;z-index:3;text-align:left;max-width:660px}
+.realm-kicker,.realm-hero__footnote{
+  display:flex;align-items:center;gap:11px;
+  color:#9aa6c5;font:500 .68rem/1.4 var(--font-mono,monospace);
+  letter-spacing:.17em;text-transform:uppercase;
+}
+.realm-kicker__sigil{color:#a78bfa;font-size:1.1rem;text-shadow:0 0 18px #8b5cf6}
+.realm-hero__brand{display:inline-flex;margin:clamp(26px,5vh,50px) 0 16px;filter:drop-shadow(0 0 24px rgba(0,205,255,.12))}
+.realm-hero__logo{width:clamp(150px,18vw,245px);height:auto;max-height:90px;object-fit:contain;object-position:left center}
+.realm-hero__title{
+  max-width:720px;margin:0 0 22px;
+  font-family:var(--font-display,'Space Grotesk',sans-serif);
+  font-size:clamp(2.6rem,5.3vw,5.6rem);font-weight:700;line-height:.99;
+  letter-spacing:-.065em;text-transform:none;color:#f4f7ff;
+  text-wrap:balance;
+}
+.realm-hero__title .realm-gradient{
+  background:linear-gradient(100deg,#dffaff 0%,#53dcff 34%,#a78bfa 76%,#e6d8ff 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 0 22px rgba(80,194,255,.12));
+}
+.realm-hero__sub{
+  max-width:540px;margin:0;color:#a4aec5;
+  font:400 clamp(.94rem,1.15vw,1.08rem)/1.8 var(--font-body,'Inter',sans-serif);
+}
+.realm-hero__actions{display:flex;flex-wrap:wrap;align-items:center;gap:13px;margin-top:32px}
+.realm-button{
+  display:inline-flex;align-items:center;justify-content:center;gap:24px;
+  min-height:52px;padding:0 20px;border-radius:6px;
+  text-decoration:none;font:600 .83rem/1 var(--font-body,'Inter',sans-serif);
+  transition:transform .25s ease,border-color .25s ease,background .25s ease,box-shadow .25s ease;
+}
+.realm-button span:last-child{font-size:1.15rem;transition:transform .25s ease}
+.realm-button:hover{transform:translateY(-3px)}
+.realm-button:hover span:last-child{transform:translate(3px,-2px)}
+.realm-button--primary{
+  color:#04101a;background:linear-gradient(110deg,#75eaff,#a6a0ff);
+  box-shadow:0 8px 28px rgba(54,191,255,.16),inset 0 1px rgba(255,255,255,.65);
+}
+.realm-button--primary:hover{box-shadow:0 12px 38px rgba(54,191,255,.28)}
+.realm-button--quiet{color:#dce4f7;border:1px solid rgba(153,171,216,.22);background:rgba(13,18,32,.45)}
+.realm-button--quiet:hover{border-color:rgba(112,220,255,.55);background:rgba(25,34,55,.72)}
+.realm-hero__footnote{margin-top:38px;font-size:.59rem;letter-spacing:.13em;color:#6f7c9c}
+.realm-live-dot{width:6px;height:6px;border-radius:50%;background:#6ee7f9;box-shadow:0 0 12px #38bdf8}
+
+
+
+
+/* conjured rings — concentric mouth pulling the eye into the gate */
+
+/* threshold — the gate's floor light, where the guide stands */
+
+
+
+
+.realm-scroll-cue{
+  position:absolute;bottom:24px;left:50%;transform:translateX(-50%);
+  display:flex;align-items:center;gap:14px;text-decoration:none;
+  color:#71809e;font:500 .56rem var(--font-mono,monospace);letter-spacing:.16em;
+}
+.realm-scroll-cue i{width:28px;height:28px;border:1px solid rgba(134,161,213,.24);border-radius:50%;position:relative}
+.realm-scroll-cue i::after{content:"";position:absolute;width:5px;height:5px;left:10px;top:8px;border-right:1px solid #8ceaff;border-bottom:1px solid #8ceaff;transform:rotate(45deg);animation:realmCue 1.6s ease-in-out infinite}
+.realm-hero.is-entering .realm-hero__copy>*{animation:realmReveal .8s cubic-bezier(.2,.8,.2,1) both}
+.realm-hero.is-entering .realm-hero__copy>*:nth-child(2){animation-delay:.08s}
+.realm-hero.is-entering .realm-hero__copy>*:nth-child(3){animation-delay:.16s}
+.realm-hero.is-entering .realm-hero__copy>*:nth-child(4){animation-delay:.24s}
+.realm-hero.is-entering .realm-hero__copy>*:nth-child(5){animation-delay:.32s}
+
+@keyframes realmStars{from{transform:translateY(0)}to{transform:translateY(290px)}}
+@keyframes realmCorePulse{50%{transform:scale(1.08);opacity:.7}}
+@keyframes realmOrbit{to{transform:rotateX(67deg) rotateZ(338deg)}}
+@keyframes realmRune{to{transform:translate(-50%,-50%) rotate(342deg)}}
+@keyframes realmEnergy{to{opacity:.72;filter:blur(18px)}}
+@keyframes realmCue{0%,100%{transform:translateY(0) rotate(45deg);opacity:.5}50%{transform:translateY(5px) rotate(45deg);opacity:1}}
+@media(max-width:900px){
+  .realm-hero{padding-top:110px;padding-bottom:82px}
+  .realm-hero__inner{grid-template-columns:1fr;gap:8px;text-align:center}
+  .realm-hero__copy{margin:0 auto;text-align:center}
+  .realm-kicker,.realm-hero__footnote{justify-content:center}
+  .realm-hero__brand{margin:22px 0 12px}
+  .realm-hero__logo{object-position:center}
+  .realm-hero__title{font-size:clamp(2.5rem,8.5vw,4.8rem);margin-left:auto;margin-right:auto}
+  .realm-hero__sub{margin-left:auto;margin-right:auto;max-width:620px}
+  .realm-hero__actions{justify-content:center}
+  .realm-hero__footnote{margin-top:24px}
+  .realm-stage{width:min(100%,600px);min-height:0;margin:0 auto;aspect-ratio:1.08}
+  .realm-orbit-label--two{right:0}
+}
+@media(max-width:560px){
+  .realm-hero{padding:96px 20px 72px;min-height:auto}
+  .realm-kicker{font-size:.55rem;letter-spacing:.1em}
+  .realm-hero__logo{width:145px}
+  .realm-hero__title{font-size:clamp(2.35rem,11vw,3.6rem);letter-spacing:-.055em}
+  .realm-hero__sub{font-size:.9rem;line-height:1.7}
+  .realm-hero__actions{gap:9px;margin-top:24px}
+  .realm-button{min-height:48px;padding:0 14px;gap:14px;font-size:.76rem}
+  .realm-hero__footnote{font-size:.5rem;letter-spacing:.08em}
+  .realm-stage{width:112%;margin:0 -6%;aspect-ratio:1}
+  .realm-orbit-label{font-size:.46rem;padding:6px 7px}
+  .realm-orbit-label--one{left:5%;top:13%}
+  .realm-orbit-label--two{right:2%;top:45%}
+  .realm-orbit-label--three{left:9%;bottom:13%}
+  .realm-stage__instruction{font-size:.48rem;bottom:0}
+  .realm-scroll-cue{bottom:17px;font-size:.48rem}
+}
+@media(prefers-reduced-motion:reduce){
+  .realm-hero *, .realm-hero *::before,.realm-hero *::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}

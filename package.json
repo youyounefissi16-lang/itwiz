@@ -8,6 +8,7 @@
     "build": "node build.mjs"
   },
   "dependencies": {
+    "@fiddle-digital/string-tune": "^1.2.7",
     "cannon-es": "0.20.0",
     "three": "0.152.0"
   },

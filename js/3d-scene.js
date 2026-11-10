@@ -23,16 +23,17 @@ function init() {
   const H = window.innerHeight;
   if (W < 1 || H < 1) { requestAnimationFrame(init); return; }
 
-  const isCoarse = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
-
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(40, W / H, 0.1, 30);
   camera.position.set(0, 0.3, 5.5);
   camera.lookAt(0, 0, 0);
 
-  const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: W >= 900 && !isCoarse });
+  /* Frame budget first: this canvas renders on top of every scroll frame, so
+     it must stay cheap — device resolution + MSAA were what starved it
+     (frozen drift during scroll, snap on stop). */
+  const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: false });
   renderer.setSize(W, H);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, isCoarse ? 1 : 1.25));
+  renderer.setPixelRatio(1);
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   container.appendChild(renderer.domElement);
 
@@ -79,7 +80,7 @@ function init() {
 
         const box = new THREE.Box3().setFromObject(mesh);
         const size = box.getSize(new THREE.Vector3());
-        const targetWidth = 1.1;
+        const targetWidth = 1.6;
         const scaleFix = targetWidth / Math.max(size.x, size.y, size.z, 0.01);
         mesh.scale.multiplyScalar(scaleFix);
 
@@ -120,9 +121,10 @@ function init() {
     if (idx === 0) {
       const queueDeferred = () => {
         if ('requestIdleCallback' in window) {
-          requestIdleCallback(() => loadFile(path, idx), { timeout: 4000 });
+          /* 1.6MB model: give the page plenty of time to settle before parsing. */
+          requestIdleCallback(() => loadFile(path, idx), { timeout: 15000 });
         } else {
-          setTimeout(() => loadFile(path, idx), 4000);
+          setTimeout(() => loadFile(path, idx), 15000);
         }
       };
       if (document.readyState === 'complete') queueDeferred();
@@ -189,6 +191,8 @@ function init() {
 
   let frameId;
   let paused = false;
+  let pageHidden = document.hidden;
+  let heroInView = true;
 
   function stopLoop() {
     if (frameId) cancelAnimationFrame(frameId);
@@ -197,7 +201,22 @@ function init() {
 
   function startLoop() {
     if (frameId || paused) return;
+    lastTime = performance.now();
+    acc = 0;
     loop();
+  }
+
+  /* Only burn frames while the hero (the scene's stage) is on screen.
+     When paused, also hide the layer — a frozen frame would otherwise
+     show through the transparent sections further down the page.
+     body.swarm-live pauses the scene entirely while the swarm
+     time-lapse overlays the hero (see js/swarm.js); html.swarm-boot
+     is the pre-paint cover that precedes it. */
+  function syncLoop() {
+    paused = pageHidden || !heroInView || document.body.classList.contains('swarm-live') || document.documentElement.classList.contains('swarm-boot');
+    if (paused) stopLoop();
+    else startLoop();
+    container.style.visibility = paused ? 'hidden' : 'visible';
   }
 
   let lastTime = performance.now();
@@ -206,13 +225,11 @@ function init() {
 
   function loop() {
     if (paused) return;
-    const s = window.__mascotScale !== undefined ? window.__mascotScale : 1;
-    modelGroup.scale.set(s, s, s);
 
     items.forEach(({ body }) => {
       if (body === dragBody) return;
 
-      const bx = 3, by = 1.3, bz = 2.5;
+      const bx = 2, by = 1.3, bz = 1.4;
       const p = body.position;
       const v = body.velocity;
 
@@ -229,7 +246,7 @@ function init() {
     const now = performance.now();
     let dt = (now - lastTime) / 1000;
     lastTime = now;
-    if (dt > 0.1) dt = 0.1;
+    if (dt > 0.2) dt = 0.2; /* keep the sim near real-time under jank (≤12 steps) */
     acc += dt;
     while (acc >= STEP) {
       world.step(STEP);
@@ -248,7 +265,22 @@ function init() {
 
   startLoop();
 
+  /* the swarm toggle flips body.swarm-live without any scroll or
+     visibility change, so re-check it on a light interval */
+  var swarmTick = setInterval(syncLoop, 400);
+  window.addEventListener('beforeunload', function () { clearInterval(swarmTick); });
+
+  const heroSection = document.getElementById('hero');
+  if (heroSection && 'IntersectionObserver' in window) {
+    const heroObserver = new IntersectionObserver((entries) => {
+      heroInView = entries[0].isIntersecting;
+      syncLoop();
+    }, { threshold: 0 });
+    heroObserver.observe(heroSection);
+  }
+
   function cleanup() {
+    clearInterval(swarmTick);
     cancelAnimationFrame(frameId);
     items.forEach(({ mesh }) => {
       mesh.traverse((c) => {
@@ -265,8 +297,8 @@ function init() {
 
   window.addEventListener('beforeunload', cleanup);
   document.addEventListener('visibilitychange', () => {
-    if (document.hidden) { paused = true; stopLoop(); }
-    else { paused = false; startLoop(); }
+    pageHidden = document.hidden;
+    syncLoop();
   });
 
   window.addEventListener('resize', () => {

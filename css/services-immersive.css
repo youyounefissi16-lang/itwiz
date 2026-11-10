@@ -1,0 +1,344 @@
+/* ============================================================
+   ITWIZ SERVICES — immersive destination grid + fullscreen view
+   Loads after css/styles.css. Scoped to #services and the dialog.
+   ============================================================ */
+:root{
+  --realm-bg:var(--bg);
+  --realm-panel:rgba(17,17,34,0.72);
+  --realm-text:#f5f5ff;
+  --realm-muted:#a4a4bd;
+  --realm-cyan:#42e8ff;
+  --realm-purple:#9b5cff;
+  --realm-border:rgba(160,160,255,0.18);
+}
+
+/* ---------------- section ---------------- */
+.services-realm{
+  position:relative;
+  isolation:isolate;
+  padding:clamp(5rem,10vw,9rem) clamp(1.25rem,5vw,5rem);
+  color:var(--realm-text);
+  background:
+    radial-gradient(circle at 50% 0%, rgba(83,49,150,0.2), transparent 42%),
+    transparent;
+  overflow:hidden;
+}
+.services-realm .services-heading{
+  max-width:850px;
+  margin:0 auto clamp(3rem,7vw,5rem);
+  text-align:center;
+}
+.realm-eyebrow,
+.experience-kicker{
+  display:inline-block;
+  color:var(--realm-cyan);
+  font:700 0.75rem/1.4 var(--font-mono,monospace);
+  letter-spacing:0.2em;
+  text-transform:uppercase;
+}
+.services-realm .services-heading h2{
+  margin:1.2rem 0;
+  font-family:var(--font-display,'Space Grotesk',sans-serif);
+  font-size:clamp(2.2rem,6vw,5rem);
+  font-weight:700;
+  line-height:1.05;
+  letter-spacing:-0.05em;
+  color:var(--realm-text);
+}
+.services-realm .services-heading .services-sub{
+  max-width:600px;
+  margin:0 auto;
+  color:var(--realm-muted);
+  font-size:clamp(1rem,1.5vw,1.2rem);
+  line-height:1.7;
+}
+
+/* ---------------- grid ---------------- */
+.services-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:1rem;
+  max-width:1200px;
+  margin:0 auto;
+}
+.service-card{
+  position:relative;
+  display:flex;
+  align-items:flex-start;
+  gap:1.25rem;
+  min-height:250px;
+  padding:clamp(1.4rem,3vw,2.5rem);
+  overflow:hidden;
+  color:var(--realm-text);
+  text-align:left;
+  cursor:pointer;
+  background:linear-gradient(135deg, rgba(29,29,57,0.85), rgba(12,12,27,0.8));
+  border:1px solid var(--realm-border);
+  border-radius:1.25rem;
+  transition:border-color .25s ease, box-shadow .25s ease, background .25s ease, transform .25s ease;
+}
+.service-card::before{
+  content:"";
+  position:absolute;inset:0;
+  opacity:0;
+  pointer-events:none;
+  background:radial-gradient(circle at var(--pointer-x,50%) var(--pointer-y,50%), rgba(66,232,255,0.15), transparent 45%);
+  transition:opacity .25s ease;
+}
+.service-card:hover,
+.service-card:focus-visible{
+  border-color:rgba(66,232,255,0.65);
+  box-shadow:0 0 25px rgba(66,232,255,0.12), inset 0 0 25px rgba(155,92,255,0.06);
+  transform:translateY(-4px);
+}
+.service-card:hover::before,
+.service-card:focus-visible::before{ opacity:1; }
+.service-card:focus-visible{
+  outline:2px solid var(--realm-cyan);
+  outline-offset:4px;
+}
+.service-number{
+  position:absolute;
+  top:1.5rem;right:1.5rem;
+  color:rgba(220,220,255,0.45);
+  font:500 0.75rem/1 var(--font-mono,monospace);
+  letter-spacing:0.1em;
+}
+.service-icon{
+  display:grid;
+  place-items:center;
+  flex:0 0 3rem;
+  width:3rem;height:3rem;
+  color:var(--realm-cyan);
+  border:1px solid rgba(66,232,255,0.3);
+  border-radius:0.9rem;
+  background:rgba(66,232,255,0.06);
+  transition:transform .3s cubic-bezier(.2,.8,.2,1), box-shadow .3s;
+}
+.service-icon svg{ width:24px;height:24px; }
+.service-card:hover .service-icon{
+  transform:scale(1.06) rotate(-4deg);
+  box-shadow:0 0 22px rgba(66,232,255,0.22);
+}
+.service-card-content{
+  display:flex;
+  flex-direction:column;
+  gap:0.8rem;
+  padding-top:0.2rem;
+  min-width:0;
+}
+.service-title{
+  max-width:420px;
+  margin:0;
+  font-size:clamp(1.2rem,2vw,1.65rem);
+  font-weight:700;
+  line-height:1.2;
+  color:var(--realm-text);
+  transition:color .25s ease;
+}
+.service-card:hover .service-title{ color:var(--realm-cyan); }
+.service-subtitle{
+  max-width:450px;
+  color:var(--realm-muted);
+  font-size:0.95rem;
+  line-height:1.6;
+}
+.service-examples{
+  margin-top:0.5rem;
+  color:var(--realm-cyan);
+  font-size:0.8rem;
+  line-height:1.6;
+}
+.service-open{
+  position:absolute;
+  right:1.5rem;bottom:1.5rem;
+  color:var(--realm-cyan);
+  font-size:1.2rem;
+  transition:transform .25s ease;
+}
+.service-card:hover .service-open{ transform:translate(3px,-3px); }
+
+/* ---------------- fullscreen service experience ---------------- */
+.service-experience{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  display:grid;
+  place-items:center;
+  padding:clamp(1.25rem,5vw,5rem);
+  color:var(--realm-text);
+  background:var(--realm-bg);
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  transition:opacity .35s ease, visibility .35s ease;
+}
+.service-experience.is-open{
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+}
+.experience-background{
+  position:absolute;inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 75% 30%, rgba(66,232,255,0.1), transparent 35%),
+    radial-gradient(circle at 20% 80%, rgba(155,92,255,0.16), transparent 40%);
+}
+.experience-content{
+  position:relative;
+  z-index:2;
+  width:min(100%,1050px);
+  max-height:100%;
+  overflow-y:auto;
+  padding:2rem 0;
+}
+.experience-content h2{
+  max-width:900px;
+  margin:1.5rem 0;
+  font-family:var(--font-display,'Space Grotesk',sans-serif);
+  font-size:clamp(2.5rem,8vw,7rem);
+  font-weight:700;
+  line-height:0.98;
+  letter-spacing:-0.06em;
+  color:var(--realm-text);
+}
+.experience-description{
+  max-width:700px;
+  color:var(--realm-muted);
+  font-size:clamp(1.05rem,2vw,1.35rem);
+  line-height:1.8;
+}
+.experience-details{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:3rem;
+  margin-top:3rem;
+}
+.experience-details h3{
+  margin:0 0 1.2rem;
+  color:var(--realm-cyan);
+  font:700 0.9rem/1.4 var(--font-mono,monospace);
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+}
+.experience-details ul{
+  display:grid;
+  gap:0.8rem;
+  padding-left:1.2rem;
+  list-style:disc;
+  color:var(--realm-muted);
+  line-height:1.6;
+}
+.technology-list{
+  display:flex;
+  flex-wrap:wrap;
+  gap:0.7rem;
+}
+.technology-pill{
+  padding:0.65rem 0.9rem;
+  color:var(--realm-text);
+  background:rgba(155,92,255,0.1);
+  border:1px solid rgba(155,92,255,0.3);
+  border-radius:999px;
+  font-size:0.85rem;
+}
+.experience-cta{
+  display:inline-flex;
+  align-items:center;
+  gap:1rem;
+  margin-top:3rem;
+  padding:1rem 1.4rem;
+  color:var(--bg);
+  background:var(--realm-cyan);
+  border-radius:999px;
+  font-weight:800;
+  text-decoration:none;
+  transition:transform .25s ease, box-shadow .25s ease;
+}
+.experience-cta:hover{
+  transform:translateY(-3px);
+  box-shadow:0 0 30px rgba(66,232,255,0.35);
+}
+.experience-close{
+  position:absolute;
+  z-index:5;
+  top:1.5rem;right:1.5rem;
+  display:flex;
+  align-items:center;
+  gap:0.6rem;
+  padding:0.8rem 1rem;
+  color:var(--realm-text);
+  background:rgba(255,255,255,0.05);
+  border:1px solid var(--realm-border);
+  border-radius:999px;
+  font:600 0.85rem/1 var(--font-body,'Inter',sans-serif);
+  cursor:pointer;
+  transition:border-color .25s ease, box-shadow .25s ease;
+}
+.experience-close span:first-child{ font-size:1.4rem; line-height:1; }
+.experience-close:hover,
+.experience-close:focus-visible{
+  border-color:var(--realm-cyan);
+  box-shadow:0 0 20px rgba(66,232,255,0.15);
+}
+.experience-close:focus-visible{ outline:2px solid var(--realm-cyan); outline-offset:3px; }
+.experience-orb{
+  position:absolute;
+  right:-15vw;bottom:-25vw;
+  width:min(65vw,700px);
+  aspect-ratio:1;
+  border:1px solid rgba(66,232,255,0.12);
+  border-radius:50%;
+  box-shadow:0 0 80px rgba(66,232,255,0.06), inset 0 0 80px rgba(155,92,255,0.08);
+  pointer-events:none;
+}
+
+/* scroll lock while the experience is open */
+body.service-experience-open{ overflow:hidden; }
+
+/* ---------------- responsive ---------------- */
+@media (max-width:760px){
+  .services-grid{ grid-template-columns:1fr; }
+  .service-card{ min-height:220px; }
+  .experience-details{ grid-template-columns:1fr; gap:2rem; }
+  .experience-content{ padding-top:4rem; }
+  .experience-close{ top:1rem; right:1rem; }
+}
+@media (max-width:420px){
+  .service-card{ gap:0.9rem; padding:1.2rem; }
+  .service-icon{ flex-basis:2.5rem; width:2.5rem; height:2.5rem; }
+  .service-icon svg{ width:20px; height:20px; }
+  .service-number{ top:1rem; right:1rem; }
+  .service-open{ right:1rem; bottom:1rem; }
+}
+
+/* ---------------- RTL (Arabic) ---------------- */
+[dir="rtl"] .service-card{ text-align:right; }
+[dir="rtl"] .service-number{ right:auto; left:1.5rem; }
+[dir="rtl"] .service-open{ right:auto; left:1.5rem; }
+[dir="rtl"] .experience-close{ right:auto; left:1.5rem; }
+[dir="rtl"] .experience-details ul{ padding-left:0; padding-right:1.2rem; }
+[dir="rtl"] .experience-orb{ right:auto; left:-15vw; }
+@media (max-width:420px){
+  [dir="rtl"] .service-number{ right:auto; left:1rem; }
+  [dir="rtl"] .service-open{ right:auto; left:1rem; }
+}
+@media (max-width:760px){
+  [dir="rtl"] .experience-close{ right:auto; left:1rem; }
+}
+
+/* ---------------- accessibility ---------------- */
+@media (prefers-reduced-motion:reduce){
+  .services-realm *,
+  .services-realm *::before,
+  .services-realm *::after,
+  .service-experience *,
+  .service-experience *::before,
+  .service-experience *::after{
+    animation-duration:0.01ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:0.01ms !important;
+    scroll-behavior:auto !important;
+  }
+}

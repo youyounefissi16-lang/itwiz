@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://itwiz-agency.netlify.app/</loc>
+    <lastmod>2026-11-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://itwiz-agency.netlify.app/privacy.html</loc>
+    <lastmod>2026-11-07</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://itwiz-agency.netlify.app/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://itwiz-agency.netlify.app/privacy-fr.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://itwiz-agency.netlify.app/privacy-ar.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://itwiz-agency.netlify.app/privacy.html"/>
+  </url>
+  <url>
+    <loc>https://itwiz-agency.netlify.app/privacy-fr.html</loc>
+    <lastmod>2026-11-07</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://itwiz-agency.netlify.app/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://itwiz-agency.netlify.app/privacy-fr.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://itwiz-agency.netlify.app/privacy-ar.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://itwiz-agency.netlify.app/privacy.html"/>
+  </url>
+  <url>
+    <loc>https://itwiz-agency.netlify.app/privacy-ar.html</loc>
+    <lastmod>2026-11-07</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://itwiz-agency.netlify.app/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://itwiz-agency.netlify.app/privacy-fr.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://itwiz-agency.netlify.app/privacy-ar.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://itwiz-agency.netlify.app/privacy.html"/>
+  </url>
+</urlset>

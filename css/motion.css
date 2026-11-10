@@ -1,0 +1,379 @@
+/* ============================================================
+   ITWIZ — motion layer
+   ------------------------------------------------------------
+   Consumes the CSS custom properties published by StringTune
+   (js/string-tune.bundle.js) and coordinates with the reveal
+   observer in js/main.js (.reveal-item / .is-in / --reveal-delay).
+
+   Contract with StringTune:
+     --progress            <number> 0..1   (StringProgress)
+     --word-index          <number>        (StringSplit)
+     --parallax            (inline transform written by StringParallax)
+     --tilt-x / --tilt-y   <number> deg    (StringTilt)
+     --magnetic-x / -y     <number> px     (StringMagnetic)
+     --spotlight-angle     <number> deg    (StringSpotlight)
+     --spotlight-distance  <number>        (StringSpotlight)
+
+   This file loads last so it can refine earlier rules without
+   editing them. Keep every reduced-motion end-state here.
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   G1 — split headings
+   Words rise in on the same trigger as their container's reveal,
+   so the container and the words never animate on two clocks.
+   ------------------------------------------------------------ */
+.section-head:not(.method__head) h2 .-s-word,
+.contact-title .-s-word{
+  display:inline-block;
+  opacity:0;
+  transform:translateY(0.6em);
+  transition:opacity .6s ease, transform .7s cubic-bezier(.22,1,.36,1);
+  transition-delay:calc(var(--word-index, 0) * 0.055s);
+}
+.section-head:not(.method__head).is-in h2 .-s-word,
+.contact-title.is-in .-s-word{
+  opacity:1;
+  transform:none;
+}
+
+/* The split heading already carries the motion — drop the container's
+   own 22px rise so the two never stack (rule kept separate: an invalid
+   :has() would otherwise void the selectors above). */
+.section-head:has(h2.-splitted),
+.contact-title:has(.-s-word){
+  transform:none !important;
+}
+
+/* ------------------------------------------------------------
+   G4 — scroll-direction micro-motion
+   StringTune stamps -scroll-forward / -scroll-backward on <html>.
+   ------------------------------------------------------------ */
+.section-head h2{
+  transition:transform .5s cubic-bezier(.2,.8,.2,1);
+}
+html.-scroll-forward .section-head h2{ transform:translateY(2px); }
+html.-scroll-backward .section-head h2{ transform:translateY(-2px); }
+
+/* ============================================================
+   HERO
+   ============================================================ */
+
+/* H1 — layer parallax. StringParallax writes `transform` inline on the
+   element itself, so these rules must not declare transform here. */
+.realm-hero__stars{ will-change:transform; }
+.realm-hero__copy{ will-change:transform; }
+
+/* Hero copy stays fully opaque — no fade-out on scroll. */
+.realm-scroll-cue{
+  opacity:calc(1 - var(--progress, 0) * 3);
+}
+
+
+
+/* ============================================================
+   G3 — cursor spotlight (fixed light following the pointer)
+   ============================================================ */
+.cursor-glow{
+  position:fixed;
+  inset:0;
+  z-index:3;
+  pointer-events:none;
+  overflow:hidden;
+}
+.cursor-glow::before{
+  content:"";
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:min(52vmin, 460px);
+  aspect-ratio:1;
+  translate:-50% -50%;
+  transform:
+    rotate(calc(var(--spotlight-angle, 0) * -1deg))
+    translateX(calc(var(--spotlight-distance, 0) * 1px))
+    rotate(calc(var(--spotlight-angle, 0) * 1deg));
+  background:radial-gradient(circle,
+    rgba(0,212,255,0.10),
+    rgba(124,58,237,0.07) 42%,
+    transparent 70%);
+}
+
+/* ============================================================
+   SERVICES
+   ============================================================ */
+
+/* S1 — staggered depth entry (driven by --reveal-delay from main.js) */
+.services-grid{ perspective:1200px; }
+
+.service-card{ opacity:0; }
+.service-card.is-in{
+  opacity:1;
+  animation:serviceIn .85s cubic-bezier(.2,.8,.2,1) backwards;
+  animation-delay:var(--reveal-delay, 0s);
+}
+@keyframes serviceIn{
+  from{ opacity:0; translate:0 46px; scale:0.96; }
+  to  { opacity:1; translate:0 0;    scale:1; }
+}
+
+/* S2 — card tilt. `transform` is reserved for the tilt angles; the hover
+   lift moves to the independent `translate` property so the two never
+   fight over the same declaration. */
+.service-card,
+.service-card:hover,
+.service-card:focus-visible{
+  transform:
+    rotateX(calc(var(--tilt-x, 0) * 1deg))
+    rotateY(calc(var(--tilt-y, 0) * 1deg));
+}
+.service-card{
+  translate:0 var(--lift, 0px);
+  transition:border-color .25s ease, box-shadow .25s ease, background .25s ease,
+             translate .3s cubic-bezier(.2,.8,.2,1);
+}
+.service-card:hover,
+.service-card:focus-visible{ --lift:-4px; }
+
+/* S3 — magnetic CTA inside the fullscreen experience */
+.experience-cta,
+.experience-cta:hover{
+  transform:translate(calc(var(--magnetic-x, 0) * 1px), calc(var(--magnetic-y, 0) * 1px));
+}
+.experience-cta{
+  translate:0 var(--mag-lift, 0px);
+  transition:translate .3s cubic-bezier(.2,.8,.2,1),
+             transform .1s linear,
+             box-shadow .25s ease;
+}
+.experience-cta:hover{ --mag-lift:-3px; }
+
+/* ============================================================
+   G2 — magnetic buttons
+   ============================================================ */
+.realm-button,
+.realm-button:hover,
+.btn--cta,
+.btn--cta:hover{
+  transform:translate(calc(var(--magnetic-x, 0) * 1px), calc(var(--magnetic-y, 0) * 1px));
+}
+.realm-button,
+.btn--cta{
+  translate:0 var(--mag-lift, 0px);
+}
+.realm-button{
+  transition:translate .3s cubic-bezier(.2,.8,.2,1),
+             border-color .25s ease, background .25s ease, box-shadow .25s ease;
+}
+.realm-button:hover{ --mag-lift:-3px; }
+.btn--cta{
+  transition:translate .3s cubic-bezier(.2,.8,.2,1),
+             transform .4s ease, opacity .5s ease, box-shadow .35s;
+}
+.btn--cta:hover{ --mag-lift:-2px; }
+
+/* Contact links — magnetic pull from the cursor (StringMagnetic publishes
+   --magnetic-x/y; translate is the lift axis, so they never fight). */
+.reveal-link,
+.reveal-link:hover{
+  transform:translate(calc(var(--magnetic-x, 0) * 1px), calc(var(--magnetic-y, 0) * 1px));
+}
+.reveal-link{
+  transition:transform .18s linear, border-color .25s ease, background .25s ease;
+}
+
+/* ============================================================
+   MASCOT — scroll-velocity squash & stretch (StringGlide)
+   ============================================================ */
+.mascot{
+  transform-origin:50% 78%;
+  scale:calc(1 - var(--glide, 0) * 0.012)
+        calc(1 + var(--glide, 0) * 0.02);
+}
+
+/* ============================================================
+   WORK
+   ============================================================ */
+
+/* W1 — inner-image parallax. Give the frame something to travel through
+   and let StringParallax write the transform on the image itself. */
+.card__img-wrap{ overflow:hidden; }
+.card__img-full{
+  inset:auto 0 auto 0;
+  top:-13%;
+  width:100%;
+  height:126%;
+  will-change:transform;
+}
+
+/* W2 — split project titles (front face) share the G1 word cascade */
+.card__face--front h3 .-s-word{
+  display:inline-block;
+  opacity:0;
+  transform:translateY(0.55em);
+  transition:opacity .55s ease, transform .65s cubic-bezier(.22,1,.36,1);
+  transition-delay:calc(var(--word-index, 0) * 0.05s);
+}
+.project.is-in .card__face--front h3 .-s-word{
+  opacity:1;
+  transform:none;
+}
+
+/* ============================================================
+   METHOD — M1: the eyebrow types itself in on scroll progress
+   ============================================================ */
+.method__eyebrow .-s-word{
+  opacity:clamp(0, calc((var(--progress, 0) - 0.004) * 55 - var(--word-index, 0)), 1);
+}
+
+/* ============================================================
+   CONTACT
+   ============================================================ */
+
+/* C1 — the divider draws itself like a struck light beam */
+.contact-divider{ opacity:0; }
+.contact-divider.is-in{
+  opacity:1;
+  animation:beamDraw 1.05s cubic-bezier(.2,.8,.2,1) backwards;
+}
+@keyframes beamDraw{
+  from{ clip-path:inset(0 50% 0 50%); opacity:0; }
+  35% { opacity:1; }
+  to  { clip-path:inset(0 0 0 0);     opacity:1; }
+}
+
+/* C3 — staggered form entry (the links are staggered from main.js) */
+.reveal-panel .reveal-lead{
+  opacity:0;
+  translate:0 10px;
+  transition:opacity .5s ease, translate .5s ease;
+}
+.reveal-panel.is-visible .reveal-lead{
+  opacity:1;
+  translate:0 0;
+  transition-delay:.1s;
+}
+
+/* C2 — marquee band */
+.marquee-band{
+  width:100%;
+  max-width:1180px;
+  margin-top:3rem;
+  padding:0.85rem 0;
+  overflow:hidden;
+  color:var(--ink-soft);
+  font-family:var(--font-mono);
+  font-size:0.7rem;
+  letter-spacing:0.24em;
+  text-transform:uppercase;
+  border-block:1px solid rgba(0,212,255,0.14);
+  -webkit-mask-image:linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+  mask-image:linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+}
+.marquee-band__text{
+  display:inline-block;
+  white-space:nowrap;
+  padding-inline-end:2.5rem;
+}
+[dir="rtl"] .marquee-band__text{ letter-spacing:0.16em; }
+
+/* C4 — circular-text footer sigil
+   The module owns the box (it writes position/size inline); only the
+   type treatment lives here. */
+.footer-sigil{
+  color:var(--cyan);
+  font-family:var(--font-mono);
+  font-size:0.58rem;
+  font-weight:600;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+}
+/* Hide the raw characters until the circular layout writes its own
+   position + `visibility:visible`, so the string never flashes in a line. */
+.footer-sigil.-splitted .-s-char{ visibility:hidden; }
+.site-footer{ align-items:center; gap:1rem; }
+
+/* ============================================================
+   Reduced motion — settle every effect at its end state
+   ============================================================ */
+@media (prefers-reduced-motion:reduce){
+  .section-head:not(.method__head) h2 .-s-word,
+  .contact-title .-s-word,
+  .card__face--front h3 .-s-word,
+  .method__eyebrow .-s-word{
+    opacity:1 !important;
+    transform:none !important;
+    transition:none !important;
+  }
+  .section-head h2{
+    transform:none !important;
+    transition:none !important;
+  }
+  .service-card{
+    opacity:1 !important;
+    animation:none !important;
+    translate:none !important;
+    scale:none !important;
+  }
+  .contact-divider.is-in{
+    animation:none !important;
+    clip-path:none !important;
+    opacity:1 !important;
+  }
+  .reveal-panel .reveal-lead{
+    opacity:1 !important;
+    translate:none !important;
+    transition:none !important;
+  }
+  .realm-hero__copy,
+  .realm-scroll-cue{
+    opacity:1 !important;
+    translate:none !important;
+    scale:none !important;
+  }
+  /* StringParallax writes its inline transform unconditionally — null it
+     here or the ambient layers keep drifting for reduced-motion users. */
+  .realm-hero__stars,
+  .realm-hero__copy,
+  .card__img-full{
+    transform:none !important;
+  }
+  /* StringMarquee has no reduced-motion switch of its own; freeze the
+     track at its start position (text stays readable, nothing slides). */
+  .marquee-band [data-string-marquee-track]{
+    transform:none !important;
+  }
+  .cursor-glow{
+    display:none !important;
+  }
+  /* Scroll-velocity stretch is motion too. */
+  .mascot{
+    scale:none !important;
+  }
+  /* CSS-only shooting stars — freeze for reduced-motion users. */
+  .meteors{ display:none !important; }
+}
+
+/* ============================================================
+   Shooting stars — pure CSS, no JS, GPU-only (transform/opacity).
+   Eight staggered streaks so they never feel metronomic.
+   Scoped to the hero: the div sits at the top of the document,
+   so absolute positioning pins it to the first viewport instead
+   of layering a promoted fixed layer over the whole page.
+   ============================================================ */
+.meteors{
+  position:absolute; top:0; left:0; right:0; height:100svh; z-index:1;
+  pointer-events:none; overflow:hidden;
+}
+.meteor{
+  position:absolute; width:150px; height:2px; border-radius:1px;
+  opacity:0;
+  background:linear-gradient(to right, rgba(255,255,255,0) 0%, #a78bfa 35%, #fff 55%, rgba(255,255,255,0) 100%);
+  box-shadow:0 0 6px #fff, 0 0 12px rgba(167,139,250,0.6);
+  animation:meteorFly var(--dur) var(--delay) linear infinite;
+}
+@keyframes meteorFly{
+  0%{ transform:translate(112vw,-12vh) rotate(34deg); opacity:0; }
+  12%, 88%{ opacity:1; }
+  100%{ transform:translate(-12vw,112vh) rotate(34deg); opacity:0; }
+}

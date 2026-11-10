@@ -1,0 +1,557 @@
+/* =========================================================
+   WORK — the notebook (horizontal: spine along the TOP)
+   StringProgress publishes --progress on .work__track (bound
+   with `string="progress"`; the module instance is already
+   configured with precision:3). Pure CSS maps windows of that
+   progress to each page's rotateX around the top spine —
+   native scroll untouched, no per-frame JS.
+
+   Geometry: the book is a top/bottom spread. Un-turned pages
+   sit in the BOTTOM half (origin = their top edge, the center
+   spine); turning lifts the page toward the viewer and lands
+   it in the TOP half, where the turned pile grows. The end
+   cover is the book's base in the BOTTOM half, revealed only
+   once the last page (page 6) has turned away.
+   translateZ offsets (applied in each page's local frame,
+   which flips across the spine at 180°) keep the pile order
+   right at both ends: start p1(+6px) on top of p2(+5px) >
+   p3(+4px) > p4(+3px) > p5(+2px) > p6(+1px) → card 1 faces you; turned p1 lands -6px behind,
+   p6 at -1px → the LAST turned page ends closest to the
+   viewer, newest on top of the pile, like a real notepad.
+   Each page's inner card keeps its hover front/back flip —
+   that transform lives on .project inside .scene, untouched.
+
+   Mobile (≤900px) and reduced motion fall back to today's
+   plain stacked layout.
+   ========================================================= */
+
+.work__track{
+  height:360vh;
+}
+.work__sticky{
+  position:sticky;
+  top:0;
+  min-height:100vh;
+  display:grid;
+  place-items:center;
+  /* clear the fixed navbar */
+  padding:84px 0 28px;
+}
+
+.book{
+  position:relative;
+  width:min(620px, 92vw);
+  height:min(90vh, 760px);
+  perspective:2400px;
+  transform-style:preserve-3d;
+}
+
+/* spine glow across the middle of the spread */
+.book::before{
+  content:'';
+  position:absolute;
+  left:-12px; right:-12px;
+  top:50%;
+  height:2px;
+  transform:translateY(-50%);
+  background:linear-gradient(90deg, transparent, rgba(0,212,255,.5) 25%, rgba(0,212,255,.5) 75%, transparent);
+  box-shadow:0 0 18px rgba(0,212,255,.35);
+  border-radius:1px;
+  z-index:2;
+  pointer-events:none;
+}
+/* floor shadow under the book */
+.book::after{
+  content:'';
+  position:absolute;
+  inset:auto 4% -18px 4%;
+  height:16px;
+  background:radial-gradient(ellipse at center, rgba(0,0,0,.55), transparent 72%);
+  filter:blur(4px);
+  z-index:-1;
+  pointer-events:none;
+}
+
+/* ---------- turn order: welcome, then six project pages ---------- */
+.book__page{
+  position:absolute;
+  left:0; right:0;
+  top:50%; bottom:0;
+  transform-origin:center top;
+  transform-style:preserve-3d;
+  border-radius:0 0 24px 24px;
+}
+.book__page--welcome{
+  transform:rotateX(calc(180deg * clamp(0, (var(--progress) - 0.05) / 0.11, 1)))
+            translateZ(7px);
+}
+.book__page--1{
+  transform:rotateX(calc(180deg * clamp(0, (var(--progress) - 0.18) / 0.11, 1)))
+            translateZ(6px);
+}
+.book__page--2{
+  transform:rotateX(calc(180deg * clamp(0, (var(--progress) - 0.31) / 0.11, 1)))
+            translateZ(5px);
+}
+.book__page--3{
+  transform:rotateX(calc(180deg * clamp(0, (var(--progress) - 0.44) / 0.11, 1)))
+            translateZ(4px);
+}
+.book__page--4{
+  transform:rotateX(calc(180deg * clamp(0, (var(--progress) - 0.57) / 0.11, 1)))
+            translateZ(3px);
+}
+.book__page--5{
+  transform:rotateX(calc(180deg * clamp(0, (var(--progress) - 0.70) / 0.11, 1)))
+            translateZ(2px);
+}
+.book__page--6{
+  transform:rotateX(calc(180deg * clamp(0, (var(--progress) - 0.83) / 0.11, 1)))
+            translateZ(1px);
+}
+
+/* the card fills the page; hide its content once the page has
+   turned past 90° (the paper back below takes over).
+   Pages are landscape, so the screenshot crops instead of
+   squeezing: the image area flexes, the title stays whole. */
+.book__page .scene{
+  position:absolute;
+  inset:0;
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
+  border-radius:inherit;
+  background:linear-gradient(180deg, #0c1a26, #08101a);
+}
+.book__page .project{
+  height:100%;
+  border-radius:0 0 24px 24px;
+}
+.book__page .card__face{
+  overflow:hidden;
+}
+/* photos live ONLY on the top half (the turned page backs) — the front
+   faces are glass title cards, so exactly one photo is ever visible.
+   The screenshot markup stays for the mobile stacked fallback. */
+.book__page .card__img-wrap{
+  display:none;
+}
+/* the page backs catch the pointer too, so a page lying on the pile
+   can't start flipping its card underneath; the photo is opened
+   through .shot-hotspot (see below) */
+.book__page-back{
+  cursor:default;
+}
+
+/* the fronts are now title cards — center the title and badge it */
+.book__page .card__face--front{
+  justify-content:center;
+  align-items:center;
+}
+.book__page .card__face--front h3{
+  font-size:clamp(1.35rem, 2vw, 1.9rem);
+  max-width:18ch;
+  text-align:center;
+}
+.book__page .card__face--front::before{
+  font:600 .6rem/1 var(--font-mono, monospace);
+  letter-spacing:.3em;
+  color:rgba(0,229,255,.8);
+  text-shadow:0 0 12px rgba(0,229,255,.35);
+}
+.book__page .project[data-card="maitrisez"] .card__face--front::before{ content:'01'; }
+.book__page .project[data-card="driving"] .card__face--front::before{ content:'02'; }
+.book__page .project[data-card="dental"] .card__face--front::before{ content:'03'; }
+.book__page .project[data-card="checklist"] .card__face--front::before{ content:'04'; }
+.book__page .project[data-card="hub"] .card__face--front::before{ content:'05'; }
+.book__page .project[data-card="inventory"] .card__face--front::before{ content:'06'; }
+.book__page .card__face--back{
+  overflow:hidden;
+}
+/* cyan identity: tint the card faces away from the default navy/violet */
+.book__page .card__face{
+  border-color:rgba(0,212,255,.28);
+}
+.book__page .card__face--front{
+  background:linear-gradient(180deg, #0c1a26, #0a1420);
+}
+.book__page .card__face--back{
+  background:linear-gradient(135deg, #0c1a26, #091820);
+  border-color:rgba(0,212,255,.34);
+}
+.book__page .card__img-full{
+  object-fit:cover;
+  /* show the top of the picture — the app's header / hero stays visible */
+  object-position:center top;
+}
+
+/* ruled "paper" back of every page — what you see during and after
+   the lift. The picture is pinned to the top of the page like a
+   photo taped into a sketchbook; the title captions it. */
+.book__page-back{
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  transform:rotateX(180deg);
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
+  overflow:hidden;
+  background:
+    /* ruled lines */
+    repeating-linear-gradient(0deg, transparent 0 26px, rgba(0,229,255,.06) 26px 27px),
+    /* cyan sheen */
+    radial-gradient(circle at 72% 70%, rgba(0,212,255,.10), transparent 55%),
+    /* paper base */
+    linear-gradient(200deg, #0e1c28, #08121c 78%);
+  box-shadow:inset 0 26px 30px -26px rgba(0,0,0,.9);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:44px 24px 32px;
+}
+.book__page-back figure{
+  margin:0;
+  width:min(72%, 300px);
+  text-align:center;
+  transform:translateY(-8px);
+}
+.book__page-back img{
+  display:block;
+  width:100%;
+  height:auto;
+  aspect-ratio:16/9;
+  object-fit:cover;
+  object-position:center top;
+  border-radius:10px;
+  border:1px solid rgba(0,229,255,.25);
+  box-shadow:0 16px 30px -18px rgba(0,0,0,.85);
+}
+.book__page-back figcaption{
+  margin-top:10px;
+  font:500 .58rem/1.5 var(--font-mono, monospace);
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:rgba(0,229,255,.75);
+}
+
+/* The turned page backs carry their own rotateX(180deg) and are painted
+   but dropped from hit-testing by Chrome, so the photo cannot be linked
+   from inside the page. This flat, transparent button sits in the
+   sticky container and is positioned over the landed page's photo
+   (inset/width/height written by JS when the active page changes). */
+.shot-hotspot{
+  position:absolute;
+  z-index:6;
+  padding:0;
+  border:0;
+  background:transparent;
+  cursor:zoom-in;
+  -webkit-tap-highlight-color:transparent;
+}
+.shot-hotspot:focus-visible{
+  outline:2px solid rgba(0,212,255,.85);
+  outline-offset:3px;
+  border-radius:12px;
+}
+
+/* ---------- fullscreen screenshot viewer ---------- */
+.shot-dialog{
+  margin:auto;
+  padding:0;
+  border:1px solid rgba(0,212,255,.35);
+  border-radius:16px;
+  background:#050a12;
+  box-shadow:0 40px 120px rgba(0,0,0,.8);
+  max-width:min(96vw, 1280px);
+  width:auto;
+}
+.shot-dialog::backdrop{
+  background:rgba(2,4,8,.88);
+}
+.shot-dialog__figure{
+  margin:0;
+  padding:clamp(10px, 2vw, 20px);
+}
+.shot-dialog__img{
+  display:block;
+  max-width:min(92vw, 1240px);
+  max-height:78vh;
+  width:auto;
+  height:auto;
+  margin:0 auto;
+  border-radius:10px;
+  object-fit:contain;
+}
+.shot-dialog__caption{
+  margin:12px auto 0;
+  text-align:center;
+  font:500 .68rem/1.5 var(--font-mono, monospace);
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:rgba(0,229,255,.85);
+  max-width:60ch;
+}
+.shot-dialog__close-form{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  margin:0;
+}
+.shot-dialog__close{
+  position:absolute;
+  top:12px;
+  inset-inline-end:12px;
+  pointer-events:auto;
+  display:inline-flex;
+  align-items:center;
+  min-height:44px;
+  padding:0 16px;
+  border:1px solid rgba(0,212,255,.45);
+  border-radius:999px;
+  background:rgba(5,10,18,.85);
+  color:#eaf6ff;
+  font:600 .72rem/1 var(--font-mono, monospace);
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  cursor:pointer;
+}
+.shot-dialog__close:hover{ border-color:rgba(0,212,255,.9); }
+.shot-dialog__close:focus-visible{
+  outline:2px solid rgba(0,212,255,.85);
+  outline-offset:2px;
+}
+@media (prefers-reduced-motion:reduce){
+  .shot-dialog{ animation:none; }
+  .shot-dialog::backdrop{ animation:none; }
+}
+
+/* ---------- front cover: fills the top half until the first page
+   turns up into its spot — during the welcome turn it recedes
+   (sinks back) and fades out, then the flipped pages own that half ---------- */
+.book__cover-start{
+  position:absolute;
+  left:0; right:0;
+  top:0; bottom:50%;
+  border-radius:24px 24px 0 0;
+  border:1px solid rgba(0,212,255,.22);
+  border-bottom:none;
+  background:
+    radial-gradient(circle at 50% 100%, rgba(0,212,255,.12), transparent 62%),
+    linear-gradient(0deg, #0c1a26, #08121c 78%);
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  gap:.9rem;
+  text-align:center;
+  padding:clamp(1.2rem, 4vw, 2.4rem);
+  opacity:calc(1 - clamp(0, (var(--progress) - 0.05) / 0.11, 1));
+  transform:translateZ(calc(-46px * clamp(0, (var(--progress) - 0.05) / 0.11, 1)));
+  pointer-events:none;
+}
+.book__cover-eyebrow{
+  font:600 .6rem/1 var(--font-mono, monospace);
+  letter-spacing:.34em;
+  text-transform:uppercase;
+  color:#9fb4d8;
+}
+.book__cover-big{
+  font-size:clamp(1.35rem, 2.4vw, 2rem);
+  font-weight:600;
+  letter-spacing:-.01em;
+  max-width:18ch;
+  background:linear-gradient(100deg, #eaf6ff, #6fe3ff);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+.book__cover-count{
+  font:600 .62rem/1 var(--font-mono, monospace);
+  letter-spacing:.32em;
+  color:rgba(0,229,255,.85);
+  text-shadow:0 0 14px rgba(0,229,255,.35);
+}
+
+/* ---------- welcome page (first flip of the notebook) ---------- */
+.book__welcome{
+  position:absolute;
+  inset:0;
+  border-radius:0 0 24px 24px;
+  border:1px solid rgba(0,212,255,.22);
+  border-top:none;
+  background:
+    radial-gradient(circle at 50% 26%, rgba(0,212,255,.09), transparent 58%),
+    linear-gradient(180deg, #0d1322, #0a0e1a 76%);
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  gap:1rem;
+  text-align:center;
+  padding:clamp(1.2rem, 4vw, 2.6rem);
+}
+.book__welcome h3{
+  font-size:clamp(1.3rem, 2.4vw, 2rem);
+  font-weight:600;
+  letter-spacing:-.01em;
+  max-width:16ch;
+}
+.book__welcome-eyebrow{
+  font:600 .6rem/1 var(--font-mono, monospace);
+  letter-spacing:.34em;
+  color:var(--cyan, #00d4ff);
+  text-shadow:0 0 14px rgba(0,212,255,.4);
+}
+.book__welcome-hint{
+  font:500 .62rem/1 var(--font-mono, monospace);
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:#9fb4d8;
+  animation:book-hint 2.4s ease-in-out infinite;
+}
+@keyframes book-hint{
+  0%,100%{ opacity:.55; transform:translateY(0); }
+  50%{ opacity:1; transform:translateY(5px); }
+}
+
+/* ---------- end cover: the book's base, bottom half ---------- */
+.book__cover-end{
+  position:absolute;
+  top:50%; bottom:0; left:0; right:0;
+  border-radius:0 0 24px 24px;
+  border:1px solid rgba(0,212,255,.3);
+  border-top:none;
+  background:
+    radial-gradient(circle at 30% 70%, rgba(0,212,255,.14), transparent 60%),
+    linear-gradient(200deg, #0c1a26, #08121c 72%);
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  gap:1rem;
+  text-align:center;
+  padding:clamp(1rem, 3vw, 2rem);
+  z-index:0;
+}
+.book__cover-end h3{
+  font-size:clamp(1.05rem, 1.7vw, 1.5rem);
+  font-weight:600;
+  letter-spacing:-.01em;
+  max-width:22ch;
+}
+/* don't spoil the ending: the cover's message fades in only once
+   the reader is past the middle of the notebook */
+.book__cover-num,
+.book__cover-end h3,
+.book__cover-end .realm-button{
+  opacity:calc(clamp(0, (var(--progress) - 0.45) * 2.2, 1));
+  transition:opacity .3s linear;
+}
+.book__cover-num{
+  font:600 .62rem/1 var(--font-mono, monospace);
+  letter-spacing:.32em;
+  color:var(--cyan, #00d4ff);
+}
+/* short-but-wide windows: keep the book from touching the navbar */
+@media (max-height:680px){
+  .book{ height:min(86vh, 760px); }
+}
+
+/* =========================================================
+   NOTEBOOK ON PHONES TOO — the pinned turn works at every width;
+   sizes are clamped so phones get a small notebook. The plain
+   stacked layout below is reduced-motion only.
+   ========================================================= */
+@media (max-width:520px){
+  .book{
+    width:min(400px, 96vw);
+    border-radius:0 0 20px 20px;
+  }
+  .book::before{
+    left:-6px; right:-6px;
+  }
+  .book__welcome,
+  .book__cover-end,
+  .book__cover-start,
+  .book__page .card__face--front,
+  .book__page .card__face--back{
+    padding:1.1rem 1rem;
+  }
+  .book__page .project,
+  .book__page-back,
+  .book__welcome,
+  .book__cover-end,
+  .book__cover-start{
+    border-radius:0 0 20px 20px;
+  }
+  .book__cover-start{
+    border-radius:20px 20px 0 0;
+  }
+}
+
+/* =========================================================
+   REDUCED MOTION — plain stacked list, nothing turns
+   ========================================================= */
+@media (prefers-reduced-motion:reduce){
+  .work__track{ height:auto; }
+  .work__sticky{
+    position:static;
+    min-height:0;
+    display:block;
+    padding:0;
+  }
+  .book__cover-num,
+  .book__cover-end h3,
+  .book__cover-end .realm-button{ opacity:1 !important; }
+  .book{
+    width:100%;
+    height:auto;
+    perspective:none;
+    transform-style:flat;
+  }
+  .book::before,
+  .book::after,
+  .book__page::after,
+  .book__page-back{ display:none; }
+  .book__page{
+    position:static;
+    transform:none !important;
+    transform-style:flat;
+    border-radius:0;
+    margin-bottom:1.6rem;
+  }
+  .book__page .scene{
+    position:static;
+    backface-visibility:visible;
+    -webkit-backface-visibility:visible;
+    background:none;
+  }
+  .book__page .project{
+    height:auto;
+    border-radius:24px;
+  }
+  .book__page .card__img-wrap{
+    display:block;
+    flex:none;
+    aspect-ratio:16/9;
+  }
+  .book__welcome{
+    position:static;
+    border-radius:24px;
+    margin-bottom:1.6rem;
+  }
+  .book__welcome-hint{ animation:none; }
+  .book__cover-start{
+    position:static;
+    transform:none !important;
+    opacity:1 !important;
+    border-radius:24px;
+    border-bottom:1px solid rgba(0,212,255,.22);
+    margin-bottom:1.6rem;
+  }
+  .book__cover-end{
+    position:static;
+    border-radius:24px;
+    border-top:1px solid rgba(0,212,255,.3);
+    margin-top:.4rem;
+  }
+}

@@ -3,32 +3,97 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark">
+<script>
+/* swarm boot veil — cover the page before its first paint so
+   the hero is never seen finished; js/swarm.js takes over and
+   removes the class inside start(). Reduced-motion visitors and
+   Save-Data users skip the class and see the page normally. */
+;(function () {
+  try {
+    var rm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var sd = navigator.connection && navigator.connection.saveData;
+    if (!rm && !sd) document.documentElement.classList.add('swarm-boot');
+  } catch (e) { /* any doubt: show the page normally */ }
+})();
+</script>
+<style>
+  html.swarm-boot .realm-hero__inner,
+  html.swarm-boot .realm-scroll-cue { visibility: hidden; opacity: 0; transition: none; }
+  html.swarm-boot #scene3d { visibility: hidden !important; }
+  html.swarm-boot body:not(.swarm-live) { background: #000; }
+</style>
 <title>ITwiz — Code Magic into Reality</title>
 <meta name="description" content="ITwiz — engineering high-performance software, custom platforms, and seamless real-time architectures.">
-<meta name="theme-color" content="#06080f">
+<meta name="theme-color" content="#000000">
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 <link rel="preload" as="image" href="assets/logo.svg" fetchpriority="high">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://itwiz-agency.netlify.app">
 <meta property="og:title" content="ITwiz — Code Magic into Reality">
 <meta property="og:description" content="ITwiz — engineering high-performance software, custom platforms, and seamless real-time architectures.">
-<meta property="og:image" content="https://itwiz-agency.netlify.app/assets/logo.svg">
-<meta name="twitter:card" content="summary">
+<meta property="og:site_name" content="ITwiz">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="fr_FR">
+<meta property="og:locale:alternate" content="ar">
+<meta property="og:image" content="https://itwiz-agency.netlify.app/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:alt" content="ITwiz — Code Magic into Reality">
+<link rel="canonical" href="https://itwiz-agency.netlify.app/">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/icon-192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="assets/icon-512.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "ITwiz",
+  "url": "https://itwiz-agency.netlify.app/",
+  "logo": "https://itwiz-agency.netlify.app/assets/logo.svg",
+  "description": "ITwiz — engineering high-performance software, custom platforms, and seamless real-time architectures.",
+  "slogan": "Code Magic into Reality",
+  "email": "youyounfissi16@gmail.com",
+  "telephone": "+213773247989"
+}
+</script>
+<meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="ITwiz — Code Magic into Reality">
 <meta name="twitter:description" content="ITwiz — engineering high-performance software, custom platforms, and seamless real-time architectures.">
-<meta name="twitter:image" content="https://itwiz-agency.netlify.app/assets/logo.svg">
+<meta name="twitter:image" content="https://itwiz-agency.netlify.app/assets/og-image.png">
+<meta name="twitter:image:alt" content="ITwiz — Code Magic into Reality">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 <noscript><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet"></noscript>
-<link rel="stylesheet" href="css/styles.css?v=2">
+<link rel="stylesheet" href="css/styles.css?v=14">
+<link rel="stylesheet" href="css/work-book.css?v=18">
+<link rel="stylesheet" href="css/realm-hero.css?v=10">
+<link rel="stylesheet" href="css/services-immersive.css?v=2">
+<link rel="stylesheet" href="css/method.css?v=4">
+<link rel="stylesheet" href="css/motion.css?v=10">
+<link rel="stylesheet" href="css/swarm.css?v=2">
 </head>
 <body>
 
+<a class="skip-link" href="#main" data-i18n="skip">Skip to content</a>
+
 <!-- ambient background threads -->
-<div class="bg-glow" aria-hidden="true"><span class="bg-glow__blob"></span></div>
-<div class="aurora-bg" aria-hidden="true"></div>
 <div class="css-particles" aria-hidden="true"></div>
+
+<!-- shooting stars -->
+<div class="meteors" aria-hidden="true">
+  <i class="meteor" style="top:6%; left:8%; --dur:11s; --delay:0s"></i>
+  <i class="meteor" style="top:14%; left:62%; --dur:14s; --delay:2.2s"></i>
+  <i class="meteor" style="top:22%; left:18%; --dur:16s; --delay:4.5s"></i>
+  <i class="meteor" style="top:8%; left:84%; --dur:12s; --delay:6.8s"></i>
+  <i class="meteor" style="top:30%; left:36%; --dur:13s; --delay:9.1s"></i>
+  <i class="meteor" style="top:4%; left:48%; --dur:15s; --delay:11.4s"></i>
+  <i class="meteor" style="top:36%; left:72%; --dur:10s; --delay:13.7s"></i>
+  <i class="meteor" style="top:12%; left:5%; --dur:17s; --delay:1s"></i>
+</div>
 
 <!-- scroll progress -->
 <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
@@ -46,6 +111,8 @@
       <li><a href="#hero" class="navbar__link" data-section="hero" data-i18n="nav.home">Home</a></li>
       <li><a href="#services" class="navbar__link" data-section="services" data-i18n="nav.services">Services</a></li>
       <li><a href="#work" class="navbar__link" data-section="work" data-i18n="nav.work">Work</a></li>
+      <li><a href="#about" class="navbar__link" data-section="about" data-i18n="nav.about">About</a></li>
+      <li><a href="#method" class="navbar__link" data-section="method" data-i18n="nav.method">Method</a></li>
       <li><a href="#contact" class="navbar__link" data-section="contact" data-i18n="nav.contact">Contact</a></li>
     </ul>
     <div class="lang-switcher">
@@ -56,98 +123,92 @@
   </div>
 </nav>
 
-<main>
+<main id="main" tabindex="-1">
 <!-- ============ HERO ============ -->
-<section id="hero" class="page page--hero">
-  <div class="hero__inner">
-    <div class="hero__left">
-      <div class="hero__brand">
-        <img src="assets/logo.svg" class="hero__logo" alt="IT WIZ" width="1536" height="1024" fetchpriority="high" decoding="async">
+<section id="hero" class="page page--hero realm-hero" string="progress">
+  <div class="realm-hero__mist" aria-hidden="true"></div>
+  <div class="realm-hero__stars" aria-hidden="true" string="parallax[]" parallax="0.14"></div>
+  <div class="realm-hero__inner">
+    <div class="realm-hero__copy">
+      <!-- NOTE: no [parallax] token here on purpose — StringParallax publishes its
+           own --progress on the element it drives, which would shadow the #hero
+           exit progress the CSS reads (hero copy vanished after a scroll round
+           trip). The exit translate below already carries the depth. -->
+      <div class="realm-kicker"><span class="realm-kicker__sigil">✦</span><span>AN ITWIZ ORIGINAL EXPERIENCE</span></div>
+      <a href="#hero" class="realm-hero__brand" aria-label="ITWIZ home">
+        <img src="assets/logo.svg" class="realm-hero__logo" alt="ITWIZ" width="360" height="120" fetchpriority="high" decoding="async">
+      </a>
+      <h1 class="realm-hero__title" data-i18n="hero.tagline">Software that moves your business forward</h1>
+      <p class="realm-hero__sub" data-i18n="hero.subtitle">We design and build websites, apps and internal tools that cut the busywork - so your team can focus on the work that matters.</p>
+      <div class="realm-hero__actions">
+        <a class="realm-button realm-button--primary" href="#contact" string="magnetic"><span data-i18n="hero.cta">Start your project</span><span aria-hidden="true">↗</span></a>
+        <a class="realm-button realm-button--quiet" href="#services" string="magnetic"><span data-i18n="hero.explore">See our work</span><span aria-hidden="true">↓</span></a>
       </div>
-      <h1 class="hero-tagline neon" data-i18n="hero.tagline">we code magic into reality</h1>
-      <p class="hero-sub" data-i18n="hero.subtitle">We are a creative IT company delivering innovative digital solutions that drive growth, efficiency, and lasting success for businesses worldwide.</p>
-    </div>
-    <div class="hero__right">
-      <div class="hero-stack" aria-hidden="true">
-        <div class="hub-core"><span class="hub-mark">&lt;/&gt;</span></div>
-        <span class="chip chip--n1 chip--lg chip--accent">Next.js</span>
-        <span class="chip chip--n2">React</span>
-        <span class="chip chip--n3 chip--accent">AI / ML</span>
-        <span class="chip chip--n4">C/C++</span>
-        <span class="chip chip--n5">Go</span>
-        <span class="chip chip--n6 chip--lg chip--accent">Security</span>
-        <span class="chip chip--n7">Node.js</span>
-        <span class="chip chip--n8 chip--accent">MongoDB</span>
-      </div>
+      <div class="realm-hero__footnote"><span class="realm-live-dot"></span><span>DESIGN · ENGINEERING · INTELLIGENCE</span></div>
     </div>
   </div>
+  <a class="realm-scroll-cue" href="#services" aria-label="Scroll to explore services"><span>DESCEND INTO THE REALM</span><i aria-hidden="true"></i></a>
 </section>
 
 <!-- ============ PAGE 3 — SERVICES ============ -->
-<section id="services" class="page page--services">
-  <header class="section-head">
-    <h2 data-i18n="services.heading">Core Solutions &amp; Capabilities</h2>
+<section id="services" class="page page--services services-realm">
+  <header class="section-head services-heading">
+    <span class="realm-eyebrow" data-i18n="services.eyebrow">ITWIZ / WHAT WE CREATE</span>
+    <h2 string="split" string-split="word" data-i18n="services.heading">What are you searching for?</h2>
+    <p class="services-sub" data-i18n="services.sub">Choose a destination. We&rsquo;ll help you turn your idea into something real.</p>
   </header>
 
-  <div class="grid grid--services">
-    <div class="card" data-card="web" role="button" tabindex="0" aria-expanded="false">
-      <div class="card__head">
-        <div class="card__icon" aria-hidden="true">
-          <svg viewBox="0 0 40 40" fill="none"><rect x="4" y="6" width="32" height="21" rx="3" stroke="currentColor" stroke-width="1.6"/><path d="M14 33h12M20 27v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M11 14l-3 4 3 4M29 14l3 4-3 4M23 12l-6 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
-        <h3 data-i18n="services.web.title">Web &amp; Mobile Engineering</h3>
-      </div>
-      <div class="card__expand">
-        <div class="card__details">
-          <p class="card__desc" data-i18n="services.web.desc">Custom full-stack web platforms, iOS/Android apps, and responsive cross-platform architectures.</p>
-          <p class="card__extra" data-i18n="services.web.extra">From React and Next.js to Flutter and Swift, we build performant, accessible interfaces that scale. Every project follows a mobile-first approach with rigorous cross-browser testing, CI/CD pipelines, and performance budgets baked in from day one.</p>
-        </div>
-      </div>
+  <div class="services-grid" id="servicesGrid">
+    <div class="service-card" string="tilt" data-card="web" data-service="web" role="button" tabindex="0" aria-expanded="false" aria-haspopup="dialog" aria-controls="serviceExperience">
+      <span class="service-number" aria-hidden="true">01</span>
+      <span class="service-icon" aria-hidden="true">
+        <svg viewBox="0 0 40 40" fill="none"><rect x="4" y="6" width="32" height="21" rx="3" stroke="currentColor" stroke-width="1.6"/><path d="M14 33h12M20 27v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M11 14l-3 4 3 4M29 14l3 4-3 4M23 12l-6 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+      <span class="service-card-content">
+        <h3 class="service-title" data-i18n="services.web.title">Web &amp; Mobile Engineering</h3>
+        <span class="service-subtitle" data-i18n="services.web.desc">Custom full-stack web platforms, iOS/Android apps, and responsive cross-platform architectures.</span>
+        <span class="service-examples" data-i18n="services.web.examples">Business websites · Web platforms &amp; portals · Landing pages · iOS &amp; Android apps</span>
+      </span>
+      <span class="service-open" aria-hidden="true">↗</span>
     </div>
 
-    <div class="card" data-card="ai" role="button" tabindex="0" aria-expanded="false">
-      <div class="card__head">
-        <div class="card__icon" aria-hidden="true">
-          <svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="5" stroke="currentColor" stroke-width="1.6"/><path d="M20 4v6M20 30v6M36 20h-6M10 20H4M31 9l-4.2 4.2M13.2 26.8L9 31M31 31l-4.2-4.2M13.2 13.2L9 9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-        </div>
-        <h3 data-i18n="services.ai.title">AI &amp; Intelligent Automation</h3>
-      </div>
-      <div class="card__expand">
-        <div class="card__details">
-          <p class="card__desc" data-i18n="services.ai.desc">Custom AI pipelines, automated audio-to-text microservices, smart workflows, and intelligent data systems.</p>
-          <p class="card__extra" data-i18n="services.ai.extra">We design end-to-end AI systems — from data ingestion and model training to real-time inference at the edge. Whether it's speech recognition, NLP, or predictive analytics, our pipelines are built for reliability, low latency, and cost efficiency.</p>
-        </div>
-      </div>
+    <div class="service-card" string="tilt" data-card="ai" data-service="ai" role="button" tabindex="0" aria-expanded="false" aria-haspopup="dialog" aria-controls="serviceExperience">
+      <span class="service-number" aria-hidden="true">02</span>
+      <span class="service-icon" aria-hidden="true">
+        <svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="5" stroke="currentColor" stroke-width="1.6"/><path d="M20 4v6M20 30v6M36 20h-6M10 20H4M31 9l-4.2 4.2M13.2 26.8L9 31M31 31l-4.2-4.2M13.2 13.2L9 9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </span>
+      <span class="service-card-content">
+        <h3 class="service-title" data-i18n="services.ai.title">AI &amp; Intelligent Automation</h3>
+        <span class="service-subtitle" data-i18n="services.ai.desc">Custom AI pipelines, automated audio-to-text microservices, smart workflows, and intelligent data systems.</span>
+        <span class="service-examples" data-i18n="services.ai.examples">AI pipelines · Audio-to-text services · Smart workflows · Predictive data systems</span>
+      </span>
+      <span class="service-open" aria-hidden="true">↗</span>
     </div>
 
-    <div class="card" data-card="security" role="button" tabindex="0" aria-expanded="false">
-      <div class="card__head">
-        <div class="card__icon" aria-hidden="true">
-          <svg viewBox="0 0 40 40" fill="none"><path d="M20 4l14 6v9c0 9-6 15.5-14 17-8-1.5-14-8-14-17v-9l14-6z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M14.5 20.5l4 4 8-9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
-        <h3 data-i18n="services.security.title">Systems &amp; Security Infrastructure</h3>
-      </div>
-      <div class="card__expand">
-        <div class="card__details">
-          <p class="card__desc" data-i18n="services.security.desc">Content protection, custom digital watermarking, network protocols, and secure data sync.</p>
-          <p class="card__extra" data-i18n="services.security.extra">Our security-first architecture covers everything from dynamic watermarking and DRM to custom encrypted protocols and zero-trust network designs. We build systems that protect intellectual property without compromising user experience.</p>
-        </div>
-      </div>
+    <div class="service-card" string="tilt" data-card="data" data-service="data" role="button" tabindex="0" aria-expanded="false" aria-haspopup="dialog" aria-controls="serviceExperience">
+      <span class="service-number" aria-hidden="true">03</span>
+      <span class="service-icon" aria-hidden="true">
+        <svg viewBox="0 0 40 40" fill="none"><path d="M6 6v28h28" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 25l6-7 5 4 9-12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="32" cy="10" r="1.8" fill="currentColor"/></svg>
+      </span>
+      <span class="service-card-content">
+        <h3 class="service-title" data-i18n="services.data.title">Data Analysis &amp; Reporting</h3>
+        <span class="service-subtitle" data-i18n="services.data.desc">Your numbers, finally answering questions — clean data, clear dashboards, and reports your team actually uses.</span>
+        <span class="service-examples" data-i18n="services.data.examples">Dashboards &amp; KPI reporting · Data cleaning &amp; ETL · SQL analysis · Spreadsheet &amp; CSV automation</span>
+      </span>
+      <span class="service-open" aria-hidden="true">↗</span>
     </div>
 
-    <div class="card" data-card="custom" role="button" tabindex="0" aria-expanded="false">
-      <div class="card__head">
-        <div class="card__icon" aria-hidden="true">
-          <svg viewBox="0 0 40 40" fill="none"><rect x="6" y="9" width="28" height="22" rx="2.5" stroke="currentColor" stroke-width="1.6"/><path d="M6 15h28M13 9v-3M27 9v-3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M12 21h6M12 26h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-        </div>
-        <h3 data-i18n="services.custom.title">Custom Platforms &amp; Portals</h3>
-      </div>
-      <div class="card__expand">
-        <div class="card__details">
-          <p class="card__desc" data-i18n="services.custom.desc">Bespoke management software, practice portals, e-learning environments, and offline-first LAN sync engines.</p>
-          <p class="card__extra" data-i18n="services.custom.extra">Every business has unique workflows. We architect bespoke platforms — from dental clinics and driving schools to enterprise dashboards — with offline-first capabilities, local network sync, and seamless cloud backup when connectivity returns.</p>
-        </div>
-      </div>
+    <div class="service-card" string="tilt" data-card="custom" data-service="custom" role="button" tabindex="0" aria-expanded="false" aria-haspopup="dialog" aria-controls="serviceExperience">
+      <span class="service-number" aria-hidden="true">04</span>
+      <span class="service-icon" aria-hidden="true">
+        <svg viewBox="0 0 40 40" fill="none"><rect x="6" y="9" width="28" height="22" rx="2.5" stroke="currentColor" stroke-width="1.6"/><path d="M6 15h28M13 9v-3M27 9v-3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M12 21h6M12 26h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </span>
+      <span class="service-card-content">
+        <h3 class="service-title" data-i18n="services.custom.title">Custom Platforms &amp; Portals</h3>
+        <span class="service-subtitle" data-i18n="services.custom.desc">Bespoke management software, practice portals, e-learning environments, and offline-first LAN sync engines.</span>
+        <span class="service-examples" data-i18n="services.custom.examples">Management dashboards · Practice &amp; clinic portals · E-learning platforms · Offline-first LAN sync</span>
+      </span>
+      <span class="service-open" aria-hidden="true">↗</span>
     </div>
   </div>
 </section>
@@ -155,99 +216,426 @@
 <!-- ============ PAGE 4 — PROJECTS ============ -->
 <section id="work" class="page page--work">
   <header class="section-head">
-    <h2 data-i18n="work.heading">Featured Projects &amp; Built Systems</h2>
+    <h2 string="split" string-split="word" data-i18n="work.heading">Real projects, shipped and running</h2>
   </header>
 
-  <div class="grid grid--work">
+  <div class="work__track" string="progress">
+    <div class="work__sticky">
+      <!-- Flat click layer for the notebook photos. The turned page backs
+           carry their own rotateX(180deg), and Chrome paints them while
+           excluding them from hit-testing — a link inside them can never
+           be clicked. This button lives outside the 3D pages and is
+           positioned over the currently landed page's photo in JS. -->
+      <button class="shot-hotspot" id="shotHotspot" type="button" hidden></button>
+      <div class="book" role="group" aria-label="Featured projects notebook — scroll to turn the pages">
 
+        <div class="book__cover-end">
+          <span class="book__cover-num" aria-hidden="true">04</span>
+          <h3 data-i18n="work.cover.title">Every system here started as a brief. Want yours next?</h3>
+          <a class="realm-button realm-button--primary" href="#contact" string="magnetic"><span data-i18n="work.cover.cta">Start yours</span><span aria-hidden="true">↗</span></a>
+        </div>
+
+        <div class="book__cover-start">
+          <span class="book__cover-eyebrow" data-i18n="work.front.eyebrow">Selected works</span>
+          <strong class="book__cover-big" data-i18n="work.front.title">Six builds, from brief to launch</strong>
+          <span class="book__cover-count" aria-hidden="true">01 — 06</span>
+        </div>
+
+        <div class="book__page book__page--welcome">
+          <div class="book__welcome">
+            <span class="book__welcome-eyebrow" data-i18n="work.welcome.eyebrow">ITWIZ / PORTFOLIO</span>
+            <h3 data-i18n="work.welcome.title">Welcome to the build notebook</h3>
+            <p class="book__welcome-hint" data-i18n="work.welcome.hint">Scroll to turn the pages</p>
+          </div>
+          <div class="book__page-back" aria-hidden="true">
+            <figure>
+              <img src="images/maitrisez-screenshot.webp" alt="" width="800" height="371">
+            </figure>
+          </div>
+        </div>
+
+        <div class="book__page book__page--1">
     <div class="scene">
-    <article class="project" data-card="maitrisez">
+    <article class="project" data-card="maitrisez" role="group" aria-labelledby="projectTitle-maitrisez">
       <div class="card__face card__face--front">
         <div class="card__img-wrap">
           <img class="card__img-tiny" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA0JCgsKCA0LCgsODg0PEyAVExISEyccHhcgLikxMC4pLSwzOko+MzZGNywtQFdBRkxOUlNSMj5aYVpQYEpRUk//2wBDAQ4ODhMREyYVFSZPNS01T09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0//wAARCAAJABQDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDvbdPKX5GeX2LjjirG7cCGQCsjTfuS/wDXT/GtCL/Wv9TRa2iM4vQJsbhgAcc4orPvv+PyT8P5CinYXOf/2Q==" alt="" aria-hidden="true">
-          <picture><source srcset="images/maitrisez-screenshot.webp" type="image/webp"><img class="card__img-full" src="images/Capture%20d%27%C3%A9cran%202026-07-30%20001205.png" alt="Maîtrisez platform screenshot" width="800" height="371"></picture>
+          <picture><source srcset="images/maitrisez-screenshot.webp" type="image/webp"><img class="card__img-full" string="parallax[]" parallax="0.03" src="images/Capture%20d%27%C3%A9cran%202026-07-30%20001205.png" alt="Maîtrisez platform screenshot" width="800" height="371"></picture>
         </div>
-        <h3 data-i18n="work.maitrisez.title">Maîtrisez — Med-Ed &amp; Vocal Testing Platform</h3>
+        <h3 id="projectTitle-maitrisez" string="split" string-split="word" data-i18n="work.maitrisez.title">Maîtrisez — Medical Exam Prep</h3>
+        <button class="card__details" type="button" data-card-details aria-expanded="false" aria-controls="projectBack-maitrisez" data-i18n="work.details">Details</button>
       </div>
-      <div class="card__face card__face--back">
-        <h3 data-i18n="work.maitrisez.title">Maîtrisez — Med-Ed &amp; Vocal Testing Platform</h3>
-        <p data-i18n="work.maitrisez.back">Built a full-stack medical education platform featuring real-time vocal evaluation and dynamic video watermarking to protect intellectual property.</p>
+      <div class="card__face card__face--back" id="projectBack-maitrisez">
+        <h3 data-i18n="work.maitrisez.title">Maîtrisez — Medical Exam Prep</h3>
+        <dl class="card__notes">
+          <dt data-i18n="work.label.constraint">Constraint</dt>
+          <dd data-i18n="work.maitrisez.constraint">Medical and pharmacy students practise on scattered PDFs and guess at what examiners look for.</dd>
+          <dt data-i18n="work.label.decision">Decision</dt>
+          <dd data-i18n="work.maitrisez.decision">One platform for QCM, timed mock exams, a PDF library, progress stats, and recorded oral answers scored against per-question keyword criteria.</dd>
+          <dt data-i18n="work.label.shipped">Shipped</dt>
+          <dd data-i18n="work.maitrisez.shipped">Running in production at maitrisez.app, with a WebSocket admin dashboard.</dd>
+        </dl>
+        <p class="card__stack">React 18 · Express · MongoDB · Clerk · Docker</p>
+        <a class="card__visit" href="https://maitrisez.app" target="_blank" rel="noopener" tabindex="-1"><span data-i18n="work.visit_live">Live product</span><span aria-hidden="true">↗</span></a>
       </div>
     </article>
     </div>
+        <div class="book__page-back" aria-hidden="true">
+          <figure>
+            <img src="images/driving-screenshot.webp" alt="" width="800" height="498">
+          </figure>
+        </div>
+    </div>
 
+        <div class="book__page book__page--2">
     <div class="scene">
-    <article class="project" data-card="driving">
+    <article class="project" data-card="driving" role="group" aria-labelledby="projectTitle-driving">
       <div class="card__face card__face--front">
         <div class="card__img-wrap">
           <img class="card__img-tiny" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA0JCgsKCA0LCgsODg0PEyAVExISEyccHhcgLikxMC4pLSwzOko+MzZGNywtQFdBRkxOUlNSMj5aYVpQYEpRUk//2wBDAQ4ODhMREyYVFSZPNS01T09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0//wAARCAAMABQDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDn4tEM9tG5vogGUHaT04+tEfh1XDH7bAMMR/nmrlrMRaw/InCDt7VKbgn/AJZxj6CuuVGMkuXQbw82tJ2+Rhahpv2SdY/tMcny5yvbk8UVNq0ha6U7VHyDoPc0VzunZ2uT7OUdHK/yP//Z" alt="" aria-hidden="true">
-          <picture><source srcset="images/driving-screenshot.webp" type="image/webp"><img class="card__img-full" src="images/Capture%20d%27%C3%A9cran%202026-07-30%20005728.png" alt="Driving School platform screenshot" width="800" height="498"></picture>
+          <picture><source srcset="images/driving-screenshot.webp" type="image/webp"><img class="card__img-full" string="parallax[]" parallax="0.03" src="images/Capture%20d%27%C3%A9cran%202026-07-30%20005728.png" alt="Driving School platform screenshot" width="800" height="498"></picture>
         </div>
-        <h3 data-i18n="work.driving.title">Driving School Platform — Instructor Edition</h3>
+        <h3 id="projectTitle-driving" string="split" string-split="word" data-i18n="work.driving.title">Driving School Platform — Instructor Edition</h3>
+        <button class="card__details" type="button" data-card-details aria-expanded="false" aria-controls="projectBack-driving" data-i18n="work.details">Details</button>
       </div>
-      <div class="card__face card__face--back">
+      <div class="card__face card__face--back" id="projectBack-driving">
         <h3 data-i18n="work.driving.title">Driving School Platform — Instructor Edition</h3>
-        <p data-i18n="work.driving.back">Designed an offline-first instructor dashboard with serverless local syncing and automatic cloud sync when connectivity returns.</p>
+        <dl class="card__notes">
+          <dt data-i18n="work.label.constraint">Constraint</dt>
+          <dd data-i18n="work.driving.constraint">Several instructors, several machines, no server — and no internet from the car.</dd>
+          <dt data-i18n="work.label.decision">Decision</dt>
+          <dd data-i18n="work.driving.decision">A Tauri desktop app with local storage and peer-to-peer sync: one machine hosts, others pair by QR code, devices can be authorized and revoked.</dd>
+          <dt data-i18n="work.label.shipped">Shipped</dt>
+          <dd data-i18n="work.driving.shipped">Students, fees, payment ledger and exam results sync device-to-device over the local network. No cloud, no monthly bill.</dd>
+        </dl>
+        <p class="card__stack">Tauri 2 · Rust · React 19 · TypeScript</p>
+        <a class="card__visit" href="#contact" data-walkthrough="driving" tabindex="-1"><span data-i18n="work.walkthrough">Request a walkthrough</span><span aria-hidden="true">→</span></a>
       </div>
     </article>
     </div>
+        <div class="book__page-back" aria-hidden="true">
+          <figure>
+            <img src="images/dental-screenshot.webp" alt="" width="800" height="395">
+          </figure>
+        </div>
+    </div>
 
+        <div class="book__page book__page--3">
     <div class="scene">
-    <article class="project" data-card="dental">
+    <article class="project" data-card="dental" role="group" aria-labelledby="projectTitle-dental">
       <div class="card__face card__face--front">
         <div class="card__img-wrap">
           <img class="card__img-tiny" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA0JCgsKCA0LCgsODg0PEyAVExISEyccHhcgLikxMC4pLSwzOko+MzZGNywtQFdBRkxOUlNSMj5aYVpQYEpRUk//2wBDAQ4ODhMREyYVFSZPNS01T09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0//wAARCAAJABQDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDb8CQ7Jb3cvUJjP411+QN3H0rmPB3+tu/on9a6U9TWlT4jDD/w0Kdvaim0VBsf/9k=" alt="" aria-hidden="true">
-          <picture><source srcset="images/dental-screenshot.webp" type="image/webp"><img class="card__img-full" src="images/Capture%20d%27%C3%A9cran%202026-07-29%20232415.png" alt="Dental Cabinet platform screenshot" width="800" height="395"></picture>
+          <picture><source srcset="images/dental-screenshot.webp" type="image/webp"><img class="card__img-full" string="parallax[]" parallax="0.03" src="images/Capture%20d%27%C3%A9cran%202026-07-29%20232415.png" alt="Dental Cabinet platform screenshot" width="800" height="395"></picture>
         </div>
-        <h3 data-i18n="work.dental.title">Dental Cabinet &amp; Clinic Management Portal</h3>
+        <h3 id="projectTitle-dental" string="split" string-split="word" data-i18n="work.dental.title">Dental Cabinet — Tulip</h3>
+        <button class="card__details" type="button" data-card-details aria-expanded="false" aria-controls="projectBack-dental" data-i18n="work.details">Details</button>
       </div>
-      <div class="card__face card__face--back">
-        <h3 data-i18n="work.dental.title">Dental Cabinet &amp; Clinic Management Portal</h3>
-        <p data-i18n="work.dental.back">Engineered a secure clinic management system with patient records, appointment scheduling, and automated billing for dental practices.</p>
+      <div class="card__face card__face--back" id="projectBack-dental">
+        <h3 data-i18n="work.dental.title">Dental Cabinet — Tulip</h3>
+        <dl class="card__notes">
+          <dt data-i18n="work.label.constraint">Constraint</dt>
+          <dd data-i18n="work.dental.constraint">A clinic that can't depend on internet uptime — and can't afford patient data leaving the building.</dd>
+          <dt data-i18n="work.label.decision">Decision</dt>
+          <dd data-i18n="work.dental.decision">An Electron desktop app running PostgreSQL locally (PGlite), with sync between machines on the clinic's own network.</dd>
+          <dt data-i18n="work.label.shipped">Shipped</dt>
+          <dd data-i18n="work.dental.shipped">Patient records, appointments and billing in one offline-first app. The database never leaves the LAN.</dd>
+        </dl>
+        <p class="card__stack">Electron · React 18 · PostgreSQL (PGlite)</p>
+        <a class="card__visit" href="#contact" data-walkthrough="dental" tabindex="-1"><span data-i18n="work.walkthrough">Request a walkthrough</span><span aria-hidden="true">→</span></a>
       </div>
     </article>
     </div>
+        <div class="book__page-back" aria-hidden="true">
+          <figure>
+            <img src="images/checklist-screenshot.webp" alt="" width="762" height="484">
+          </figure>
+        </div>
+    </div>
 
-  </div>
-</section>
+        <div class="book__page book__page--4">
+    <div class="scene">
+    <article class="project" data-card="checklist" role="group" aria-labelledby="projectTitle-checklist">
+      <div class="card__face card__face--front">
+        <div class="card__img-wrap">
+          <img class="card__img-tiny" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAUACADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDa/sCwXgRy9PXNKug2DZGyQcY5NabFgQBwCPTNRSXUduwWTeSR/DGSP0FVzMmyM/8A4RvTRzh/+/lQDR7Bkk229whClsucDituGSKfdsU/L13IR/OkusJazNjoh/lS5m+o+VLdEv8AFjtWdq9zNb26NDIUYyYJAB4wfWiihbilsSaXPLNZh5XLtvIyQB/Kp7z/AI9Zx28tv5UUUPca2P/Z" alt="" aria-hidden="true">
+          <picture><source srcset="images/checklist-screenshot.webp" type="image/webp"><img class="card__img-full" string="parallax[]" parallax="0.03" src="images/checklist-screenshot.webp" alt="Checklist Audit platform screenshot" width="762" height="484"></picture>
+        </div>
+        <h3 id="projectTitle-checklist" string="split" string-split="word" data-i18n="work.checklist.title">Checklist Audit — Field Inspections</h3>
+        <button class="card__details" type="button" data-card-details aria-expanded="false" aria-controls="projectBack-checklist" data-i18n="work.details">Details</button>
+      </div>
+      <div class="card__face card__face--back" id="projectBack-checklist">
+        <h3 data-i18n="work.checklist.title">Checklist Audit — Field Inspections</h3>
+        <dl class="card__notes">
+          <dt data-i18n="work.label.constraint">Constraint</dt>
+          <dd data-i18n="work.checklist.constraint">Inspectors work in kitchens, workshops and warehouses with no reliable internet — and a failed item has to become a tracked corrective action, not a note in a notebook.</dd>
+          <dt data-i18n="work.label.decision">Decision</dt>
+          <dd data-i18n="work.checklist.decision">A no-build-step PWA whose database lives in a folder the inspector owns, through the File System Access API. When the browser can't, it falls back to IndexedDB, then localStorage. A service worker keeps the app itself offline.</dd>
+          <dt data-i18n="work.label.shipped">Shipped</dt>
+          <dd data-i18n="work.checklist.shipped">Zones and criteria, inspections with pass thresholds, non-conformities with owners and deadlines, photo evidence, PDF reports, and compliance trends over time. Ships as a PWA and a Capacitor Android build, in English and French.</dd>
+        </dl>
+        <p class="card__stack">Vanilla JS · Service Worker · IndexedDB · Capacitor</p>
+        <a class="card__visit" href="#contact" data-walkthrough="checklist" tabindex="-1"><span data-i18n="work.walkthrough">Request a walkthrough</span><span aria-hidden="true">→</span></a>
+      </div>
+    </article>
+    </div>
+        <div class="book__page-back" aria-hidden="true">
+          <figure>
+            <img src="images/hub-screenshot.webp" alt="" width="1920" height="1020">
+          </figure>
+        </div>
+    </div>
 
-<!-- ============ PAGE 5 — CONTACT / FINALE ============ -->
-<section id="contact" class="page page--contact">
-  <div class="contact-stage">
-    <h2 class="contact-title" data-i18n-html="contact.title">Ready to Bring Your<br>Vision to Life?</h2>
+        <div class="book__page book__page--5">
+    <div class="scene">
+    <article class="project" data-card="hub" role="group" aria-labelledby="projectTitle-hub">
+      <div class="card__face card__face--front">
+        <div class="card__img-wrap">
+          <img class="card__img-tiny" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAARACADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDmmJaMEHk9eaiEZOTkcUeZ8oXHShXxnjr71QgEZJxkU8LGsbbi+/tjGKYHw2cfrQW3dqAGUUUUhhTloooEz//Z" alt="" aria-hidden="true">
+          <picture><source srcset="images/hub-screenshot.webp" type="image/webp"><img class="card__img-full" string="parallax[]" parallax="0.03" src="images/hub-screenshot.webp" alt="Cultural and Sports Hub platform screenshot" width="800" height="425"></picture>
+        </div>
+        <h3 id="projectTitle-hub" string="split" string-split="word" data-i18n="work.hub.title">Cultural &amp; Sports Hub — Scheduling</h3>
+        <button class="card__details" type="button" data-card-details aria-expanded="false" aria-controls="projectBack-hub" data-i18n="work.details">Details</button>
+      </div>
+      <div class="card__face card__face--back" id="projectBack-hub">
+        <h3 data-i18n="work.hub.title">Cultural &amp; Sports Hub — Scheduling</h3>
+        <dl class="card__notes">
+          <dt data-i18n="work.label.constraint">Constraint</dt>
+          <dd data-i18n="work.hub.constraint">Each chamber runs a weekly schedule, but a one-off event has to override an activity without destroying it — and deleting the event must restore the original.</dd>
+          <dt data-i18n="work.label.decision">Decision</dt>
+          <dd data-i18n="work.hub.decision">Compute the effective calendar on the fly: expand the recurrence rules, subtract per-occurrence cancellations, then subtract overriding events. The underlying schedule is never mutated.</dd>
+          <dt data-i18n="work.label.shipped">Shipped</dt>
+          <dd data-i18n="work.hub.shipped">Electron and embedded SQLite, with day, week and month views. Per-occurrence or whole-series edits, conflict detection that splits partial overlaps, and 24 unit tests over the engine.</dd>
+        </dl>
+        <p class="card__stack">Electron · SQLite · FullCalendar · esbuild</p>
+        <a class="card__visit" href="#contact" data-walkthrough="hub" tabindex="-1"><span data-i18n="work.walkthrough">Request a walkthrough</span><span aria-hidden="true">→</span></a>
+      </div>
+    </article>
+    </div>
+        <div class="book__page-back" aria-hidden="true">
+          <figure>
+            <img src="images/inventory-screenshot.webp" alt="" width="800" height="600">
+          </figure>
+        </div>
+    </div>
 
-    <button class="btn btn--cta" id="ctaBtn">
-      <span data-i18n="contact.btn">Contact Us</span>
-    </button>
+        <div class="book__page book__page--6">
+    <div class="scene">
+    <article class="project" data-card="inventory" role="group" aria-labelledby="projectTitle-inventory">
+      <div class="card__face card__face--front">
+        <div class="card__img-wrap">
+          <img class="card__img-tiny" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAYACADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDnXcttIhjXCgYVevv9ajXPI29f9nNOMkmz7x6e9MUl3ycnitXYkQjB5FIWLYBxx6DFOcYYU35cdDmkAp6Y4ojGW/CiikA6TA44+mP/AK1N2nriiimB/9k=" alt="" aria-hidden="true">
+          <picture><source srcset="images/inventory-screenshot.webp" type="image/webp"><img class="card__img-full" string="parallax[]" parallax="0.03" src="images/inventory-screenshot.webp" alt="InventoryApp platform screenshot" width="800" height="600"></picture>
+        </div>
+        <h3 id="projectTitle-inventory" string="split" string-split="word" data-i18n="work.inventory.title">InventoryApp — Stock &amp; Invoicing</h3>
+        <button class="card__details" type="button" data-card-details aria-expanded="false" aria-controls="projectBack-inventory" data-i18n="work.details">Details</button>
+      </div>
+      <div class="card__face card__face--back" id="projectBack-inventory">
+        <h3 data-i18n="work.inventory.title">InventoryApp — Stock &amp; Invoicing</h3>
+        <dl class="card__notes">
+          <dt data-i18n="work.label.constraint">Constraint</dt>
+          <dd data-i18n="work.inventory.constraint">A shop's stock, purchases, customer debts and invoices all have to agree — and the person at the counter shouldn't see the admin screens.</dd>
+          <dt data-i18n="work.label.decision">Decision</dt>
+          <dd data-i18n="work.inventory.decision">A Kotlin + Compose Desktop app with an embedded Nitrite document store. Categories use materialized paths, so a subtree's stock count is one prefix scan; invoices snapshot their lines, so a later price change never rewrites history.</dd>
+          <dt data-i18n="work.label.shipped">Shipped</dt>
+          <dd data-i18n="work.inventory.shipped">Eleven screens — dashboard, inventory, checkout, invoices, customers, providers, purchase orders, debts, returns, scanner, settings. PDF invoices, local backups, permission-gated navigation, English, French and Arabic UI. Windows installer.</dd>
+        </dl>
+        <p class="card__stack">Kotlin · Compose Desktop · Nitrite · PDFBox</p>
+        <a class="card__visit" href="#contact" data-walkthrough="inventory" tabindex="-1"><span data-i18n="work.walkthrough">Request a walkthrough</span><span aria-hidden="true">→</span></a>
+      </div>
+    </article>
+    </div>
+        <div class="book__page-back" aria-hidden="true"></div>
+    </div>
 
-    <div class="contact-divider" aria-hidden="true"></div>
-
-    <div class="reveal-panel" id="revealPanel" aria-hidden="true" inert>
-      <p class="reveal-lead" data-i18n="contact.lead">Tell us about your project, and let's craft something extraordinary.</p>
-      <div class="reveal-links">
-        <a href="tel:+213773247989" class="reveal-link">
-          <span class="reveal-link__label" data-i18n="contact.call_label">Call us directly</span>
-          <span class="reveal-link__value">+213 773 247 989</span>
-        </a>
-        <a href="https://wa.me/213773247989" target="_blank" rel="noopener" class="reveal-link">
-          <span class="reveal-link__label" data-i18n="contact.whatsapp_label">WhatsApp</span>
-          <span class="reveal-link__value">+213 773 247 989</span>
-        </a>
-        <a href="https://t.me/YouNef16" target="_blank" rel="noopener" class="reveal-link">
-          <span class="reveal-link__label" data-i18n="contact.telegram_label">Telegram</span>
-          <span class="reveal-link__value">@YouNef16</span>
-        </a>
-        <a href="mailto:youyounfissi16@gmail.com" class="reveal-link">
-          <span class="reveal-link__label" data-i18n="contact.email_label">Email</span>
-          <span class="reveal-link__value">youyounfissi16@gmail.com</span>
-        </a>
       </div>
     </div>
   </div>
+</section>
+
+<!-- ============ PAGE 5 — ABOUT ============ -->
+<section id="about" class="page page--about">
+  <div class="about-stage">
+    <p class="about-eyebrow" data-i18n="about.eyebrow">WHO WE ARE</p>
+    <h2 class="about-title" data-i18n="about.title">Senior engineering, without the agency layers.</h2>
+    <p class="about-text" data-i18n="about.p1">ITwiz is an independent software studio based in Algeria. We keep the team deliberately small: the engineer who scopes your project is the engineer who builds it, and the person who answers your email is the person who wrote the code.</p>
+    <p class="about-text" data-i18n="about.p2">We&rsquo;re at our best on platforms that have to keep working when the internet doesn&rsquo;t &mdash; offline-first, private by default, built to run for years instead of until the next redesign.</p>
+    <ul class="about-commitments">
+      <li data-i18n="about.c1">One point of contact</li>
+      <li data-i18n="about.c2">Scope and price agreed before work starts</li>
+      <li data-i18n="about.c3">You own the code and the accounts</li>
+      <li data-i18n="about.c4">A reply within one business day</li>
+    </ul>
+    <p class="about-note" data-i18n="about.note">Two project slots open this quarter. References and a code walkthrough available on request.</p>
+  </div>
+</section>
+
+<!-- ============ PAGE 6 — METHOD ============ -->
+<section id="method" class="page page--method">
+  <div class="method__track" string="progress">
+
+    <!-- ambient runes drifting at different parallax depths -->
+    <span class="method__rune method__rune--a" string="parallax[]" parallax="0.32" aria-hidden="true"></span>
+    <span class="method__rune method__rune--b" string="parallax[]" parallax="-0.24" aria-hidden="true"></span>
+    <span class="method__rune method__rune--c" string="parallax[]" parallax="0.45" aria-hidden="true"></span>
+
+    <div class="method__sticky">
+      <header class="section-head method__head">
+        <p class="method__eyebrow" string="split" string-split="word" data-i18n="method.eyebrow">ITWIZ / THE METHOD</p>
+        <h2 string="split" string-split="word" data-i18n="method.heading">How We Cast a Project</h2>
+        <p class="method__sub" data-i18n="method.sub">Four movements &mdash; from the first signal to launch.</p>
+      </header>
+
+      <div class="method__timeline">
+        <div class="method__rail method__rail--h" aria-hidden="true"><span class="method__rail-fill"></span></div>
+        <div class="method__rail method__rail--v" aria-hidden="true"><span class="method__rail-fill"></span></div>
+
+        <ol class="method__stages">
+
+          <li class="method-stage" style="--stage:0; --depth:70px">
+            <span class="method-stage__node" aria-hidden="true"></span>
+            <span class="method-stage__art" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.3 15.3 21 21"/><path d="M18.6 3.2l.75 1.85 1.85.75-1.85.75-.75 1.85-.75-1.85-1.85-.75 1.85-.75z"/></svg>
+            </span>
+            <div class="method-stage__body">
+              <span class="method-stage__num" aria-hidden="true">01</span>
+              <h3 data-i18n="method.discover.title">Discover</h3>
+              <p data-i18n="method.discover.desc">We map your goals, users, and constraints into one sharp brief.</p>
+            </div>
+          </li>
+
+          <li class="method-stage" style="--stage:1; --depth:-55px">
+            <span class="method-stage__node" aria-hidden="true"></span>
+            <span class="method-stage__art method-stage__art--violet" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20l3.8-1L19 7.8a2.5 2.5 0 0 0-3.5-3.5L4.3 15.5 3 20z"/><path d="M14.5 6.5l3 3"/></svg>
+            </span>
+            <div class="method-stage__body">
+              <span class="method-stage__num" aria-hidden="true">02</span>
+              <h3 data-i18n="method.design.title">Design</h3>
+              <p data-i18n="method.design.desc">Flows, prototypes, and a visual language that feels unmistakably you.</p>
+            </div>
+          </li>
+
+          <li class="method-stage" style="--stage:2; --depth:95px">
+            <span class="method-stage__node" aria-hidden="true"></span>
+            <span class="method-stage__art" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 8 4 12l4.5 4"/><path d="M15.5 8 20 12l-4.5 4"/><path d="M13.2 4.5l-2.4 15"/></svg>
+            </span>
+            <div class="method-stage__body">
+              <span class="method-stage__num" aria-hidden="true">03</span>
+              <h3 data-i18n="method.build.title">Build</h3>
+              <p data-i18n="method.build.desc">Iterative engineering, clean architecture, and demos you can touch.</p>
+            </div>
+          </li>
+
+          <li class="method-stage" style="--stage:3; --depth:-40px">
+            <span class="method-stage__node" aria-hidden="true"></span>
+            <span class="method-stage__art method-stage__art--violet" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5c2.9 1.7 4.6 4.6 4.6 8.1l-2.3 2.3H9.7L7.4 10.6c0-3.5 1.7-6.4 4.6-8.1z"/><circle cx="12" cy="9" r="1.6"/><path d="M9.7 12.9 7 19l3.2-1.1L12 20l1.8-2.1L17 19l-2.7-6.1"/></svg>
+            </span>
+            <div class="method-stage__body">
+              <span class="method-stage__num" aria-hidden="true">04</span>
+              <h3 data-i18n="method.launch.title">Launch</h3>
+              <p data-i18n="method.launch.desc">Hardening, deployment, and hand-off &mdash; then we stay on call.</p>
+            </div>
+          </li>
+
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PAGE 7 — CONTACT / FINALE ============ -->
+<section id="contact" class="page page--contact">
+  <div class="contact-stage">
+    <h2 class="contact-title" string="split" string-split="word" data-i18n-html="contact.title">Ready to make<br>it real?</h2>
+
+    <p class="reveal-lead" data-i18n="contact.lead">Tell us about your project, and let's craft something extraordinary.</p>
+
+    <form class="brief-form" id="briefForm" name="project-brief" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate>
+      <input type="hidden" name="form-name" value="project-brief">
+      <p class="brief-form__honeypot" aria-hidden="true">
+        <label>Leave this field empty <input name="bot-field" tabindex="-1" autocomplete="off"></label>
+      </p>
+
+      <div class="brief-form__field">
+        <label for="briefName" data-i18n="contact.form.name_label">Your name</label>
+        <input id="briefName" name="name" type="text" required autocomplete="name" data-i18n-ph="contact.form.name_ph" placeholder="Ada Lovelace">
+      </div>
+
+      <div class="brief-form__field">
+        <label for="briefEmail" data-i18n="contact.form.email_label">Email</label>
+        <input id="briefEmail" name="email" type="email" required autocomplete="email" data-i18n-ph="contact.form.email_ph" placeholder="ada@company.com">
+      </div>
+
+      <div class="brief-form__field brief-form__field--wide">
+        <label for="briefType" data-i18n="contact.form.type_label">What are we building?</label>
+        <select id="briefType" name="project-type" required>
+          <option value="" data-i18n="contact.form.type_none">Select one…</option>
+          <option value="web" data-i18n="contact.form.type_web">Web &amp; Mobile</option>
+          <option value="ai" data-i18n="contact.form.type_ai">AI &amp; Intelligent Automation</option>
+          <option value="data" data-i18n="contact.form.type_data">Data Analysis &amp; Reporting</option>
+          <option value="custom" data-i18n="contact.form.type_custom">Custom Platform &amp; Portals</option>
+          <option value="undecided" data-i18n="contact.form.type_undecided">Not sure yet</option>
+        </select>
+      </div>
+
+      <div class="brief-form__field brief-form__field--wide">
+        <label for="briefMessage" data-i18n="contact.form.message_label">Tell us about the project</label>
+        <textarea id="briefMessage" name="message" rows="4" required data-i18n-ph="contact.form.message_ph" placeholder="What problem are we solving, for whom, and what does success look like?"></textarea>
+      </div>
+
+      <button type="submit" class="btn btn--cta brief-form__submit" id="briefSubmit" string="magnetic">
+        <span data-i18n="contact.form.submit">Send the brief</span>
+      </button>
+
+      <p class="brief-form__consent" data-i18n-html="contact.form.consent">We only use these details to reply to your brief. Nothing is shared or sold. <a href="privacy.html">Privacy notice</a></p>
+    </form>
+
+    <div class="brief-success" id="briefSuccess" role="status" hidden>
+      <strong data-i18n="contact.form.success_title">Brief received.</strong>
+      <span data-i18n="contact.form.success_text">We'll reply to {email} within 24 hours. The wizard has it covered.</span>
+      <button type="button" class="brief-success__edit" data-i18n="contact.form.success_edit">Wrong email? Edit</button>
+    </div>
+
+    <div class="contact-divider" aria-hidden="true"></div>
+
+    <div class="reveal-links">
+      <a href="tel:+213773247989" class="reveal-link" string="magnetic" radius="120" strength="0.3">
+        <span class="reveal-link__label" data-i18n="contact.call_label">Call us directly</span>
+        <span class="reveal-link__value">+213 773 247 989</span>
+      </a>
+      <a href="https://wa.me/213773247989" target="_blank" rel="noopener" class="reveal-link" string="magnetic" radius="120" strength="0.3">
+        <span class="reveal-link__label" data-i18n="contact.whatsapp_label">WhatsApp</span>
+        <span class="reveal-link__value">+213 773 247 989</span>
+      </a>
+      <a href="https://t.me/YouNef16" target="_blank" rel="noopener" class="reveal-link" string="magnetic" radius="120" strength="0.3">
+        <span class="reveal-link__label" data-i18n="contact.telegram_label">Telegram</span>
+        <span class="reveal-link__value">@YouNef16</span>
+      </a>
+      <a href="mailto:youyounfissi16@gmail.com" class="reveal-link" string="magnetic" radius="120" strength="0.3">
+        <span class="reveal-link__label" data-i18n="contact.email_label">Email</span>
+        <span class="reveal-link__value">youyounfissi16@gmail.com</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- C2 — scrolling marquee band -->
+  <div class="marquee-band" string="marquee" marquee-fill aria-hidden="true">
+    <span class="marquee-band__text" data-i18n="band.text">Let&rsquo;s build something extraordinary &#10022; Design &#183; Engineering &#183; Intelligence &#10022;&nbsp;</span>
+  </div>
 
   <footer class="site-footer">
-    <span data-i18n="footer">ITwiz — Code Magic into Reality</span>
-    <span>&copy; 2026</span>
+    <span class="site-footer__main">
+      <span data-i18n="footer">ITwiz — Code Magic into Reality</span>
+      <span class="footer-sigil" string="split|circular-text" string-split="char" circular-radius="36" aria-hidden="true">ITWIZ &#10022; CODE MAGIC &#10022;&nbsp;</span>
+      <span>&copy; 2026</span>
+    </span>
+    <span class="site-footer__legal">
+      <span data-i18n="footer_legal">ITwiz — Independent software studio, Algeria</span>
+      <a href="privacy.html" class="site-footer__privacy" data-i18n="footer_privacy">Privacy notice</a>
+    </span>
   </footer>
 </section>
 </main>
@@ -258,7 +646,7 @@
 </button>
 
 <!-- ============ PERSISTENT MASCOT COMPANION ============ -->
-<div class="mascot" id="mascot">
+<div class="mascot" id="mascot" string="glide" glide="18">
   <div class="mascot__particles" id="mascotParticles" aria-hidden="true"></div>
   <div class="mascot__orbs" aria-hidden="true">
     <div class="orb" style="--r:95px; --a:15deg; --dur:6s; --glow:#3776AB">
@@ -295,8 +683,65 @@
 
 <div id="scene3d"></div>
 
-<script src="js/i18n.js?v=2" defer></script>
-<script src="js/main.js?v=2" defer></script>
-<script type="module" src="js/3d-scene.bundle.js?v=1"></script>
+<!-- announcements for the swarm rebuild (js/swarm.js) -->
+<div class="swarm-live-region" aria-live="polite" aria-atomic="true" id="swarmLive"></div>
+
+<!-- global cursor spotlight (StringTune) -->
+<div class="cursor-glow" aria-hidden="true" string="spotlight"></div>
+
+<!-- ============ FULLSCREEN SERVICE EXPERIENCE ============ -->
+<div class="service-experience" id="serviceExperience" role="dialog" aria-modal="true" aria-labelledby="experienceTitle" aria-hidden="true">
+  <div class="experience-background" aria-hidden="true"></div>
+
+  <button class="experience-close" id="experienceClose" type="button">
+    <span aria-hidden="true">×</span>
+    <span class="close-label" data-i18n="services.dialog.close">Close</span>
+  </button>
+
+  <div class="experience-content">
+    <span class="experience-kicker" id="experienceKicker">ITWIZ / SERVICE 01</span>
+
+    <h2 id="experienceTitle"></h2>
+
+    <p class="experience-description" id="experienceDescription"></p>
+
+    <div class="experience-details">
+      <div>
+        <h3 data-i18n="services.dialog.create">What we can create</h3>
+        <ul id="experienceExamples"></ul>
+      </div>
+      <div>
+        <h3 data-i18n="services.dialog.techHeading">Possible technologies</h3>
+        <div class="technology-list" id="experienceTechnologies"></div>
+      </div>
+    </div>
+
+    <a class="experience-cta" href="#contact" id="experienceCTA" string="magnetic" radius="170" strength="0.4">
+      <span data-i18n="services.dialog.cta">Let&rsquo;s build it</span>
+      <span aria-hidden="true">↗</span>
+    </a>
+  </div>
+
+  <div class="experience-orb" aria-hidden="true"></div>
+</div>
+
+<script src="js/i18n.js?v=28" defer></script>
+<script src="js/main.js?v=25" defer></script>
+<script src="js/realm-hero.js?v=2" defer></script>
+<script src="js/services-immersive.js?v=2" defer></script>
+<script src="js/swarm.js?v=10" defer></script>
+<script type="module" src="js/string-tune.bundle.js?v=10"></script>
+<script type="module" src="js/3d-scene.bundle.js?v=8"></script>
+<!-- screenshot viewer (notebook photos) -->
+<dialog class="shot-dialog" id="shotDialog" aria-labelledby="shotDialogTitle">
+  <form method="dialog" class="shot-dialog__close-form">
+    <button class="shot-dialog__close" value="close" autofocus data-i18n="work.shot_close">Close</button>
+  </form>
+  <figure class="shot-dialog__figure">
+    <img class="shot-dialog__img" id="shotDialogImg" alt="">
+    <figcaption class="shot-dialog__caption" id="shotDialogTitle"></figcaption>
+  </figure>
+</dialog>
+
 </body>
 </html>
