@@ -63,7 +63,7 @@ const L = {
              "Pair a device with a QR code, revoke it just as easily \u2014 no cloud, no monthly bill"],
       },
       dental: {
-        title: "Dental Cabinet \u2014 Tulip",
+        title: "Dental Cabinet",
         constraint: "A clinic that can't count on the internet being up \u2014 and can't let patient data leave the building.",
         decision: "A desktop app that keeps the clinic's records in a database on its own network, shared between reception and the treatment rooms.",
         shipped: "Patient records, appointments and billing in one app that works with no internet. Data never leaves the clinic.",
@@ -317,7 +317,7 @@ const L = {
              "Appairer un appareil par QR code, le r\u00e9voquer tout aussi simplement \u2014 ni cloud ni abonnement"],
       },
       dental: {
-        title: "Dental Cabinet \u2014 Tulip",
+        title: "Dental Cabinet",
         constraint: "Un cabinet qui ne peut pas compter sur internet \u2014 et ne peut pas laisser les donn\u00e9es patients sortir du b\u00e2timent.",
         decision: "Une application install\u00e9e au cabinet, qui garde les dossiers dans une base sur le r\u00e9seau du cabinet lui-m\u00eame, partag\u00e9e entre l'accueil et les salles de soins.",
         shipped: "Dossiers patients, rendez-vous et facturation dans une seule appli qui fonctionne sans internet. Les donn\u00e9es ne quittent jamais le cabinet.",
@@ -571,7 +571,7 @@ const L = {
              "اقتران جهاز برمز QR وإلغاؤه بهذه البساطة — لا حساب سحابي ولا اشتراك"]
       },
       dental: {
-        title: "\u0639\u064a\u0627\u062f\u0629 \u0627\u0644\u0623\u0633\u0646\u0627\u0646 \u2014 Tulip",
+        title: "\u0639\u064a\u0627\u062f\u0629 \u0627\u0644\u0623\u0633\u0646\u0627\u0646",
         constraint: "عيادة لا تستطيع الاعتماد على توفر الإنترنت — ولا أن تغادر بيانات المرضى المبنى.",
         decision: "تطبيق مثبَّت داخل العيادة، يحفظ السجلات في قاعدة بيانات على شبكتها الخاصة، مشتركة بين الاستقبال وغرف العلاج.",
         shipped: "سجلات المرضى والمواعيد والفواتير في تطبيق واحد يعمل دون إنترنت. البيانات لا تغادر العيادة أبدًا.",

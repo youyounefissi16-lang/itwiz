@@ -710,31 +710,48 @@
     });
   });
 
-  /* ---------- tap / keyboard card flip (hover never fires on touch) ---------- */
-  const coarsePointer =
-    !window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  /* ---------- click / tap card flip ----------
+     The flip must not depend on pointer type or which layer the tap
+     lands on:
+     - the handler is bound for every pointer (hover still flips on
+       desktop; a click now also pins the card open on any width),
+     - it lives on .book, not on .project, because WebKit still
+       hit-tests the page-backs — facing-away, backface-visibility:hidden
+       layers that Blink drops from hit-testing — so a tap on an
+       invisible page-back would otherwise never reach the card,
+     - pages already turned (paper back facing the viewer, lying on
+       the pile) are ignored, so the pile never flips the card under it. */
+  const flipCard = (project) => {
+    if (presenting) return;
+    const flipped = project.classList.toggle('is-flipped');
+    const detailsBtn = project.querySelector('[data-card-details]');
+    const visitLink = project.querySelector('.card__visit');
+    if (detailsBtn) {
+      detailsBtn.setAttribute('aria-expanded', flipped ? 'true' : 'false');
+      detailsBtn.tabIndex = flipped ? -1 : 0;
+    }
+    if (visitLink) visitLink.tabIndex = flipped ? 0 : -1;
+  };
   document.querySelectorAll('.book .project').forEach((el) => {
     const detailsBtn = el.querySelector('[data-card-details]');
-    const visitLink = el.querySelector('.card__visit');
-    const flip = () => {
-      if (presenting) return;
-      const flipped = el.classList.toggle('is-flipped');
-      if (detailsBtn) {
-        detailsBtn.setAttribute('aria-expanded', flipped ? 'true' : 'false');
-        detailsBtn.tabIndex = flipped ? -1 : 0;
-      }
-      if (visitLink) visitLink.tabIndex = flipped ? 0 : -1;
-    };
-    if (coarsePointer) {
-      el.addEventListener('click', (e) => {
-        if (e.target.closest('a, button')) return;
-        flip();
-      });
-    }
-    if (detailsBtn) {
-      detailsBtn.addEventListener('click', () => flip());
-    }
+    if (detailsBtn) detailsBtn.addEventListener('click', () => flipCard(el));
   });
+  const book = document.querySelector('.book');
+  if (book) {
+    book.addEventListener('click', (e) => {
+      if (e.target.closest('a, button, .shot-hotspot')) return;
+      const page = e.target.closest('.book__page');
+      const project = page && page.querySelector('.project');
+      if (!project) return;
+      /* the page's own rotateX is in its matrix: while m22 > 0 the
+         front is still more than half visible (m22 = cos(angle)), so
+         the tap is on the live card and not on the turned pile */
+      try {
+        if (new DOMMatrix(getComputedStyle(page).transform).m22 < 0) return;
+      } catch (_) { /* unparsable transform (static layout) — flip anyway */ }
+      flipCard(project);
+    });
+  }
 
 
 

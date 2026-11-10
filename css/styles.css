@@ -354,13 +354,19 @@ p{ margin:0; }
 }
 /* tap/keyboard flip for touch devices and keyboard users — hover never
    fires on touch, so without .is-flipped the back face is unreachable.
-   The coarse-pointer block below cancels the hover rule so the two
-   mechanisms can't stack up. The landed-page back of the notebook
-   (opaque paper) still blocks pointer input while a page is piled. */
-.book .project{ cursor:pointer; }
-.project.is-flipped{ transform:rotateY(180deg); }
+   The hover:none block below cancels the hover flip only. The landed-
+   page back of the notebook (opaque paper) still blocks pointer input
+   while a page is piled. */
+/* specificity matters here — three classes, one above the reveal
+   utility (.reveal-item.is-in is 0,2,0 and would otherwise win: the
+   card carries reveal-item and is-flipped at the same time, and equal
+   specificity + later source order silently cancelled the flip) */
+.book .project{ cursor:pointer; touch-action:manipulation; -webkit-tap-highlight-color:transparent; }
+.book .project.is-flipped{ transform:rotateY(180deg); }
 @media (hover: none){
-  .scene:hover .project{ transform:none; }
+  /* :hover sticks after a tap on touch devices — cancel the hover flip,
+     but never the explicit .is-flipped one (that would block details) */
+  .scene:hover .project:not(.is-flipped){ transform:none; }
 }
 .card__face{
   grid-area:1/1;
@@ -428,8 +434,13 @@ p{ margin:0; }
 .card__visit:hover{ color:#bdefff; border-color:#7fd8ff; }
 /* hover flip: the front face — and its details button — rotates away.
    Take the button out of the tab order the same moment it vanishes,
-   so a keyboard user never lands on an invisible control. */
-.scene:hover .card__details{ visibility:hidden; }
+   so a keyboard user never lands on an invisible control.
+   Hover-capable pointers only: on touch, :hover sticks after a tap,
+   which used to leave the button permanently invisible after the first
+   flip. */
+@media (hover: hover){
+  .scene:hover .card__details{ visibility:hidden; }
+}
 .card__face--back{ gap:.45rem; }
 .book .card__face--back{ padding:1rem 1rem; }
 /* constraint → decision → shipped notes on the card back.
