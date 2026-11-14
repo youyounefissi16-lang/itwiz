@@ -14,7 +14,7 @@
   --cyan:#00d4ff;
   --purple:#7c3aed;
   --glass:rgba(15,20,36,0.7);
-  --glass-border:rgba(255,255,255,0.998),237,0.12);
+  --glass-border:rgba(255,255,255,0.12);
   --glass-shadow:0 20px 50px -20px rgba(0,0,0,0.5);
 
   --font-display:'Space Grotesk', 'Segoe UI', sans-serif;
@@ -71,7 +71,7 @@ p{ margin:0; }
 .loader-content{ text-align:center; }
 .loader-hex{ width:80px; height:80px; margin:0 auto 30px; position:relative; }
 .loader-logo{ width:80px; height:80px; margin:0 auto; animation:loaderSpin 3s linear infinite; }
-.loader-logo svg{ width:100%; height:100%; filter:drop-shadow(0 0 20px rgba(255,255,255,0.998),237,0.5)); }
+.loader-logo svg{ width:100%; height:100%; filter:drop-shadow(0 0 20px rgba(255,255,255,0.5)); }
 @keyframes loaderSpin{ to{ transform:rotate(360deg); } }
 .loader-text{ font-family:var(--font-display); font-size:14px; color:var(--ink-soft); letter-spacing:6px; text-transform:uppercase; }
 .loader-bar{ width:200px; height:2px; background:var(--bg3); margin:20px auto 0; border-radius:2px; overflow:hidden; }
@@ -116,7 +116,7 @@ p{ margin:0; }
 }
 .navbar__logo img{ height:clamp(28px, 7vw, 50px); width:auto; }
 .navbar__logo img{
-  filter: drop-shadow(0 0 6px rgba(255,255,255,0.998),237,0.7)) drop-shadow(0 0 18px rgba(255,255,255,0.35));
+  filter: drop-shadow(0 0 6px rgba(255,255,255,0.7)) drop-shadow(0 0 18px rgba(255,255,255,0.35));
 }
 .navbar__links{
   display:flex; gap:0.2rem;
@@ -261,7 +261,7 @@ p{ margin:0; }
   width:min(70vw, 900px);
   height:420px;
   transform:translateX(-50%);
-  background:radial-gradient(ellipse at center, rgba(255,255,255,0.998),237,0.10), transparent 70%);
+  background:radial-gradient(ellipse at center, rgba(255,255,255,0.10), transparent 70%);
   pointer-events:none;
   z-index:-1;
 }
@@ -343,35 +343,14 @@ p{ margin:0; }
 .project{
   display:grid;
   position:relative;
-  transform-style:preserve-3d;
-  transition:transform .6s cubic-bezier(.25,.46,.45,.94);
   border-radius:24px;
   box-shadow:var(--glass-shadow);
 }
-.scene:hover .project{
-  transform:rotateY(180deg);
-  box-shadow:var(--glass-shadow), 0 0 30px rgba(255,255,255,0.999),255,0.15), 0 0 60px rgba(255,255,255,0.998),237,0.1);
-}
-/* tap/keyboard flip for touch devices and keyboard users — hover never
-   fires on touch, so without .is-flipped the back face is unreachable.
-   The hover:none block below cancels the hover flip only. The landed-
-   page back of the notebook (opaque paper) still blocks pointer input
-   while a page is piled. */
-/* specificity matters here — three classes, one above the reveal
-   utility (.reveal-item.is-in is 0,2,0 and would otherwise win: the
-   card carries reveal-item and is-flipped at the same time, and equal
-   specificity + later source order silently cancelled the flip) */
-.book .project{ cursor:pointer; touch-action:manipulation; -webkit-tap-highlight-color:transparent; }
-.book .project.is-flipped{ transform:rotateY(180deg); }
-@media (hover: none){
-  /* :hover sticks after a tap on touch devices — cancel the hover flip,
-     but never the explicit .is-flipped one (that would block details) */
-  .scene:hover .project:not(.is-flipped){ transform:none; }
-}
+/* cards no longer flip — Details opens the project detail overlay
+   (see .detail-overlay at the bottom of this file). Keep the touch
+   niceties so taps on the card don't zoom or double-tap-jump. */
+.book .project{ touch-action:manipulation; -webkit-tap-highlight-color:transparent; }
 .card__face{
-  grid-area:1/1;
-  backface-visibility:hidden;
-  -webkit-backface-visibility:hidden;
   border:1px solid var(--glass-border);
   border-radius:24px;
   padding:1.5rem;
@@ -382,20 +361,7 @@ p{ margin:0; }
   justify-content:center;
   gap:0.75rem;
   position:relative;
-  transform:rotateY(0deg);
   background:rgba(15,20,36,0.96);
-}
-.card__face--back{
-  position:relative;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-  transform:rotateY(180deg);
-  background:linear-gradient(135deg, var(--bg2), var(--bg3));
-  border-color:rgba(255,255,255,0.3);
-  padding:2rem;
 }
 /* details button (front) + actionable link row (back): the cards' real
    conversation hooks — keyboard and screen-reader paths. */
@@ -432,18 +398,7 @@ p{ margin:0; }
   transition:border-color .25s ease, color .25s ease;
 }
 .card__visit:hover{ color:#bdefff; border-color:#7fd8ff; }
-/* hover flip: the front face — and its details button — rotates away.
-   Take the button out of the tab order the same moment it vanishes,
-   so a keyboard user never lands on an invisible control.
-   Hover-capable pointers only: on touch, :hover sticks after a tap,
-   which used to leave the button permanently invisible after the first
-   flip. */
-@media (hover: hover){
-  .scene:hover .card__details{ visibility:hidden; }
-}
-.card__face--back{ gap:.45rem; }
-.book .card__face--back{ padding:1rem 1rem; }
-/* constraint → decision → shipped notes on the card back.
+/* constraint → decision → shipped notes (also used by the detail overlay).
    Left-aligned rows inside a centered face, mono labels. */
 .card__notes{
   margin:0;
@@ -474,14 +429,6 @@ p{ margin:0; }
   color:#8fa3c4;
   text-align:center;
 }
-.card__face--back h3{
-  font-size:.95rem;
-  margin-bottom:.2rem;
-}
-@media (max-width:700px){
-  .card__notes dd{ font-size:.6rem; }
-  .book .card__face--back{ padding:1.1rem 1rem; }
-}
 .card__img-wrap{
   position:relative;
   overflow:hidden;
@@ -508,18 +455,15 @@ p{ margin:0; }
 .card__img-full.loaded{
   opacity:1;
 }
-.card__face--back h3{
+/* shared with the detail overlay: gradient display title.
+   (.card__face--back p was removed with the back faces) */
+.detail-overlay__item h3{
   font-size:1.1rem;
   margin-bottom:1rem;
   background:linear-gradient(135deg, var(--cyan), var(--purple));
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
   background-clip:text;
-}
-.card__face--back p{
-  color:var(--ink-soft);
-  font-size:0.9rem;
-  line-height:1.7;
 }
 .project h3{
   font-size:1.05rem;
@@ -564,7 +508,7 @@ p{ margin:0; }
 .mockup__row--wide{ width:80%; }
 .mockup__quiz-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:8px; margin-bottom:14px; }
 .mockup__chip{ height:26px; border-radius:8px; background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.15); }
-.mockup__chip--active{ background:rgba(255,255,255,0.35); border-color:rgba(255,255,255,0.999),255,0.6); }
+.mockup__chip--active{ background:rgba(255,255,255,0.35); border-color:rgba(255,255,255,0.6); }
 .mockup__waveform{ display:flex; align-items:flex-end; gap:3px; height:34px; }
 .mockup__waveform span{ flex:1; background:linear-gradient(180deg, #00d4ff, #3b0ea0); border-radius:2px; opacity:1; }
 .mockup__waveform span:nth-child(odd){ height:60%; }
@@ -670,7 +614,7 @@ p{ margin:0; }
   height:min(80vw, 520px);
   transform:translate(-50%, -50%);
   border-radius:50%;
-  background:radial-gradient(circle, rgba(255,255,255,0.999),255,0.14), rgba(255,255,255,0.998),237,0.08) 50%, transparent 72%);
+  background:radial-gradient(circle, rgba(255,255,255,0.14), rgba(255,255,255,0.08) 50%, transparent 72%);
   pointer-events:none;
   z-index:-1;
   animation:heroGlowPulse 6s ease-in-out infinite;
@@ -679,7 +623,7 @@ p{ margin:0; }
   width:min(70%, 320px);
   height:1px;
   margin:1rem auto 0;
-  background:linear-gradient(90deg, transparent, rgba(255,255,255,0.999),255,0.55), transparent);
+  background:linear-gradient(90deg, transparent, rgba(255,255,255,0.55), transparent);
 }
 .contact-title{
   font-size:clamp(2rem, 4.6vw, 3.1rem);
@@ -690,7 +634,7 @@ p{ margin:0; }
 }
 .btn--cta{
   background:linear-gradient(120deg, var(--cyan), var(--purple));
-  border:1px solid rgba(255,255,255,0.999),255,0.55);
+  border:1px solid rgba(255,255,255,0.55);
   color:#08101f;
   font-size:clamp(0.85rem, 2.5vw, 1.05rem);
   padding:clamp(0.7rem, 3vw, 1.1rem) clamp(1.4rem, 7vw, 2.6rem);
@@ -698,7 +642,7 @@ p{ margin:0; }
   transition:opacity .5s ease, transform .5s ease, box-shadow .35s;
 }
 .btn--cta:hover{
-  box-shadow:0 0 44px rgba(255,255,255,0.999),255,0.55), var(--glass-shadow);
+  box-shadow:0 0 44px rgba(255,255,255,0.55), var(--glass-shadow);
   transform:translateY(-2px);
 }
 .btn--cta.is-hidden{
@@ -850,7 +794,7 @@ p{ margin:0; }
    and stronger focus rings — same palette, louder against the black */
 @media (prefers-contrast: more){
   :focus-visible{ outline-width:3px; outline-offset:4px; }
-  .card__face, .card__face--back{ border-color:rgba(255,255,255,.55); }
+  .card__face{ border-color:rgba(255,255,255,.55); }
   .brief-form input, .brief-form select, .brief-form textarea{ border-color:rgba(255,255,255,.55); }
   .brief-form label, .book__welcome-eyebrow, .book__cover-eyebrow{ color:#cfe9ff; }
   .card__visit, .card__details{ color:#9fe6ff; }
@@ -870,7 +814,7 @@ p{ margin:0; }
 }
 .reveal-link:hover{
   transform:translateY(-3px);
-  border-color:rgba(255,255,255,0.999),255,0.6);
+  border-color:rgba(255,255,255,0.6);
   box-shadow:0 12px 32px -12px rgba(255,255,255,0.35), var(--glass-shadow);
 }
 .reveal-link__label{
@@ -1005,7 +949,7 @@ p{ margin:0; }
   border:1.5px solid rgba(255,255,255,0.45);
   border-radius:18px;
   padding:0.9rem 1.15rem;
-  box-shadow:0 0 0 1px rgba(255,255,255,0.998),237,0.2), 0 8px 28px rgba(255,255,255,0.999),255,0.16), 0 2px 6px rgba(0,0,0,0.4);
+  box-shadow:0 0 0 1px rgba(255,255,255,0.2), 0 8px 28px rgba(255,255,255,0.16), 0 2px 6px rgba(0,0,0,0.4);
   overflow-wrap:break-word;
   opacity:0;
   transform:translateX(calc(-100% - 14px)) translateY(-50%) scale(0.95);
@@ -1361,4 +1305,104 @@ p{ margin:0; }
 
 @media (prefers-reduced-motion: reduce){
   *{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; scroll-behavior:auto !important; }
+}
+
+/* ============================================================
+   Project detail overlay — opened by a card's Details button.
+   One full-screen dialog, one panel per project. Replaces the
+   card front/back flip (removed 2026-11).
+   ============================================================ */
+body.detail-overlay-open{ overflow:hidden; }
+.detail-overlay{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  display:block;
+}
+.detail-overlay[hidden]{ display:none; }
+.detail-overlay__backdrop{
+  position:absolute;
+  inset:0;
+  background:rgba(4,7,14,0.78);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+}
+.detail-overlay__panel{
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  width:min(680px, calc(100% - 2rem));
+  max-height:calc(100% - 2rem);
+  overflow-y:auto;
+  overscroll-behavior:contain;
+  background:linear-gradient(160deg, var(--bg3), var(--bg2));
+  border:1px solid rgba(255,255,255,0.16);
+  border-radius:24px;
+  box-shadow:0 30px 80px -30px rgba(0,0,0,0.8);
+  padding:1.5rem 2rem 2rem;
+  display:flex;
+  flex-direction:column;
+  gap:1rem;
+  text-align:center;
+}
+.detail-overlay__close{
+  align-self:flex-end;
+  background:rgba(0,212,255,0.06);
+  border:1px solid rgba(0,212,255,0.4);
+  color:#7fd8ff;
+  border-radius:999px;
+  padding:0.5rem 1.1rem;
+  font:600 0.62rem/1 var(--font-mono, monospace);
+  letter-spacing:0.22em;
+  text-transform:uppercase;
+  cursor:pointer;
+  transition:border-color .25s ease, background .25s ease;
+}
+.detail-overlay__close:hover{
+  border-color:rgba(0,212,255,0.8);
+  background:rgba(0,212,255,0.1);
+}
+.detail-overlay__item{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:0.9rem;
+}
+.detail-overlay__item[hidden]{ display:none; }
+.detail-overlay__img{
+  width:100%;
+  height:auto;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,0.12);
+}
+.detail-overlay__item h3{
+  margin:0.2rem 0 0;
+  font-size:1.15rem;
+  line-height:1.3;
+}
+/* the .card__notes / .card__stack classes are shared with the (removed)
+   card back — rescale them for reading distance on a full screen */
+.detail-overlay .card__notes{ gap:0.55rem; margin:0.4rem 0 0; }
+.detail-overlay .card__notes dt{ font-size:0.6rem; }
+.detail-overlay .card__notes dd{ font-size:0.8rem; line-height:1.5; }
+.detail-overlay .card__stack{ font-size:0.62rem; }
+@media (max-width:700px){
+  .detail-overlay__panel{
+    width:calc(100% - 1.25rem);
+    max-height:calc(100% - 1.25rem);
+    padding:1.1rem 1.1rem 1.4rem;
+  }
+  .detail-overlay__item h3{ font-size:1rem; }
+  .detail-overlay .card__notes dd{ font-size:0.72rem; }
+}
+@media (prefers-reduced-motion: no-preference){
+  .detail-overlay .detail-overlay__backdrop,
+  .detail-overlay .detail-overlay__panel{
+    animation:detail-fade 0.25s ease;
+  }
+  @keyframes detail-fade{
+    from{ opacity:0; }
+    to{ opacity:1; }
+  }
 }

@@ -22,16 +22,16 @@
   const D = {
     hero: [
       "Welcome to ITWIZ ✨",
-      "Code magic, delivered.",
-      "Scroll to see what's been conjured.",
+      "Software that works as hard as you do.",
+      "Scroll to see what we've built.",
     ],
     services: [
-      "Four ways we turn code into magic.",
-      "Pick your superpower!",
-      "Hover to peek inside.",
+      "Four things we can build for you.",
+      "Pick what fits.",
+      "Tap a card to peek inside.",
     ],
     work: [
-      "Three builds, from brief to launch.",
+      "Six builds, from brief to launch.",
       "Keep scrolling — the pages turn themselves.",
       "Every one of these started as a brief.",
     ],
@@ -42,7 +42,7 @@
     contact: [
       "Tell us what you're building.",
       "Every build starts as a brief. Yours next?",
-      "Start the conversation!",
+      "Start the conversation.",
     ],
     about: [
       "Independent. Direct. Close to the code.",
@@ -53,8 +53,8 @@
       "Fast on every device.",
     ],
     "card-ai": [
-      "Busywork, finished in seconds.",
-      "Systems that learn from your data.",
+      "The repetitive work, done for you.",
+      "You keep the final say.",
     ],
     "card-data": [
       "Numbers that answer questions.",
@@ -69,7 +69,7 @@
       "QCM, mock exams, and a PDF library.",
     ],
     "card-driving": [
-      "Offline-first. Local-network sync.",
+      "Works with no internet.",
       "Built for instructors, not dashboards.",
     ],
     "card-dental": [
@@ -78,14 +78,14 @@
     ],
     idle: [
       "Need a hand?",
-      "Hover a card. It flips.",
+      "Tap Details to see how it was built.",
       "Scroll — the notebook does the rest.",
-      "Three projects. All shipped.",
+      "Six projects. All shipped.",
       "Every build starts like this: a brief.",
       "Say the word, and we start.",
     ],
     linger_hero: ["Scroll to see more! 👇"],
-    linger_services: ["Hover to peek inside"],
+    linger_services: ["Tap a card to peek inside"],
     linger_work: ["Keep scrolling — pages turn themselves"],
     linger_method: ["Discover → design → build → launch"],
     linger_about: ["The engineer who scopes it builds it"],
@@ -567,7 +567,7 @@
     const complete = () => {
       const email = emailInput.value.trim();
       const text = (tr('contact.form.success_text') ||
-        "We'll reply to {email} within 24 hours. The wizard has it covered.")
+        "We'll reply to {email} within one business day.")
         .replace('{email}', email);
       briefSuccess.querySelector('[data-i18n="contact.form.success_text"]').textContent = text;
       briefForm.hidden = true;
@@ -684,8 +684,17 @@
   document.querySelectorAll('[data-walkthrough]').forEach((el) => {
     el.addEventListener('click', () => {
       if (!briefForm) return;
+      /* opened from the details overlay: close it before prefill + scroll */
+      const overlay = document.getElementById('detailOverlay');
+      if (overlay && !overlay.hidden) {
+        overlay.hidden = true;
+        overlay.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('detail-overlay-open');
+        overlay.querySelectorAll('[data-card-details][aria-expanded="true"]')
+          .forEach((b) => b.setAttribute('aria-expanded', 'false'));
+      }
       const tr = (window.__i18n && window.__i18n.t) || function () { return undefined; };
-      const article = el.closest('.project');
+      const article = el.closest('.project, [data-detail]');
       const titleEl = article ? article.querySelector('h3') : null;
       const project = titleEl ? titleEl.textContent.trim() : '';
       const msg = briefForm.querySelector('[name="message"]');
@@ -693,7 +702,7 @@
       if (type) type.value = 'custom';
       if (msg) {
         const tmpl = tr('work.walkthrough_msg') ||
-          "Hi ITWIZ — I'd like a walkthrough of the {project} platform. Please include access details.";
+          "Hi ITWIZ — I'd like a walkthrough of {project}. Please include access details.";
         msg.value = tmpl.replace('{project}', project);
       }
       if (briefForm.hidden && briefSuccess) {
@@ -710,46 +719,79 @@
     });
   });
 
-  /* ---------- click / tap card flip ----------
-     The flip must not depend on pointer type or which layer the tap
-     lands on:
-     - the handler is bound for every pointer (hover still flips on
-       desktop; a click now also pins the card open on any width),
-     - it lives on .book, not on .project, because WebKit still
-       hit-tests the page-backs — facing-away, backface-visibility:hidden
-       layers that Blink drops from hit-testing — so a tap on an
-       invisible page-back would otherwise never reach the card,
-     - pages already turned (paper back facing the viewer, lying on
-       the pile) are ignored, so the pile never flips the card under it. */
-  const flipCard = (project) => {
-    if (presenting) return;
-    const flipped = project.classList.toggle('is-flipped');
-    const detailsBtn = project.querySelector('[data-card-details]');
-    const visitLink = project.querySelector('.card__visit');
-    if (detailsBtn) {
-      detailsBtn.setAttribute('aria-expanded', flipped ? 'true' : 'false');
-      detailsBtn.tabIndex = flipped ? -1 : 0;
-    }
-    if (visitLink) visitLink.tabIndex = flipped ? 0 : -1;
-  };
-  document.querySelectorAll('.book .project').forEach((el) => {
-    const detailsBtn = el.querySelector('[data-card-details]');
-    if (detailsBtn) detailsBtn.addEventListener('click', () => flipCard(el));
-  });
-  const book = document.querySelector('.book');
-  if (book) {
-    book.addEventListener('click', (e) => {
-      if (e.target.closest('a, button, .shot-hotspot')) return;
-      const page = e.target.closest('.book__page');
-      const project = page && page.querySelector('.project');
-      if (!project) return;
-      /* the page's own rotateX is in its matrix: while m22 > 0 the
-         front is still more than half visible (m22 = cos(angle)), so
-         the tap is on the live card and not on the turned pile */
-      try {
-        if (new DOMMatrix(getComputedStyle(page).transform).m22 < 0) return;
-      } catch (_) { /* unparsable transform (static layout) — flip anyway */ }
-      flipCard(project);
+  /* ---------- project details overlay (replaces the card flip) ----------
+     Details opens one full-screen dialog showing the matching panel.
+     Esc / backdrop / Close dismiss it; focus returns to the button. */
+  const detailOverlay = document.getElementById('detailOverlay');
+  if (detailOverlay) {
+    const detailPanels = detailOverlay.querySelectorAll('.detail-overlay__item');
+    const detailCloseBtn = detailOverlay.querySelector('.detail-overlay__close');
+    let detailTrigger = null;
+
+    const detailIsOpen = () => !detailOverlay.hidden;
+
+    const closeDetails = () => {
+      detailOverlay.hidden = true;
+      detailOverlay.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('detail-overlay-open');
+      detailOverlay.querySelectorAll('[data-card-details][aria-expanded="true"]')
+        .forEach((b) => b.setAttribute('aria-expanded', 'false'));
+      if (detailTrigger && document.contains(detailTrigger)) detailTrigger.focus();
+      detailTrigger = null;
+    };
+
+    const openDetails = (key, trigger) => {
+      if (presenting) return;
+      const panel = detailOverlay.querySelector('[data-detail="' + key + '"]');
+      if (!panel) return;
+      detailTrigger = trigger || null;
+      detailPanels.forEach((p) => { p.hidden = p !== panel; });
+      detailOverlay.setAttribute('aria-labelledby', 'detailTitle-' + key);
+      detailOverlay.hidden = false;
+      detailOverlay.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('detail-overlay-open');
+      if (trigger) trigger.setAttribute('aria-expanded', 'true');
+      if (detailCloseBtn) detailCloseBtn.focus();
+    };
+
+    document.querySelectorAll('.book [data-card-details]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const card = btn.closest('.project');
+        openDetails(card ? card.dataset.card : '', btn);
+      });
+    });
+
+    detailOverlay.querySelectorAll('[data-detail-close]').forEach((el) => {
+      el.addEventListener('click', closeDetails);
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (!detailIsOpen()) return;
+
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        closeDetails();
+        return;
+      }
+
+      if (event.key !== 'Tab') return;
+
+      /* keep keyboard focus inside the open overlay */
+      const focusable = detailOverlay.querySelectorAll(
+        'button:not([disabled]), a[href], [tabindex]:not([tabindex="-1"])'
+      );
+      if (!focusable.length) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (event.shiftKey && (document.activeElement === first || !detailOverlay.contains(document.activeElement))) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && (document.activeElement === last || !detailOverlay.contains(document.activeElement))) {
+        event.preventDefault();
+        first.focus();
+      }
     });
   }
 

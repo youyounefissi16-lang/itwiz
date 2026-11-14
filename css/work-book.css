@@ -18,8 +18,8 @@
    p3(+4px) > p4(+3px) > p5(+2px) > p6(+1px) → card 1 faces you; turned p1 lands -6px behind,
    p6 at -1px → the LAST turned page ends closest to the
    viewer, newest on top of the pile, like a real notepad.
-   Each page's inner card keeps its hover front/back flip —
-   that transform lives on .project inside .scene, untouched.
+   Cards no longer flip — a card's Details button opens the
+   project detail overlay (styles.css / main.js).
 
    Mobile (≤900px) and reduced motion fall back to today's
    plain stacked layout.
@@ -135,8 +135,7 @@
 .book__page .card__img-wrap{
   display:none;
 }
-/* the page backs catch the pointer too, so a page lying on the pile
-   can't start flipping its card underneath; the photo is opened
+/* the page backs catch the pointer too; the photo is opened
    through .shot-hotspot (see below) */
 .book__page-back{
   cursor:default;
@@ -164,19 +163,12 @@
 .book__page .project[data-card="checklist"] .card__face--front::before{ content:'04'; }
 .book__page .project[data-card="hub"] .card__face--front::before{ content:'05'; }
 .book__page .project[data-card="inventory"] .card__face--front::before{ content:'06'; }
-.book__page .card__face--back{
-  overflow:hidden;
-}
 /* cyan identity: tint the card faces away from the default navy/violet */
 .book__page .card__face{
   border-color:rgba(0,212,255,.28);
 }
 .book__page .card__face--front{
   background:linear-gradient(180deg, #0c1a26, #0a1420);
-}
-.book__page .card__face--back{
-  background:linear-gradient(135deg, #0c1a26, #091820);
-  border-color:rgba(0,212,255,.34);
 }
 .book__page .card__img-full{
   object-fit:cover;
@@ -472,8 +464,7 @@
   .book__welcome,
   .book__cover-end,
   .book__cover-start,
-  .book__page .card__face--front,
-  .book__page .card__face--back{
+  .book__page .card__face--front{
     padding:1.1rem 1rem;
   }
   .book__page .project,

@@ -126,7 +126,7 @@ const L = {
         decision: "Decision",
         shipped: "Shipped"
       },
-      walkthrough_msg: "Hi ITWIZ — I'd like a walkthrough of the {project} platform. Please include access details."
+      walkthrough_msg: "Hi ITWIZ — I'd like a walkthrough of {project}. Please include access details."
     },
     about: {
       eyebrow: "WHO WE ARE",
@@ -150,7 +150,7 @@ const L = {
     },
     contact: {
       title:         "Ready to make<br>it real?",
-      btn:           "Contact Us",
+      btn:           "Contact us",
       lead:          "Tell us what's slowing you down. We'll reply with an honest answer \u2014 including if we're not the right fit.",
       call_label:    "Call us directly",
       whatsapp_label:"WhatsApp",
@@ -194,7 +194,7 @@ const L = {
       services: [
         "Four things we can build for you.",
         "Pick what fits.",
-        "Hover to peek inside."
+        "Tap a card to peek inside."
       ],
       work: [
         "Six builds, from brief to launch.",
@@ -244,14 +244,14 @@ const L = {
       ],
       idle: [
         "Need a hand?",
-        "Hover a card. It flips.",
+        "Tap Details to see how it was built.",
         "Scroll \u2014 the notebook does the rest.",
         "Six projects. All shipped.",
         "Every build starts like this: a brief.",
         "Say the word, and we start."
       ],
       linger_hero:     ["Scroll to see more! \uD83D\uDC47"],
-      linger_services: ["Hover to peek inside"],
+      linger_services: ["Tap a card to peek inside"],
       linger_work:     ["Keep scrolling \u2014 pages turn themselves"],
       linger_method:   ["Discover \u2192 design \u2192 build \u2192 launch"],
       linger_about:    ["The engineer who scopes it builds it"],
@@ -285,7 +285,7 @@ const L = {
                   extra:"Nous regardons les t\u00e2ches qui occupent votre semaine \u2014 trier des documents, transcrire des appels, rep\u00e9rer ce qui demande une action \u2014 et nous automatisons celles qui valent le coup. Vous gardez la d\u00e9cision finale ; le logiciel s'occupe de la partie p\u00e9nible.",
                   examples:"Traitement de documents & audio \u00b7 Transcription \u00b7 Workflows intelligents \u00b7 Outils pr\u00e9dictifs",
                   tech:"Python \u00b7 LLMs \u00b7 NLP \u00b7 REST APIs \u00b7 Automation" },
-      data:     { title:"Donn\u00e9es & Reportings", desc:"Une vue claire de vos chiffres \u2014 fini les d\u00e9cisions qui d\u00e9pendent du tableur qui a raison.",
+      data:     { title:"Donn\u00e9es & Rapports", desc:"Une vue claire de vos chiffres \u2014 finies les d\u00e9cisions qui d\u00e9pendent du tableur qui a raison.",
                   extra:"Nous r\u00e9unissons vos donn\u00e9es de ventes, de stock et d'op\u00e9rations au m\u00eame endroit, nous les nettoyons, et nous les transformons en la poign\u00e9e de rapports que vous consultez vraiment. Moins de temps \u00e0 construire des tableurs, plus de confiance dans la r\u00e9ponse.",
                   examples:"Tableaux de bord & rapports \u00b7 Nettoyage de donn\u00e9es \u00b7 Analyse SQL \u00b7 Automatisation des tableurs",
                   tech:"Python \u00b7 SQL \u00b7 PostgreSQL \u00b7 Pandas \u00b7 REST APIs" },
@@ -308,16 +308,16 @@ const L = {
       },
       driving: {
         title: "Plateforme Auto-\u00c9cole \u2014 Version Moniteur",
-        constraint: "Plusieurs instructeurs, plusieurs ordinateurs, aucun serveur \u2014 et souvent pas d'internet dans la voiture.",
-        decision: "Une application install\u00e9e sur les ordinateurs des instructeurs, qui synchronise tout entre eux via le r\u00e9seau local \u2014 on ajoute un appareil par QR code, et on le retire tout aussi simplement.",
+        constraint: "Plusieurs moniteurs, plusieurs ordinateurs, aucun serveur \u2014 et souvent pas d'internet dans la voiture.",
+        decision: "Une application install\u00e9e sur les ordinateurs des moniteurs, qui synchronise tout entre eux via le r\u00e9seau local \u2014 on ajoute un appareil par QR code, et on le retire tout aussi simplement.",
         shipped: "\u00c9l\u00e8ves, heures de conduite, frais, paiements et r\u00e9sultats d'examen restent synchronis\u00e9s entre les appareils. Pas de compte cloud, pas d'abonnement mensuel.",
         stack: "Tauri 2 \u00b7 Rust \u00b7 React 19 \u00b7 TypeScript",
         li: ["Un tableau de bord pens\u00e9 pour les moniteurs : heures, \u00e9valuations, pr\u00e9paration aux examens",
              "Tout reste sur leurs propres ordinateurs, synchronis\u00e9 d'un appareil \u00e0 l'autre sur le r\u00e9seau local",
-             "Appairer un appareil par QR code, le r\u00e9voquer tout aussi simplement \u2014 ni cloud ni abonnement"],
+             "Associer un appareil par QR code, le r\u00e9voquer tout aussi simplement \u2014 ni cloud ni abonnement"],
       },
       dental: {
-        title: "Dental Cabinet",
+        title: "Cabinet dentaire",
         constraint: "Un cabinet qui ne peut pas compter sur internet \u2014 et ne peut pas laisser les donn\u00e9es patients sortir du b\u00e2timent.",
         decision: "Une application install\u00e9e au cabinet, qui garde les dossiers dans une base sur le r\u00e9seau du cabinet lui-m\u00eame, partag\u00e9e entre l'accueil et les salles de soins.",
         shipped: "Dossiers patients, rendez-vous et facturation dans une seule appli qui fonctionne sans internet. Les donn\u00e9es ne quittent jamais le cabinet.",
@@ -329,7 +329,7 @@ const L = {
       checklist: {
         title: "Checklist Audit \u2014 Inspections de terrain",
         constraint: "Les inspecteurs contr\u00f4lent des cuisines, des ateliers et des entrep\u00f4ts o\u00f9 internet n'est pas fiable \u2014 et un point non conforme doit devenir un suivi trac\u00e9, pas une note dans un carnet.",
-        decision: "Une appli qui s'installe depuis le navigateur et garde ses dossiers sur l'ordinateur de l'inspecteur m\u00eame : fonctionne sans aucune connexion, et se synchronise quand il y en a une.",
+        decision: "Une appli qui s'installe depuis le navigateur et garde ses dossiers sur l'ordinateur de l'inspecteur lui-m\u00eame : fonctionne sans aucune connexion, et se synchronise quand il y en a une.",
         shipped: "Zones et crit\u00e8res, seuils de r\u00e9ussite clairs, non-conformit\u00e9s avec un responsable et une \u00e9ch\u00e9ance, preuves photo, rapports PDF et tendances dans le temps. Disponible en appli web et appli Android, en anglais et en fran\u00e7ais.",
         stack: "Vanilla JS \u00b7 Service Worker \u00b7 IndexedDB \u00b7 Capacitor",
         li: ["Zones, crit\u00e8res et inspections avec des seuils clairs",
@@ -380,24 +380,24 @@ const L = {
         decision: "D\u00e9cision",
         shipped: "Livr\u00e9"
       },
-      walkthrough_msg: "Bonjour ITWIZ — je souhaite une d\u00e9monstration de la plateforme {project}. Merci d'inclure les acc\u00e8s."
+      walkthrough_msg: "Bonjour ITWIZ — je souhaite une d\u00e9monstration de {project}. Merci d'inclure les acc\u00e8s."
     },
     about: {
       eyebrow: "QUI NOUS SOMMES",
-      title: "Un travail d'expert, sans les couches d'agence.",
+      title: "Un travail d'expert, sans la lourdeur d'une agence.",
       p1: "ITwiz est un studio logiciel ind\u00e9pendant bas\u00e9 en Alg\u00e9rie. Nous gardons une \u00e9quipe volontairement petite : l'ing\u00e9nieur qui cadre votre projet est celui qui le construit, et la personne qui r\u00e9pond \u00e0 votre e-mail a \u00e9crit le code.",
-      p2: "Nous sommes \u00e0 notre meilleur sur les syst\u00e8mes dont une entreprise d\u00e9pend chaque jour \u2014 ceux qui continuent de fonctionner quand internet tombe, gardent les donn\u00e9es priv\u00e9es, et tournent encore dans des ann\u00e9es.",
+      p2: "Nous sommes les plus \u00e0 l'aise sur les syst\u00e8mes dont une entreprise d\u00e9pend chaque jour \u2014 ceux qui continuent de fonctionner quand internet tombe, gardent les donn\u00e9es priv\u00e9es, et tournent encore dans des ann\u00e9es.",
       c1: "Un seul interlocuteur",
       c2: "P\u00e9rim\u00e8tre et prix fix\u00e9s avant le d\u00e9but des travaux",
       c3: "Vous \u00eates propri\u00e9taire du code et des comptes",
-      c4: "R\u00e9ponse sous un jour ouvr\u00e9",
+      c4: "R\u00e9ponse en un jour ouvr\u00e9",
       note: "Nous prenons un nombre limit\u00e9 de projets \u00e0 la fois. R\u00e9f\u00e9rences et d\u00e9monstration disponibles sur demande."
     },
     method: {
       eyebrow:  "ITWIZ / LA M\u00c9THODE",
       heading:  "Comment nous travaillons",
       sub:      "Quatre \u00e9tapes, du premier appel au lancement.",
-      discover: { title:"D\u00e9couvrir", desc:"D'abord, nous \u00e9coutons : vos objectifs, vos clients, ce qui vous freine \u2014 puis nous nous mettons d'accord sur \u00e0 quoi ressemble la r\u00e9ussite." },
+      discover: { title:"D\u00e9couvrir", desc:"D'abord, nous \u00e9coutons : vos objectifs, vos clients, ce qui vous freine \u2014 puis nous nous mettons d'accord sur ce \u00e0 quoi ressemble la r\u00e9ussite." },
       design:   { title:"Concevoir",  desc:"Nous dessinons les \u00e9crans et le parcours, pour que vous puissiez voir et valider le produit avant sa construction." },
       build:    { title:"Construire", desc:"Nous construisons par \u00e9tapes courtes et vous montrons le logiciel qui fonctionne au fil de l'eau \u2014 aucune surprise \u00e0 la fin." },
       launch:   { title:"Lancer",     desc:"Nous testons, d\u00e9ployons et vous remettons les cl\u00e9s \u2014 puis nous restons joignables pour vos questions et corrections." }
@@ -417,11 +417,11 @@ const L = {
         email_ph: "ada@entreprise.com",
         email_error: "Cet e-mail semble incorrect.",
         email_typo: "Vouliez-vous dire {email} ?",
-        type_label: "Que construisons-nous ?",
+        type_label: "Que voulez-vous construire ?",
         type_none: "Choisissez…",
         type_web: "Web & mobile",
         type_ai: "IA & Automatisation",
-        type_data: "Données & Reportings",
+        type_data: "Données & Rapports",
         type_custom: "Plateformes sur mesure",
         type_undecided: "Pas encore sûr",
         message_label: "Parlez-nous du projet",
@@ -430,7 +430,7 @@ const L = {
         sending: "Envoi…",
         mail_subject: "Brief projet",
         success_title: "Brief reçu.",
-        success_text: "Nous r\u00e9pondrons \u00e0 {email} sous un jour ouvr\u00e9.",
+        success_text: "Nous r\u00e9pondrons \u00e0 {email} en un jour ouvr\u00e9.",
         success_edit: "Mauvaise adresse ? Modifier",
         consent: "Ces informations servent uniquement à répondre à votre brief. Jamais vendues, jamais utilisées pour du marketing. <a href=\"privacy-fr.html\">Notice de confidentialité</a>"
       }
@@ -448,7 +448,7 @@ const L = {
       services: [
         "Quatre choses que nous pouvons cr\u00e9er pour vous.",
         "Choisissez ce qui vous convient.",
-        "Survolez pour jeter un \u0153il."
+        "Touchez une carte pour jeter un \u0153il."
       ],
       work: [
         "Six projets, du brief au lancement.",
@@ -498,14 +498,14 @@ const L = {
       ],
       idle: [
         "Un petit coup de main ?",
-        "Survolez une carte. Elle se retourne.",
+        "Touchez \u00ab D\u00e9tails \u00bb pour voir comment c\u2019est construit.",
         "D\u00e9filez \u2014 le carnet fait le reste.",
         "Six projets. Tous livr\u00e9s.",
         "Tout projet commence ainsi : par un brief.",
         "Un mot, et nous commen\u00e7ons."
       ],
       linger_hero:     ["D\u00e9filez pour voir plus \uD83D\uDC47"],
-      linger_services: ["Survolez pour jeter un \u0153il"],
+      linger_services: ["Touchez une carte pour jeter un \u0153il"],
       linger_work:     ["Continuez \u2014 les pages tournent toutes seules"],
       linger_method:   ["D\u00e9couvrir \u2192 concevoir \u2192 construire \u2192 lancer"],
       linger_about:    ["Celui qui cadre le projet le construit"],
@@ -536,7 +536,7 @@ const L = {
                   examples:"\u0645\u0648\u0627\u0642\u0639 \u0634\u0631\u0643\u0627\u062a \u00b7 \u0645\u0646\u0635\u0627\u062a \u0648\u0645\u0648\u0627\u0642\u0639 \u0648\u064a\u0628 \u00b7 \u0635\u0641\u062d\u0627\u062a \u0647\u0628\u0648\u0637 \u00b7 \u062a\u0637\u0628\u064a\u0642\u0627\u062a iOS \u0648Android",
                   tech:"React \u00b7 Next.js \u00b7 Flutter \u00b7 Swift \u00b7 TypeScript" },
       ai:       { title:"\u0627\u0644\u0630\u0643\u0627\u0621 \u0627\u0644\u0627\u0635\u0637\u0646\u0627\u0639\u064a \u0648\u0627\u0644\u0623\u062a\u0645\u062a\u0629", desc:"\u062f\u0639 \u0627\u0644\u0628\u0631\u0645\u062c\u064a\u0627\u062a \u062a\u062a\u0648\u0644\u0649 \u0627\u0644\u0639\u0645\u0644 \u0627\u0644\u0645\u062a\u0643\u0631\u0631 \u2014 \u0644\u064a\u0642\u0636\u064a \u0641\u0631\u064a\u0642\u0643 \u0648\u0642\u062a\u0647 \u0645\u0639 \u0627\u0644\u0639\u0645\u0644\u0627\u0621\u060c \u0644\u0627 \u0641\u064a \u0627\u0644\u0646\u0633\u062e \u0648\u0627\u0644\u0644\u0635\u0642.",
-                  extra:"\u0646\u0646\u0637\u0631\u0650\u062d\u064f \u0627\u0644\u0645\u0647\u0627\u0645 \u0627\u0644\u062a\u064a \u062a\u0633\u062a\u0647\u0644\u0643 \u0623\u0633\u0628\u0648\u0639\u0643 \u2014 \u062a\u0631\u062a\u064a\u0628 \u0627\u0644\u0645\u0633\u062a\u0646\u062f\u0627\u062a\u060c \u062a\u0641\u0631\u064a\u063a \u0627\u0644\u0645\u0643\u0627\u0644\u0645\u0627\u062a \u0635\u0648\u062a\u064a\u0627\u064b\u060c \u0648\u062a\u062d\u062f\u064a\u062f \u0645\u0627 \u064a\u062d\u062a\u0627\u062c \u0625\u0644\u0649 \u0625\u062c\u0631\u0627\u0621 \u2014 \u0648\u0646\u0623\u062a\u0645\u062a \u0645\u0627 \u064a\u0633\u062a\u062d\u0642 \u0627\u0644\u0623\u062a\u0645\u062a\u0629. \u0627\u0644\u0642\u0631\u0627\u0631 \u0627\u0644\u0646\u0647\u0627\u0626\u064a \u0644\u0643\u061b \u0648\u0627\u0644\u0628\u0631\u0646\u0627\u0645\u062c \u064a\u062a\u0643\u0641\u0644 \u0628\u0627\u0644\u062c\u0632\u0621 \u0627\u0644\u0645\u0645\u0644.",
+                  extra:"ننظر في المهام التي تستهلك أسبوعك \u2014 \u062a\u0631\u062a\u064a\u0628 \u0627\u0644\u0645\u0633\u062a\u0646\u062f\u0627\u062a\u060c \u062a\u0641\u0631\u064a\u063a \u0627\u0644\u0645\u0643\u0627\u0644\u0645\u0627\u062a \u0635\u0648\u062a\u064a\u0627\u064b\u060c \u0648\u062a\u062d\u062f\u064a\u062f \u0645\u0627 \u064a\u062d\u062a\u0627\u062c \u0625\u0644\u0649 \u0625\u062c\u0631\u0627\u0621 \u2014 \u0648\u0646\u0623\u062a\u0645\u062a \u0645\u0627 \u064a\u0633\u062a\u062d\u0642 \u0627\u0644\u0623\u062a\u0645\u062a\u0629. \u0627\u0644\u0642\u0631\u0627\u0631 \u0627\u0644\u0646\u0647\u0627\u0626\u064a \u0644\u0643\u061b \u0648\u0627\u0644\u0628\u0631\u0646\u0627\u0645\u062c \u064a\u062a\u0643\u0641\u0644 \u0628\u0627\u0644\u062c\u0632\u0621 \u0627\u0644\u0645\u0645\u0644.",
                   examples:"معالجة مستندات وصوت · تفريغ صوتي · سير عمل ذكية · أدوات تنبؤية",
                   tech:"Python \u00b7 LLMs \u00b7 NLP \u00b7 REST APIs \u00b7 Automation" },
       data:     { title:"البيانات والتقارير", desc:"صورة واحدة واضحة لأرقامك — حتى تتوقف القرارات عن الاعتماد على أي جدول هو الصحيح.",
@@ -551,7 +551,7 @@ const L = {
     work: {
       heading:   "مشاريع حقيقية، مُسلَّمة وتعمل",
       maitrisez: {
-        title: "\u0645\u0627\u064a\u062a\u0631\u064a\u0632\u0647 \u2014 \u0627\u0644\u062a\u0636\u0631 \u0644\u0627\u0645\u062a\u062d\u0627\u0646\u0627\u062a \u0627\u0644\u0637\u0628",
+        title: "مايتريزه — التحضير لامتحانات الطب",
         constraint: "كان طلاب الطب يراجعون من ملفات PDF متناثرة، دون أي وسيلة لمعرفة ما ينتظره الممتحنون فعلًا.",
         decision: "مكان واحد لأسئلة التدريب، والامتحانات التجريبية الموقوتة، وملفات PDF للدروس، وتتبّع التقدم، وإجابات شفهية مسجلة تُقيَّم على النقاط التي ينتظرها الممتحنون.",
         shipped: "يعمل مباشرة على maitrisez.app، مع لوحة إدارة لإدارة المحتوى ومتابعة النشاط.",
@@ -625,13 +625,13 @@ const L = {
         decision: "\u0627\u0644\u0642\u0631\u0627\u0631",
         shipped: "\u0645\u0627 \u062a\u0645 \u062a\u0633\u0644\u064a\u0645\u0647"
       },
-      walkthrough_msg: "\u0645\u0631\u062d\u0628\u064b\u0627 ITWIZ \u2014 \u0623\u0631\u063a\u0628 \u0641\u064a \u0639\u0631\u0636 \u062a\u0642\u062f\u064a\u0645\u064a \u0644\u0645\u0646\u0635\u0629 {project}. \u064a\u0631\u062c\u0649 \u0625\u0631\u0641\u0627\u0642 \u0628\u064a\u0627\u0646\u0627\u062a \u0627\u0644\u062f\u062e\u0648\u0644."
+      walkthrough_msg: "\u0645\u0631\u062d\u0628\u064b\u0627 ITWIZ \u2014 \u0623\u0631\u063a\u0628 \u0641\u064a \u0639\u0631\u0636 \u062a\u0642\u062f\u064a\u0645\u064a \u0644\u0640 {project}. \u064a\u0631\u062c\u0649 \u0625\u0631\u0641\u0627\u0642 \u0628\u064a\u0627\u0646\u0627\u062a \u0627\u0644\u062f\u062e\u0648\u0644."
     },
     about: {
       eyebrow: "\u0645\u0646 \u0646\u062d\u0646",
       title: "عمل من مستوى الخبراء، دون طبقات الوكالات.",
       p1: "ITwiz \u0627\u0633\u062a\u0648\u062f\u064a\u0648 \u0628\u0631\u0645\u062c\u064a \u0645\u0633\u062a\u0642\u0644 \u0645\u0642\u0631\u0647 \u0627\u0644\u062c\u0632\u0627\u0626\u0631. \u0646\u0628\u0642\u064a \u0627\u0644\u0641\u0631\u064a\u0642 \u0635\u063a\u064a\u0631\u0627\u064b \u0639\u0645\u062f\u0627\u064b: \u0627\u0644\u0645\u0647\u0646\u062f\u0633 \u0627\u0644\u0630\u064a \u064a\u062d\u062f\u062f \u0646\u0637\u0627\u0642 \u0645\u0634\u0631\u0648\u0639\u0643 \u0647\u0648 \u0646\u0641\u0633\u0647 \u0627\u0644\u0630\u064a \u064a\u0628\u0646\u064a\u0647\u060c \u0648\u0627\u0644\u0634\u062e\u0635 \u0627\u0644\u0630\u064a \u064a\u0631\u062f \u0639\u0644\u0649 \u0628\u0631\u064a\u062f\u0643 \u0647\u0648 \u0645\u0646 \u0643\u062a\u0628 \u0627\u0644\u0634\u064a\u0641\u0631\u0629.",
-      p2: "نفي على أفضل حال في الأنظمة التي تعتمد عليها المنشأة كل يوم — تلك التي تواصل العمل حين ينقطع الإنترنت، وتحفظ البيانات خاصة، وتبقى تشتغل بعد سنوات.",
+      p2: "نحن على أفضل حال في الأنظمة التي تعتمد عليها المنشأة كل يوم — تلك التي تواصل العمل حين ينقطع الإنترنت، وتحفظ البيانات خاصة، وتبقى تعمل بعد سنوات.",
       c1: "\u0646\u0642\u0637\u0629 \u062a\u0648\u0627\u0635\u0644 \u0648\u0627\u062d\u062f\u0629",
       c2: "\u0627\u0644\u0646\u0637\u0627\u0642 \u0648\u0627\u0644\u0633\u0639\u0631 \u0645\u062a\u0641\u0642 \u0639\u0644\u064a\u0647\u0645\u0627 \u0642\u0628\u0644 \u0628\u062f\u0621 \u0627\u0644\u0639\u0645\u0644",
       c3: "\u062a\u0645\u0644\u0643 \u0627\u0644\u0634\u064a\u0641\u0631\u0629 \u0648\u0627\u0644\u062d\u0633\u0627\u0628\u0627\u062a",
@@ -671,10 +671,10 @@ const L = {
         type_undecided: "\u0644\u0633\u062a \u0645\u062a\u0623\u0643\u062f\u064b\u0627 \u0628\u0639\u062f",
         message_label: "\u062d\u062f\u062b\u0646\u0627 \u0639\u0646 \u0627\u0644\u0645\u0634\u0631\u0648\u0639",
         message_ph: "\u0645\u0627 \u0627\u0644\u0645\u0634\u0643\u0644\u0629 \u0627\u0644\u062a\u064a \u0646\u062d\u0644\u0647\u0627\u060c \u0648\u0644\u0645\u0646\u060c \u0648\u0643\u064a\u0641 \u064a\u0628\u062f\u0648 \u0627\u0644\u0646\u062c\u0627\u062d\u061f",
-        submit: "\u0623\u0631\u0633\u0644 \u0627\u0644\u0641\u0643\u0631\u0629",
+        submit: "\u0623\u0631\u0633\u0644 \u0627\u0644\u0645\u0648\u062c\u0632",
         sending: "\u062c\u0627\u0631\u064d \u0627\u0644\u0625\u0631\u0633\u0627\u0644\u2026",
-        mail_subject: "\u0641\u0643\u0631\u0629 \u0645\u0634\u0631\u0648\u0639",
-        success_title: "\u0648\u0635\u0644\u062a\u0646\u0627 \u0641\u0643\u0631\u062a\u0643.",
+        mail_subject: "\u0645\u0648\u062c\u0632 \u0645\u0634\u0631\u0648\u0639",
+        success_title: "\u0648\u0635\u0644\u0646\u0627 \u0645\u0648\u062c\u0632\u0643.",
         success_text: "سنرد على {email} خلال يوم عمل واحد.",
         success_edit: "\u0639\u0646\u0648\u0627\u0646 \u062e\u0627\u0637\u0626\u061f \u0639\u062f\u0644",
         consent: "\u0646\u0633\u062a\u062e\u062f\u0645 \u0647\u0630\u0647 \u0627\u0644\u0645\u0639\u0644\u0648\u0645\u0627\u062a \u0641\u0642\u0637 \u0644\u0644\u0631\u062f \u0639\u0644\u0649 \u0645\u0648\u062c\u0632\u0643. \u0644\u0627 \u0646\u0628\u064a\u0639\u0647\u0627 \u0648\u0644\u0627 \u0646\u0633\u062a\u062e\u062f\u0645\u0647\u0627 \u0644\u0644\u062a\u0633\u0648\u064a\u0642. <a href=\"privacy-ar.html\">\u0625\u0634\u0639\u0627\u0631 \u0627\u0644\u062e\u0635\u0648\u0635\u064a\u0629</a>"
@@ -693,7 +693,7 @@ const L = {
       services: [
         "أربعة أشياء يمكننا بناءها لك.",
         "اختر ما يناسبك.",
-        "\u0645\u0631\u0631 \u0644\u062a\u0637\u0644\u0639 \u0639\u0644\u0649 \u0627\u0644\u062f\u0627\u062e\u0644."
+        "\u0627\u0644\u0645\u0633 \u0628\u0637\u0627\u0642\u0629 \u0644\u062a\u0631\u0649 \u0627\u0644\u062f\u0627\u062e\u0644."
       ],
       work: [
         "ستة مشاريع، من الفكرة إلى الإطلاق.",
@@ -718,7 +718,7 @@ const L = {
         "\u0633\u0631\u064a\u0639 \u0639\u0644\u0649 \u0643\u0644 \u062c\u0647\u0627\u0632."
       ],
       "card-ai": [
-        "العمل المتكرر على البرنامج.",
+        "العمل المتكرر، نتولاه عنك.",
         "القرار النهائي لك."
       ],
       "card-data": [
@@ -730,7 +730,7 @@ const L = {
         "\u0645\u0635\u0645\u0645 \u0644\u0644\u0639\u064a\u0627\u062f\u0627\u062a \u0648\u0627\u0644\u0645\u062f\u0627\u0631\u0633 \u0648\u0627\u0644\u0641\u0631\u0642."
       ],
       "card-maitrisez": [
-        "\u0627\u0645\u062a\u062d\u0627\u0646\u0627\u062a \u0634\u0641\u0647\u064a\u0629 \u062a\u0641\u0635\u0644 \u0628\u0645\u0639\u0627\u064a\u064a\u0631.",
+        "\u0627\u0645\u062a\u062d\u0627\u0646\u0627\u062a \u0634\u0641\u0647\u064a\u0629 \u062a\u064f\u0642\u064a\u064e\u0651\u0645 \u0628\u0645\u0639\u0627\u064a\u064a\u0631.",
         "\u0623\u0633\u0626\u0644\u0629 \u0627\u062e\u062a\u064a\u0627\u0631 \u0648\u0627\u0645\u062a\u062d\u0627\u0646\u0627\u062a \u062a\u062c\u0631\u064a\u0628\u064a\u0629 \u0648\u0645\u0643\u062a\u0628\u0629 PDF."
       ],
       "card-driving": [
@@ -739,18 +739,18 @@ const L = {
       ],
       "card-dental": [
         "\u0633\u062c\u0644\u0627\u062a \u0645\u0646\u0637\u0645\u0629 \u062f\u0627\u0626\u0645\u064b\u0627.",
-        "\u0645\u0648\u0627\u0639\u064a\u062f \u0648\u0641\u0627\u062a\u0648\u0631\u0629\u060c \u0645\u062f\u0628\u0631\u0629."
+        "\u0645\u0648\u0627\u0639\u064a\u062f \u0648\u0641\u0648\u0627\u062a\u064a\u0631\u060c \u0645\u064f\u062f\u0628\u0651\u0631\u0629."
       ],
       idle: [
         "\u062a\u062d\u062a\u0627\u062c \u0645\u0633\u0627\u0639\u062f\u0629\u061f",
-        "\u0645\u0631\u0631 \u0641\u0648\u0642 \u0628\u0637\u0627\u0642\u0629 \u2014 \u062a\u0646\u0642\u0644\u0628.",
+        "\u0627\u0644\u0645\u0633 \u00ab\u0627\u0644\u062a\u0641\u0627\u0635\u064a\u0644\u00bb \u0644\u062a\u0631\u0649 \u0643\u064a\u0641 \u0628\u064f\u0646\u064a.",
         "\u0645\u0631\u0631 \u2014 \u0627\u0644\u062f\u0641\u062a\u0631 \u064a\u062a\u0643\u0641\u0644 \u0628\u0627\u0644\u0628\u0627\u0642\u064a.",
         "ستة مشاريع. كلها منجزة.",
         "\u0643\u0644 \u0645\u0634\u0631\u0648\u0639 \u064a\u0628\u062f\u0623 \u0647\u0643\u0630\u0627: \u0628\u0641\u0643\u0631\u0629.",
         "\u0643\u0644\u0645\u0629 \u0648\u0627\u062d\u062f\u0629 \u0648\u0646\u0628\u062f\u0623."
       ],
       linger_hero:     ["\u0645\u0631\u0631 \u0644\u0631\u0624\u064a\u0629 \u0627\u0644\u0645\u0632\u064a\u062f \uD83D\uDC47"],
-      linger_services: ["\u0645\u0631\u0631 \u0644\u062a\u0637\u0644\u0639 \u0639\u0644\u0649 \u0627\u0644\u062f\u0627\u062e\u0644"],
+      linger_services: ["\u0627\u0644\u0645\u0633 \u0628\u0637\u0627\u0642\u0629 \u0644\u062a\u0631\u0649 \u0627\u0644\u062f\u0627\u062e\u0644"],
       linger_work:     ["\u062a\u0627\u0628\u0639 \u0627\u0644\u062a\u0645\u0631\u064a\u0631 \u2014 \u0627\u0644\u0635\u0641\u062d\u0627\u062a \u062a\u062a\u0642\u0644\u0628 \u0628\u0646\u0641\u0633\u0647\u0627"],
       linger_method:   ["\u0627\u0633\u062a\u0643\u0634\u0627\u0641 \u2190 \u062a\u0635\u0645\u064a\u0645 \u2190 \u0628\u0646\u0627\u0621 \u2190 \u0625\u0637\u0644\u0627\u0642"],
       linger_about:    ["\u0645\u0646 \u064a\u062d\u062f\u062f \u0646\u0637\u0627\u0642 \u0627\u0644\u0645\u0634\u0631\u0648\u0639 \u064a\u0628\u0646\u064a\u0647"],
